@@ -33,6 +33,7 @@ $_SESSION["loginhost"]=$loginhost;
 $_SESSION["help_keyword"]=$help_keyword;
 
 ?>
+
 </div>
 <span class="copyright"><? printf($lang['_copyright_message'],(string)ppcis_version,(string)ppcis_year); ?></span>
 </body>
