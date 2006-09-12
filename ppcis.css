@@ -1,0 +1,463 @@
+/* General table cells (ideally invisible) used for layout */
+td    {
+	border: none;
+	background: inherit;
+	font-family: "Arial" , sans-serif;
+}
+
+/* Should be the same as td but right-aligned */
+td.right	{
+	border: none;
+	background: inherit;
+	text-align: right;
+}
+
+/* Should be the same as td but centre-aligned */
+td.centered    {
+	border: none;
+	background: inherit;
+	text-align: center;
+}
+
+/* Invisible top-aligned cell for layout */
+td.page_div    {
+	border: none;
+	background: inherit;
+	vertical-align: top;
+}
+
+/* Link colour for main menu */
+A.module	{
+	color: #444444;
+}
+
+/* Link colour for main menu */
+A.module:link	{
+	color: #444444;
+}
+
+/* Link colour for main menu */
+A.module:visited	{
+	color: #444444;
+}
+
+/* Link colour for main menu */
+A.module:active	{
+	color: #444444;
+}
+
+/* Link colour for main menu */
+A.module:hover	{
+	color: #444444;
+}
+
+/* General style for links other than main menu */
+A   	{
+	color: #4444FF;
+	text-decoration: none;
+}
+
+/* General style for links other than main menu */
+A:link	{
+	color: #4444FF;
+	text-decoration: none;
+}
+
+/* General style for links other than main menu */
+A:visited {
+	color: #5544FF;
+	text-decoration: none;
+}
+
+/* General style for links other than main menu */
+A:active {
+	text-decoration: none;
+	color: #4444FF;
+}
+
+/* General style for links other than main menu */
+A:hover	{
+	text-decoration: none;
+	color: #4444FF;
+}
+
+/* General style for (layout) table headers */
+th    {
+	border: none;
+	background: inherit;
+}
+
+/* Style for the th cells that make the main menus */
+th.module    {
+	background-color: #FFFFFF;
+	border: solid #333333 1px;
+	font-weight: normal;
+}
+
+/* Style for the th cell in the menu which is the active page */
+th.module_selected    {
+	background-color: #CCCCCC;
+	border: solid #444444 1px;
+	font-weight: normal;
+}
+
+/* Style for the bar across the top of a news article */
+th.headline	{
+	background-color: #555555;
+	border-top:	solid #444444 1px;
+	border-bottom: solid #444444 1px;
+	text-align: left;
+	color: #FFFFFF;
+	padding: 2px;
+}
+
+/* Same as above, but right-justified.  Used on right side. */
+th.headline_right	{
+	background-color: #555555;
+	border-top:	solid #444444 1px;
+	border-bottom: solid #444444 1px;
+	text-align: right;
+	color: #FFFFFF;
+	padding: 2px;
+}
+
+/* Headline element used for "VIEW" */
+th.headline_center	{
+	background-color: #CCCCCC;
+	border-top:	solid #444444 1px;
+	border-bottom: solid #444444 1px;
+	text-align: center;
+	color: #FFFFFF;
+	padding: 2px;
+}
+
+/* Headline element used for "PRINT" */
+th.print	{
+	background-color: #CCCCCC;
+	border-top:	solid #444444 1px;
+	border-bottom: solid #444444 1px;
+	text-align: center;
+}
+
+/* Style used for quick-search alphabet links (directory, etc) */
+th.alphabet	{
+	background-color: #FFFFFF;
+	font-size: larger;
+	font-weight: bold;
+	font-family: "Arial" , sans-serif;
+}
+
+/* Style used for pager, seen on helpdesk and news archive page */
+/* when there are many calls or news articles */
+td.pager	{
+	background-color: #CCCCCC;
+	font-size: smaller;
+	font-family: "Arial" , sans-serif;
+}
+
+/* Should be visually similar to the above, used only for NEWER-> link */
+td.pager_right	{
+	background-color: #555555;
+	border: solid #444444 1px;
+	font-size: smaller;
+	font-family: "Arial" , sans-serif;
+	text-align: right;
+}
+
+/* General table style, used for layout.  Should be invisible. */
+/* Interesting effects can be had by altering this, but not much control */
+table    {
+	width: 100%;
+	margin: 1px;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	padding: 0px;		
+}
+
+/* Main body - useful for colouring the page border */
+body    {
+	background-color: #CCCCCC;
+	border: solid #444444 2px;
+	padding: 0px;
+	scrollbar-face-color: #555555;
+	scrollbar-shadow-color: #444444;
+	scrollbar-highlight-color: #FFFFFF;
+	scrollbar-3dlight-color: black;
+	scrollbar-darkshadow-color: black;
+	scrollbar-track-color: #CCCCCC;
+	scrollbar-arrow-color: #CCCCCC;
+	font-family: "Arial" , sans-serif;
+}
+
+/* Text boxes in forms */
+input    {
+	background-color: #CCCCCC;
+	color: #000000;
+}
+
+/* Buttons in forms */
+input.button    {
+	background-color: #555555;
+	color: #FFFFFF;
+}
+
+/* Large fields in forms (eg, news article entry) */
+textarea    {
+	background-color: #CCCCCC;
+	color: #000000;
+}
+
+/* Elements in drop-down lists */
+option	{
+	background-color: #CCCCCC;
+	color: #000000;
+	font-size: smaller;
+}
+
+/* The drop-down lists themselves */
+select	{
+	background-color: #CCCCCC;
+	color: #000000;
+	font-size: smaller;
+}
+
+/* The style of the main background of every page */
+#main	{
+	padding: 0px;
+	background-color: #FFFFFF;
+	background-repeat: 0;
+	border-top: solid #444444 1px;
+}
+
+/* The copyright notice at the foot of each page */
+span.copyright	{
+	font-size: smaller;
+}
+
+/* Notifications, system messages, login messages etc */
+span.message	{
+	font-family: "Arial" , sans-serif;
+	font-size: larger;
+	color: #FF4444;
+	background-color: #444444;
+}
+
+/* The style of the top block, specifically the logo area */
+/* This block can be disabled entirely in settings.inc by */
+/* removing the image variable */
+td.title_left	{
+	background-color: #555555;
+	color: #FFFFFF;
+}
+
+/* The style of the top block, specifically the login area */
+td.title_middle	{
+	background-color: #555555;
+	color: #FFFFFF;
+}
+
+/* The style of the login form, should be invisible */
+/* used for left text/button alignment only */
+td.title_middle_sub	{
+	background-color: #555555;
+	color: #FFFFFF;
+}
+
+/* The style of the login form, should be invisible */
+/* used for right text/button alignment only */
+td.title_middle_sub_right	{
+	background-color: #555555;
+	color: #FFFFFF;
+	text-align: right;
+}
+
+/* The style of the top block, specifically the date area */
+td.title_right	{
+	background-color: #555555;
+	text-align:right;
+	color: #FFFFFF;
+}
+
+/* List entries, as seen in directory listing */
+td.list	{
+	border-left: solid #444444 1px;
+	border-right: solid #444444 1px;
+	border-top: none;
+	border-bottom: dotted #444444 1px;
+}
+
+td.list_left	{
+	border-left: solid #444444 1px;
+	border-right: none;
+	border-top: dotted #444444 1px;
+	border-bottom: dotted #444444 1px;
+}
+
+td.list_right	{
+	border-left: none;
+	border-right: solid #444444 1px;
+	border-top: dotted #444444 1px;
+	border-bottom: dotted #444444 1px;
+}
+
+/* List entries, when "greyed out" or otherwise made distinct */
+td.list_highlight	{
+	border-left: solid #444444 1px;
+	border-right: solid #444444 1px;
+	border-top: none;
+	border-bottom: dotted #444444 1px;
+	background-color: #CCCCCC;
+	font-style: italic;
+}
+
+/* Helpdesk priority - "waiting" */
+td.list_p0	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	background-color: white;
+	text-align: center;
+	color: red;
+}
+
+/* Helpdesk priority - "immediate" */
+td.list_p1	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	background-color: #FF0000;
+	text-align: center;
+}
+
+/* Helpdesk priority - "very important" */
+td.list_p2	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	background-color: #FF8000;
+	text-align: center;
+}
+
+/* Helpdesk priority - "important" */
+td.list_p3	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	background-color: #FFFF00;
+	text-align: center;
+}
+
+/* Helpdesk priority - "standard" */
+td.list_p4	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	background-color: #80FF00;
+	text-align: center;
+}
+
+/* Helpdesk priority - "less important" */
+td.list_p5	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	background-color: #00FF00;
+	text-align: center;
+}
+
+/* Helpdesk priority - "not important" */
+td.list_p6	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	background-color: #00FF80;
+	text-align: center;
+}
+
+/* Helpdesk priority - "parked" */
+td.list_p9	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	background-color: #0000FF;
+	text-align: center;
+	color: white;
+}
+
+/* List entries, as seen in directory listing, but centred */
+td.list_center	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	text-align: center;
+}
+
+/* Lower part of boxes as seen in directory details pages */
+td.detail	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: solid #333333 1px;
+}
+
+/* Lower part of boxes as seen in directory details pages (centred) */
+td.detail_center	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: solid #333333 1px;
+	text-align: center;
+}
+
+/* Middle part of boxes as seen in directory details pages (centred) */
+td.detail_mid_center	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+	text-align: center;
+}
+
+/* Middle part of boxes as seen in directory details pages */
+td.detail_mid	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-top: none;
+	border-bottom: dotted #333333 1px;
+}
+
+/* Headings of lists as seen in directory listing */
+th.list	{
+	border-bottom: solid #333333 1px;
+}
+
+/* Top parts (headings) of boxes as seen in directory details */
+th.detail	{
+	border-left: solid #333333 1px;
+	border-right: solid #333333 1px;
+	border-bottom: dotted #333333 1px;
+	border-top: solid #333333 1px;
+}
+
+/* The ul elements in the library for the folders */
+ul.folder	{
+	color: #555555;
+	list-style-image: url(folder.png);
+	list-style-type: square;
+}
+
+/* The ul elements in the library for the folders (open) */
+ul.folder_open	{
+	color: #555555;
+	list-style-image: url(folder_open.png);
+	list-style-type: square;
+}

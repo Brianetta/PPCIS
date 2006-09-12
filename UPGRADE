@@ -1,0 +1,13 @@
+PPCIS Version 2.0
+
+To upgrade from the version 1 series of PPCIS
+(probably 1.0 since the rest weren't widespread)
+you need to execute ppcs_upgrade.sql on your
+database, and copy the contents of
+settings-extra.inc into your settings.inc file.
+
+The colour system has changed; ppcis.css is
+fully commented, and can be used to devise a
+suitable colour scheme.  The colour variables
+can be safely deleted from settings.inc if
+you want to avoid clutter.

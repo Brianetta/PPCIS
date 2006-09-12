@@ -1,0 +1,153 @@
+Copyright 2002-2005 Brian Ronald.  All rights reserved.
+Portable PHP/MySQL Corporate Intranet System
+
+Installation
+
+1. Untar all the files into your PHP enabled web space.
+
+2. Create, or have created, a MySQL database with an
+   account that has SELECT, INSERT, UPDATE and DELETE
+   privileges.
+
+3. Put the name of the database, and the username and
+   password of the MySQL account from the last step,
+   into settings.inc
+   It's important to tell your web server (eg, Apache)
+   that it must refuse requests to *.inc files, as
+   settings.inc contains a password.  As an example,
+   Apache users might want to include the following
+   in their site configuration:
+
+   <Files ~ "\.inc$">
+       Order allow,deny
+       Deny from all
+       Satisfy All
+   </Files>
+
+
+4. Run the included ppcis_create.sql on the database
+   to create the tables (this needs create privileges,
+   and needs to be done only once).  As an example,
+   you might use this command:
+
+   $ mysql -D intranet -u root -p < ppcis_create.sql
+
+   If you're upgrading from version 1, you can update
+   your database by running ppcis_upgrade.sql instead.
+   This is a bit of a one-way trip - changes to the
+   database have forced backwards compatibility out.
+
+5. Edit the variables in settings.inc until you're happy
+   with the logo, stylesheet, options etc.
+
+6. The default account is admin with the password
+   istrator. Log in and change the password immediately.
+
+modules.inc
+===========
+
+Altering the PHP hash array in this file is the means of
+editing the top level PPCIS module menu.  You can comment
+out the lines to remove them, or even add modules of your
+own here.  If you're not sure of PHP syntax, just copy
+the ones in there already and edit them.  Basically:
+
+$module["Helpdesk"]="helpdesk.php";
+
+This adds a menu entry called "Helpdesk" which, when
+clicked, loads helpdesk.php.  A double slash ( // ) will
+comment out a line.
+
+A module is any PHP script which includes head.inc at
+the start, and tail.inc at the end.  Any valid body
+PHP or HTML can be included between them.
+
+settings.inc
+============
+
+$siteprefix
+   This should be the path to your intranet PHP files.
+   The default is / (web root) but if I were to use it
+   on the site where I distribute PPCIS I would use
+   /~bronald/ instead.
+
+$sitename
+   The name of your intranet.  This appears at the top
+   of each screen and in the title bar of the browser.
+
+$sitelogo
+   A graphic, which will be displayed at the top left
+   of each page.
+
+$logourl
+   An optional URL which will be loaded if the logo is
+   clicked. 
+
+$stylesheets
+   An associative array of available stylesheets.  The
+   key is the name as seen on the Preferences screen,
+   the value is the relative URL of the stylesheet. As
+   many can be defined as necessary.  The design was
+   to enable companies to provide alternative styles
+   to the main one for accessibility reasons.  The
+   first one is the default.
+
+$lang_available
+   An associative array of languages.  PPCIS now
+   supports full internationalisation.  The key is the
+   name of the language as appears in the Preferences
+   screen.  The value is a codename for the language.
+   Importantly, there must be a .inc file in the
+   languages directory with the same name as the
+   codename.  Incomplete or missing languages files
+   can cause PPCIS to completely give up on a user.
+
+$default_lang
+   One of the defined codewords on $lang_available,
+   which is used as the default language.
+
+$news_notify
+   Whenever a new article is submitted, the system will
+   email whichever user has their name here.  It will
+   hunt through the internal directory for the email
+   address, so it would be a good idea to make sure they
+   have one in the directory.
+
+$support_notify
+   Whenever a new call is logged, the system will email
+   whichever user has their name here.  It will hunt
+   through the internal directory for the email address,
+   so it would be a good idea to make sure they have
+   one in the directory.
+
+$backwards_history
+   For some reason, my employers likes seeing the history
+   on the helpdesk calls with the newest at the top.  This
+   made it easier to see new entries, but much harder to
+   read the entire history.  Setting this option to TRUE
+   puts the newest first, FALSE puts the newest last.
+
+$file_store
+   This is where the library module will store the bodies
+   of all the files that have been uploaded.  It *must*
+   have full read and write privileges for the user that
+   PHP runs as on your system.
+
+   Any problems here are either due to file access not
+   being set correctly for PHP to save files, or due to
+   the php.ini directive Allow_uploads being set to No.
+
+$db_hostname
+   The name of your database server.  Leave it at localhost
+   if it's on the same machine as your web server.
+
+$db_username
+   The MySQL username that has SELECT, INSERT, UPDATE and
+   DELETE provoleges to your intranet database.
+
+$db_password
+   The password for the above account.
+
+$db_name
+   The name of the database on the DB server where your
+   tables can be found.
