@@ -133,7 +133,7 @@ if(@ mysql_num_rows($result) != 0)
       }
       print("<td class=\"list\">".date($lang['date_format'],$row["datestamp"])."</td>");
       print("<td class=\"list\">".$row["size"]." ".$lang['bytes']."</td>");
-      print("<td class=\"list\"><a href=\"$PHP_SELF?fileid=".$row["fileid"]."\">".$lang['file']." ".$row["fileid"]."</a></td>\n");
+      print("<td class=\"list\"><a title=\"".$row["filename"]."\" href=\"$PHP_SELF?fileid=".$row["fileid"]."\">".$lang['file']." ".$row["fileid"]."</a></td>\n");
       print("<td class=\"list\"><a href=\"$PHP_SELF?folder=".$row["folder"]."\">".$lang['folder']." ".$row["folder"]."</a></td>\n");
       print("</tr>\n");
    }
