@@ -57,7 +57,7 @@ $num_articles = @ mysql_num_rows($result);
 
 if(isset($select))
 {
-   $sql = "SELECT * FROM users,news WHERE users.userid = news.authorid AND news.authdate IS NOT NULL AND articleid=$select";
+   $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE news.authdate IS NOT NULL AND articleid=$select";
    $result = @ mysql_query($sql, $intranet_db);
    if (mysql_error())
       showerror();
@@ -105,7 +105,7 @@ if($num_articles>30)
    print("</tr></table>\n");
 }
 
-$sql = "SELECT * FROM users,news WHERE users.userid = news.authorid AND news.authdate IS NOT NULL";
+$sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE news.authdate IS NOT NULL";
 if($topic<>"0") $sql .= " AND news.topic=$topic";
 $sql .= " ORDER BY sticky,news.subdate DESC,news.articleid DESC LIMIT ".strval($startarticlenum).",30";
 $result = @ mysql_query($sql, $intranet_db);
