@@ -6,6 +6,7 @@ $stylesheets["Bad demonstration of colours"]="real.css";
 // Available languages - english, then a code name
 // The code name must match the name of a .inc file in /languages
 $lang_available["English"] = "english";
+$lang_available["US English"] = "american";
 
 // Default language
 $default_lang = 'english';
