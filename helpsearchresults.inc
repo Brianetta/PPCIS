@@ -82,6 +82,7 @@ if(@ mysql_num_rows($result) != 0)
       $limit=50;
       if(strlen($row['closedate']>0))
       {
+         $row['description'] = stripslashes($row['description']);
          if(strlen($row['description'])<$limit)
             print("<td class=\"list\"><i>".$row["description"]."</i></td>");
          else
