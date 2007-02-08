@@ -51,7 +51,7 @@ if(!(isset($submit)))
    print("<table>\n");
    print("<tr>\n");
    print("<td>\n");
-   print($lang['article_text'].":<br><textarea name=\"body\" rows=\"20\" cols=\"60\">".strip_tags($body,"<b><i><span>")."</textarea>");
+   print($lang['article_text'].":<br><textarea name=\"body\" rows=\"20\" cols=\"60\">".strip_tags(stripslashes($body),"<b><i><span>")."</textarea>");
    print("<br>\n".$lang['optional_url']."<br><input name=\"url\" type=\"text\" size=\"60\" value=\"$url\">");
    print("\n</td>\n");
    print("</tr>\n");
@@ -80,7 +80,7 @@ else
       $auth="";
       $authfield="";
    }
-   $sql = "INSERT INTO news (authorid, subdate, headline, topic, body$urlfield$authfield) VALUES ($userid, '".time()."', '".safe_escape($headline)."', $topic, '".safe_escape(strip_tags($body,"<b><i><span>"))."'$nurl$nauth)";
+   $sql = "INSERT INTO news (authorid, subdate, headline, topic, body$urlfield$authfield) VALUES ($userid, '".time()."', '".safe_escape(stripslashes($headline))."', $topic, '".safe_escape(strip_tags($body,"<b><i><span>"))."'$nurl$nauth)";
    $result = @ mysql_query($sql, $intranet_db);
    if (mysql_error())
       showerror();
@@ -117,6 +117,6 @@ else
 }
 
 print("<h2>".$lang['preview'].":</h2>");
-newsitem(strip_tags($headline), strip_tags($body,"<b><i><span>"), $topic, time(), $firstname." ".$lastname, $url, 0);
+newsitem(strip_tags(stripslashes($headline)), strip_tags(stripslashes($body),"<b><i><span>"), $topic, time(), $firstname." ".$lastname, $url, 0);
 $help_keyword="newssubmit";
 ?>

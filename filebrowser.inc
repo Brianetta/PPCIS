@@ -295,6 +295,8 @@ if(isset($edit) and $filesadmin)
    $showedit=TRUE; // Simplifies the ifs for the changes form.
    // Basically, this appears a lot.  If true, there's a form control.
    // If false, there isn't.
+else
+   $showedit=FALSE;
 
 if(isset($fileid))
 { // mode is file details

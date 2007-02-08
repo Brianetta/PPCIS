@@ -24,7 +24,6 @@
 require("head.inc");
 
 ?>
-<div class="main">
 <h2><?=$lang['enter_username_password']?>:</h2>
 <form target="" method="post" name="framelogin" action="auth.php">
 <table>
@@ -49,7 +48,6 @@ require("head.inc");
 </tr>
 </table>
 </form>
-</div>
 <?
 require("tail.inc");
 ?>

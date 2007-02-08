@@ -23,11 +23,9 @@
 
 require("head.inc");
 ?>
-<div class="main">
 <h1><?=$lang['page_not_found']?></h1>
 <?=$lang['page_not_found_suggestion']?>
 <a href="/helpdesk.php?callmodule=Log+a+new+call"><?=$lang['helpdesk']?></a>.
-</div>
 <?
 require("tail.inc");
 ?>
