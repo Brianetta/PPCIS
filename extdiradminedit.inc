@@ -218,7 +218,7 @@ if((@ mysql_num_rows($result) != 0) OR ($showuserid==0))
    print("</tr>\n");
    print("<tr>");
    print("<td class=\"right\">");
-   print($lang['lastname']."Last name:</td><td><input type=\"text\" name=\"mod_lastname\" value=\"" . $row["surname"]."\"><br>\n");
+   print($lang['lastname'].":</td><td><input type=\"text\" name=\"mod_lastname\" value=\"" . $row["surname"]."\"><br>\n");
    print("</td>\n");
    print("</tr>\n");
    print("<tr>");
