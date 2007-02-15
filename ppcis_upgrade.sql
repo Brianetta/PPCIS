@@ -4,7 +4,8 @@ ALTER TABLE `news` ADD `sticky` ENUM( 'y', 'n' ) DEFAULT 'n' NOT NULL ;
 CREATE TABLE `preferences` (
  `userid` INT( 10 ) NOT NULL ,
  `stylesheet` VARCHAR( 20 ) ,
- `language` VARCHAR( 20 ) 
+ `language` VARCHAR( 20 ) ,
+ PRIMARY KEY ( `userid` )
 );
 ALTER TABLE `userdirectory` ADD `info` TEXT;
 ALTER TABLE `users` ADD `guest` ENUM( 'y', 'n' ) DEFAULT 'n' NOT NULL ;

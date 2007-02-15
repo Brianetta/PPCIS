@@ -151,7 +151,7 @@ if(isset($select))
             print("<table>\n");
             print("<tr>");
             print("<th class=\"headline\">\n");
-            print($lang['headline'].":<input name=\"headline\" type=\"text\" size=\"50\" value=\"".$row["headline"]."\">\n");
+            print($lang['headline'].":<input name=\"headline\" type=\"text\" size=\"50\" value=\"".stripslashes($row["headline"])."\">\n");
             print("<select name=\"topic\">\n");
             foreach($topiclist as $topicid => $name)
             {
@@ -178,7 +178,7 @@ if(isset($select))
                if($row["sticky"]=="y" and !(isset($newnews)))
                   print("checked ");
             print("name=\"stickycheck\"><br><br>");
-            print($lang['article_text'].":<br><textarea name=\"body\" rows=\"20\" cols=\"60\">".strip_tags($row["body"],"<b><i><span>")."</textarea>");
+            print($lang['article_text'].":<br><textarea name=\"body\" rows=\"20\" cols=\"60\">".strip_tags(stripslashes($row["body"]),"<b><i><span>")."</textarea>");
             print("<br>\n".$lang['optional_url'].":<br><input name=\"url\" type=\"text\" size=\"60\" value=\"$url\">");
             print("\n</td>\n");
             print("</tr>\n");
