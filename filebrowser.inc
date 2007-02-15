@@ -516,7 +516,7 @@ else
          {
             print("<td class=\"list\">(".$row["size"]." ".$lang['bytes'].")</td>");
             print("<td class=\"list_center\"><a href=\"fetchfile.php?fileid=".$row["fileid"]."&mimetype=*/*\">".$lang['download']."</a></td>\n");
-            print("<td class=\"list_center\"><a href=\"fetchfile.php?fileid=".$row["fileid"]."&mimetype=".$row["mimetype"]."\" target=\"_blank\">".$lang['open_file']."</a></td>\n");
+            print("<td class=\"list_center\"><a href=\"fetchfile.php?fileid=".$row["fileid"]."\" target=\"_blank\">".$lang['open_file']."</a></td>\n");
          }
          print("<td class=\"list_center\"><a href=\"$PHP_SELF?fileid=".$row["fileid"]."\">".$lang['details']."</a></td>\n");
          print("</tr>");

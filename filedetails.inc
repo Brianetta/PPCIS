@@ -59,7 +59,7 @@
    {
       print("<tr>\n");
       print("<td class=\"detail_mid_center\" colspan=\"2\"><a href=\"fetchfile.php?fileid=$fileid&mimetype=*/*\">".$lang['download_save']."</a></td>\n");
-      print("<td class=\"detail_mid_center\" colspan=\"2\"><a href=\"fetchfile.php?fileid=$fileid&mimetype=$filetype\" target=\"_blank\">".$lang['open_file_new_win']."</a></td>\n");
+      print("<td class=\"detail_mid_center\" colspan=\"2\"><a href=\"fetchfile.php?fileid=$fileid\" target=\"_blank\">".$lang['open_file_new_win']."</a></td>\n");
       print("</tr>\n");
    }
    print("<tr>\n");

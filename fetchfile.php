@@ -107,7 +107,7 @@ if($userid>0)
    }
    // Check the validity of $fileid if set and
    // determine how secure it is.
-   $sql = "SELECT filename FROM files WHERE fileid = $fileid ORDER BY filename";
+   $sql = "SELECT filename,mimetype FROM files WHERE fileid = $fileid ORDER BY filename";
    $result = @ mysql_query($sql, $intranet_db);
    if(mysql_error())
    	die("Database problem");
@@ -116,6 +116,10 @@ if($userid>0)
       while($row = @ mysql_fetch_array($result))
       {
          $filename=$row["filename"];
+         if (!isset($mimetype))
+         {
+            $mimetype = $row["mimetype"];
+         }
       }
    }
    else
