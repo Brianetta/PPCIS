@@ -19,6 +19,9 @@ $stylesheets["Bad demonstration of colours"]="real.css";
 // The code name must match the name of a .inc file in /languages
 $lang_available["English"] = "english";
 
+// HTML tags allowed in tet fiels
+$allowed_tags="<i><b><span><tt>";
+
 // Default language
 $default_lang = 'english';
 

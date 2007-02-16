@@ -165,7 +165,7 @@ if(@ mysql_num_rows($result) != 0)
       print("<th class=\"detail\" colspan=\"1\">".$lang['photo']."</th>\n");
       print("</tr>\n");
       print("<tr>\n");
-      print("<td class=\"detail\" colspan=\"3\">".nl2br(strip_tags($row["info"],"<b><i>"))."</td>\n");
+      print("<td class=\"detail\" colspan=\"3\">".nl2br(strip_tags($row["info"],$allowed_tags))."</td>\n");
       if($size = @ getimagesize($file_store."p".$row["userid"]))
       {
          print("<td colspan=\"1\" width=\"".$size[0]."\" class=\"detail_center\">");

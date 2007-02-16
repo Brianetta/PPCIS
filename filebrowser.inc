@@ -457,7 +457,7 @@ else
          {
             if(is_uploaded_file($uploadfile))
             {
-               $sql = "INSERT INTO files (filename,size,mimetype,folder,synopsis,datestamp) VALUES ('$uploadfile_name',$uploadfile_size,'$uploadfile_type',$folder,'".safe_escape(strip_tags($synopsis,"<br>"))."',".time().")";
+               $sql = "INSERT INTO files (filename,size,mimetype,folder,synopsis,datestamp) VALUES ('$uploadfile_name',$uploadfile_size,'$uploadfile_type',$folder,'".safe_escape(strip_tags($synopsis,"<br>$allowed_tags"))."',".time().")";
                $result = @ mysql_query($sql, $intranet_db);
                if(mysql_error())
                   showerror();

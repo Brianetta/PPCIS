@@ -68,11 +68,11 @@
    if($showedit)
    {
       print("<textarea name=\"modsynopsis\" rows=\"10\" cols=\"60\">");
-      print(strip_tags($filesynopsis));
+      print(strip_tags($filesynopsis,$allowed_tags));
    }
    else
    {
-      print(strip_tags($filesynopsis,"<br>"));
+      print(strip_tags($filesynopsis,"<br>$allowed_tags"));
    }
    if($showedit)
       print("</textarea>\n");

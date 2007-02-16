@@ -37,7 +37,7 @@ if(isset($log))
    $log_timestamp=time();
    if(!$helpdeskadmin)
       $mod_name=$userid;
-   $sql = "INSERT INTO helpdesk (ownerid, locationid, description, date, category) VALUES ($mod_name, $mod_location, '".safe_escape(strip_tags($mod_call,"<b><i>"))."', $log_timestamp, $mod_categoryid)";
+   $sql = "INSERT INTO helpdesk (ownerid, locationid, description, date, category) VALUES ($mod_name, $mod_location, '".safe_escape(strip_tags($mod_call,$allowed_tags))."', $log_timestamp, $mod_categoryid)";
    $result = @ mysql_query($sql, $intranet_db);
    if (mysql_error())
       showerror();
@@ -123,7 +123,7 @@ else
    }
    print("</select><br>\n");
    print("<br>".$lang['give_details_of_request']."<br>");
-   print("&nbsp;<textarea name=\"mod_call\" rows=\"10\" cols=\"60\">".strip_tags($mod_call,"<b><i><br><p>")."</textarea><br>\n");
+   print("&nbsp;<textarea name=\"mod_call\" rows=\"10\" cols=\"60\">".strip_tags($mod_call,"<br>$allowed_tags")."</textarea><br>\n");
    print("&nbsp;<input class=\"button\" type=\"submit\" name=\"log\" value=\"".$lang['log_call']."\">");
    print("</form>\n");
 }

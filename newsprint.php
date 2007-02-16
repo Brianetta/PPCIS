@@ -150,7 +150,7 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    print("<tr>\n");
    print("<td>\n");
    print("<h1>".strip_tags($news_headline)."</h1>");
-   print(nl2br(strip_tags($news_body,"<b><i>")));
+   print(nl2br(strip_tags($news_body,$allowed_tags)));
    if(($url<>"") and ($url<>"http://"))
       print("<br>\n<br>\nRelated link: <a href=\"$url\">$url</a>");
    print("<br>\n<br>\n<i>Submitted by $name</i><br>\n<br>\n");

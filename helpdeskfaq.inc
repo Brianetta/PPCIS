@@ -68,7 +68,7 @@ if($faqnumber>0)
          print("<tr>");
          print("<th class=\"detail\">");
          print($lang['answer'].":</th><td class=\"detail\">\n");
-         print(nl2br(strip_tags($row["answer"],"<b><i><tt>")));
+         print(nl2br(strip_tags($row["answer"],$allowed_tags)));
          print("</td>\n");
          print("</tr>\n");
          print("</table>");
