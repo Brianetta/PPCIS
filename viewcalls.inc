@@ -141,7 +141,7 @@ if(isset($modify_call) AND isset($callid))
    {
       if ($mod_history!="")
       {
-         $sql = "INSERT INTO history (callid, userid, histdate, body) VALUES ($callid, $userid, ".time().", '".safe_escape(strip_tags($mod_history,"<b><i>"))."')";
+         $sql = "INSERT INTO history (callid, userid, histdate, body) VALUES ($callid, $userid, ".time().", '".safe_escape(strip_tags($mod_history,$allowed_tags))."')";
          $result = @ mysql_query($sql, $intranet_db);
          if (mysql_error())
             showerror();

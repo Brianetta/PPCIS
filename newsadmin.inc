@@ -44,7 +44,7 @@ function newshead($news_headline, $news_date, $name, $url, $authed=FALSE)
    print("<table>\n");
    print("<tr>");
    print("<th class=\"headline\" width=\"35%\">\n");
-   print(strip_tags($news_headline,"<i>"));
+   print(strip_tags($news_headline));
    print("</th>\n");
    print("<th class=\"headline\">\n");
    if($authed) print("<i>[");
@@ -66,6 +66,14 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
 {
    global $topiclist;
    global $lang;
+   $news_body = strip_tags($news_body,$allowed_tags);
+   preg_match_all('/IMAGE[0-9]*HERE/',$news_body,$news_images);
+   foreach($news_images[0] as $key => $value)
+   {
+      $news_images[0][$key] = str_replace('IMAGE','<img src="fetchfile.php?fileid=',$news_images[0][$key]);
+      $news_images[0][$key] = str_replace('HERE','">',$news_images[0][$key]);
+      $news_body = preg_replace('/IMAGE[0-9]*HERE/',$news_images[0][$key],$news_body,1);
+   }
    $news_date = date($lang['date_format'], $news_date);
    print("<table>\n");
    print("<tr>");
@@ -81,11 +89,13 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    print("</tr>\n");
    print("<td colspan=\"2\">\n");
    print("<h1>".strip_tags($news_headline)."</h1>");
-   print(nl2br(strip_tags($news_body,"<b><i><span>")));
+   print(nl2br(strip_tags($news_body,"$allowed_tags<img>")));
    if(($url<>"") and ($url<>"http://"))
       print("<br>\n<br>\n".$lang['related_link'].": <a href=\"$url\">$url</a>");
    print("<br>\n<br>\n<i>".$lang['submitted_by']." $name</i><br>\n<br>\n");
    print("\n</td>\n");
+   print("</tr>\n");
+   print("</table>\n");
    return(true);
 }
 
@@ -178,7 +188,7 @@ if(isset($select))
                if($row["sticky"]=="y" and !(isset($newnews)))
                   print("checked ");
             print("name=\"stickycheck\"><br><br>");
-            print($lang['article_text'].":<br><textarea name=\"body\" rows=\"20\" cols=\"60\">".strip_tags(stripslashes($row["body"]),"<b><i><span>")."</textarea>");
+            print($lang['article_text'].":<br><textarea name=\"body\" rows=\"20\" cols=\"60\">".strip_tags(stripslashes($row["body"]),$allowed_tags)."</textarea>");
             print("<br>\n".$lang['optional_url'].":<br><input name=\"url\" type=\"text\" size=\"60\" value=\"$url\">");
             print("\n</td>\n");
             print("</tr>\n");

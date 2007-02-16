@@ -78,6 +78,14 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
 {
    global $topiclist;
    global $lang;
+   $news_body = strip_tags($news_body,$allowed_tags);
+   preg_match_all('/IMAGE[0-9]*HERE/',$news_body,$news_images);
+   foreach($news_images[0] as $key => $value)
+   {
+      $news_images[0][$key] = str_replace('IMAGE','<img src="fetchfile.php?fileid=',$news_images[0][$key]);
+      $news_images[0][$key] = str_replace('HERE','">',$news_images[0][$key]);
+      $news_body = preg_replace('/IMAGE[0-9]*HERE/',$news_images[0][$key],$news_body,1);
+   }
    $news_date = date($lang['date_format'], $news_date);
    print("<table>\n");
    print("<tr>");
@@ -94,7 +102,7 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    print("<tr>\n");
    print("<td colspan=3>\n");
    print("<h1>".strip_tags($news_headline)."</h1>");
-   print(nl2br(strip_tags($news_body,"<b><i><span>")));
+   print(nl2br(strip_tags($news_body,"$allowed_tags<img>")));
    if(($url<>"") and ($url<>"http://"))
       print("<br>\n<br>\n".$lang['related_link'].": <a href=\"$url\">$url</a>");
    print("<br>\n<br>\n<i>".$lang['submitted_by']." $name</i><br>\n<br>\n");
@@ -113,7 +121,7 @@ if($userid<>0)
 }
 $module[$lang['all_news_articles']]="newsarchive.inc";
 if(!(isset($callmodule)))
-   $callmodule=$lang['latest_news'];
+   $callmodule=$lang['all_news_articles'];
 ?>
 
       <table border="0" cellpadding="0" cellspacing="1" width="100%">
