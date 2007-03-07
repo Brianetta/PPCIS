@@ -102,7 +102,7 @@
 </form>
 </table>
 <?
-$sql = "SELECT *,users.userid as userid FROM users, userdirectory LEFT JOIN userteams ON users.userid=userteams.userid WHERE ";
+$sql = "SELECT *,users.userid as userid FROM userdirectory, users LEFT JOIN userteams ON users.userid=userteams.userid WHERE ";
 if(isset($last))
    $sql .= "lastname LIKE '" . safe_escape($last) . "%' AND ";
 if(isset($first))
