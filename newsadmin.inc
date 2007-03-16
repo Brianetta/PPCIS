@@ -37,7 +37,7 @@ else
    $topiclist[1]=$lang['no_topics_defined'];
 }
 
-function newshead($news_headline, $news_date, $name, $url, $authed=FALSE, $sticky)
+function newshead($news_headline, $news_date, $name, $url, $authed=FALSE)
 {
    global $lang;
    $news_date = date($lang['date_format'], $news_date);
@@ -52,14 +52,7 @@ function newshead($news_headline, $news_date, $name, $url, $authed=FALSE, $stick
    if($authed) print("]</i>");
    print("</th>\n");
    print("<th class=\"headline_right\">\n");
-   if($sticky)
-   {
-      print $lang['sticky'];
-   }
-   else
-   {
-      print($news_date);
-   }
+   print($news_date);
    print("</th>\n");
    print("<th width=\"10%\">\n");
    print("<a href=\"$url\">".$lang['details']."</a>");
@@ -261,9 +254,9 @@ if(@ mysql_num_rows($result) != 0)
    while($row = @ mysql_fetch_array($result))
    {
       if(isset($row["authdate"]))
-         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"],$row["sticky"]=='y');
+         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"]);
       else
-         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"], TRUE,$row["sticky"]=='y');
+         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"]);
    }
 }
 
