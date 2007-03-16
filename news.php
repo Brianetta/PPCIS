@@ -121,7 +121,7 @@ if($userid<>0)
 }
 $module[$lang['all_news_articles']]="newsarchive.inc";
 if(!(isset($callmodule)))
-   $callmodule=$lang['all_news_articles'];
+   $callmodule=$lang['latewst_news'];
 ?>
 
       <table border="0" cellpadding="0" cellspacing="1" width="100%">
