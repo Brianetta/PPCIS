@@ -80,7 +80,7 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    print("<th class=\"headline\">\n");
    print($topiclist[$news_topic]);
    print("</th>\n");
-   print("<th class=\"headline\">\n");
+   print("<th class=\"headline_right\">\n");
    if ($sticky)
    {
       print $lang['sticky'];
