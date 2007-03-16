@@ -50,6 +50,7 @@ else
 function newshead($news_headline, $news_date, $name, $url, $article)
 {
    global $lang;
+   global $allowed_tags;
    $news_date = date($lang['date_format'], $news_date);
    print("<table>\n");
    print("<tr>");
@@ -78,6 +79,7 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
 {
    global $topiclist;
    global $lang;
+   global $allowed_tags;
    $news_body = strip_tags($news_body,$allowed_tags);
    preg_match_all('/IMAGE[0-9]*HERE/',$news_body,$news_images);
    foreach($news_images[0] as $key => $value)
