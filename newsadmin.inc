@@ -37,7 +37,7 @@ else
    $topiclist[1]=$lang['no_topics_defined'];
 }
 
-function newshead($news_headline, $news_date, $name, $url, $authed=FALSE)
+function newshead($news_headline, $news_date, $name, $url, $authed=FALSE, $sticky)
 {
    global $lang;
    $news_date = date($lang['date_format'], $news_date);
@@ -52,7 +52,14 @@ function newshead($news_headline, $news_date, $name, $url, $authed=FALSE)
    if($authed) print("]</i>");
    print("</th>\n");
    print("<th class=\"headline_right\">\n");
-   print($news_date);
+   if($sticky)
+   {
+      print $lang['sticky']
+   }
+   else
+   {
+      print($news_date);
+   }
    print("</th>\n");
    print("<th width=\"10%\">\n");
    print("<a href=\"$url\">".$lang['details']."</a>");
@@ -62,7 +69,7 @@ function newshead($news_headline, $news_date, $name, $url, $authed=FALSE)
    return(true);
 }
 
-function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $url="")
+function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $url="", $sticky)
 {
    global $topiclist;
    global $lang;
@@ -81,7 +88,14 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    print($topiclist[$news_topic]);
    print("</th>\n");
    print("<th class=\"headline\">\n");
-   print($news_date);
+   if ($sticky)
+   {
+      print $lang['sticky'];
+   }
+   else
+   {
+      print($news_date);
+   }
    print("</th>\n");
    print("</tr>\n");
    print("</table>\n");
@@ -156,7 +170,7 @@ if(isset($select))
             if(isset($body)) $row["body"]=$body;
             if(isset($topic)) $row["topic"]=$topic;
             if(isset($headline)) $row["headline"]=$headline;
-            newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $url);
+            newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $url,$row["sticky"]=='y');
             print("<form method=\"post\" id=\"news_authorise\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."&startarticle=$startarticle&select=$select\">");
             print("<table>\n");
             print("<tr>");
@@ -247,9 +261,9 @@ if(@ mysql_num_rows($result) != 0)
    while($row = @ mysql_fetch_array($result))
    {
       if(isset($row["authdate"]))
-         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"]);
+         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"],$row["sticky"]=='y');
       else
-         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"], TRUE);
+         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"], TRUE,$row["sticky"]=='y');
    }
 }
 

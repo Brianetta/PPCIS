@@ -47,7 +47,7 @@ else
 }
 
 // Function to display just the headlines, with a link to the article
-function newshead($news_headline, $news_date, $name, $url, $article)
+function newshead($news_headline, $news_date, $name, $url, $article, $sticky)
 {
    global $lang;
    global $allowed_tags;
@@ -61,7 +61,14 @@ function newshead($news_headline, $news_date, $name, $url, $article)
    print($name);
    print("</th>\n");
    print("<th class=\"headline_right\">\n");
-   print($news_date);
+   if ($sticky)
+   {
+      print $lang['sticky'];
+   }
+   else
+   {
+      print($news_date);
+   }
    print("</th>\n");
    print("<th class=\"headline_center\" width=\"10%\">\n");
    print("<a href=\"$url\">".$lang['VIEW']."</a>");
@@ -75,7 +82,7 @@ function newshead($news_headline, $news_date, $name, $url, $article)
 }
 
 // Function to display a single article in full
-function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $url="", $article)
+function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $url="", $article, $sticky)
 {
    global $topiclist;
    global $lang;
@@ -95,7 +102,14 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    print($topiclist[$news_topic]);
    print("</th>\n");
    print("<th class=\"headline_right\">\n");
-   print($news_date);
+   if ($sticky)
+   {
+      print $lang['sticky'];
+   }
+   else
+   {
+      print($news_date);
+   }
    print("</th>\n");
    print("<th class=\"print\" width=\"10%\">\n");
    print("<a target=\"_BLANK\" href=\"newsprint.php?article=$article\">".$lang['PRINT']."</a>");

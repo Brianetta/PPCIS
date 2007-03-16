@@ -241,6 +241,7 @@ $lang['set_password_for_user'] = 'Set password for user %d';
 $lang['set_preferences'] = 'Set preferences';
 $lang['size'] = 'Size';
 $lang['standard'] = 'Standard';
+$lang['sticky'] = 'Sticky article';
 $lang['submit_article'] = 'Submit article';
 $lang['submit_changes'] = 'Submit changes';
 $lang['submit_new_article'] = 'Submit a new article';

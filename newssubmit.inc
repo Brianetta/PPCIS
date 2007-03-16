@@ -117,6 +117,6 @@ else
 }
 
 print("<h2>".$lang['preview'].":</h2>");
-newsitem(strip_tags(stripslashes($headline)), strip_tags(stripslashes($body),"<b><i><span>"), $topic, time(), $firstname." ".$lastname, $url, 0);
+newsitem(strip_tags(stripslashes($headline)), strip_tags(stripslashes($body),"<b><i><span>"), $topic, time(), $firstname." ".$lastname, $url, 0, FALSE);
 $help_keyword="newssubmit";
 ?>

@@ -65,7 +65,7 @@ if(isset($select))
    {
       while($row = @ mysql_fetch_array($result))
       {
-         newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $row["url"], $row["articleid"]);
+         newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $row["url"], $row["articleid"],$row["sticky"]=='y');
       }
    }
 }
@@ -115,7 +115,7 @@ if(@ mysql_num_rows($result) != 0)
 {
    while($row = @ mysql_fetch_array($result))
    {
-      newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "news.php?callmodule=All+news+articles&startarticle=$startarticle&select=".$row["articleid"],$row["articleid"]);
+      newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "news.php?callmodule=All+news+articles&startarticle=$startarticle&select=".$row["articleid"],$row["articleid"],$row["sticky"]=='y');
    }
 }
 $help_keyword="newsarchive";

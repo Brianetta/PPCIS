@@ -53,7 +53,7 @@ if(@ mysql_num_rows($result) != 0)
 {
    while($row = @ mysql_fetch_array($result))
    {
-      newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $row["url"], $row["articleid"]);
+      newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $row["url"], $row["articleid"],$row["sticky"]=='y');
    }
 }
 $help_keyword="newscurrent"
