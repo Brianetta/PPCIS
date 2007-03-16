@@ -54,7 +54,7 @@ function newshead($news_headline, $news_date, $name, $url, $authed=FALSE, $stick
    print("<th class=\"headline_right\">\n");
    if($sticky)
    {
-      print $lang['sticky']
+      print $lang['sticky'];
    }
    else
    {
