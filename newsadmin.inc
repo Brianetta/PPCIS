@@ -254,9 +254,9 @@ if(@ mysql_num_rows($result) != 0)
    while($row = @ mysql_fetch_array($result))
    {
       if(isset($row["authdate"]))
-         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"]);
+         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"], FALSE);
       else
-         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"]);
+         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"], TRUE);
    }
 }
 
