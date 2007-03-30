@@ -85,6 +85,7 @@ else
    if (mysql_error())
       showerror();
    $articlenumber = mysql_insert_id();
+   print("<span class=\"message\">".$lang['news_article_submitted']."</span><br>\n");
    $sql = "SELECT userid, firstname, lastname FROM users ORDER BY lastname";
    $result = @ mysql_query($sql, $intranet_db);
    if (mysql_error())

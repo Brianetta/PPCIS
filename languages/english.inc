@@ -174,6 +174,7 @@ $lang['new'] = 'NEW';
 $lang['new_user'] = 'New user';
 $lang['news'] = 'News';
 $lang['news_admin'] = 'News admin';
+$lang['news_article_submitted'] = 'New article submitted to editors';
 $lang['news_topics'] = 'News topics';
 $lang['no_admin_available'] = 'No admin sections available';
 $lang['no_admin_rights'] = 'You do not have sufficient access rights to use the admin section.';
