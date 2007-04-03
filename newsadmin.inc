@@ -67,13 +67,22 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    global $topiclist;
    global $lang;
    global $allowed_tags;
+   global $file_store;
    $news_body = strip_tags($news_body,$allowed_tags);
    preg_match_all('/IMAGE[0-9]*HERE/',$news_body,$news_images);
    foreach($news_images[0] as $key => $value)
    {
-      $news_images[0][$key] = str_replace('IMAGE','<img src="fetchfile.php?fileid=',$news_images[0][$key]);
-      $news_images[0][$key] = str_replace('HERE','">',$news_images[0][$key]);
-      $news_body = preg_replace('/IMAGE[0-9]*HERE/',$news_images[0][$key],$news_body,1);
+      $fileid = str_replace('HERE','',str_replace('IMAGE','',$value));
+      if($news_image_info = getimagesize($file_store . $fileid))
+      {
+         $news_images[0][$key] = str_replace('IMAGE',"<img ${news_image_info[3]} src=\"fetchfile.php?fileid=",$news_images[0][$key]);
+         $news_images[0][$key] = str_replace('HERE','">',$news_images[0][$key]);
+         $news_body = preg_replace('/IMAGE[0-9]*HERE/',$news_images[0][$key],$news_body,1);
+      }
+      else
+      {
+         $news_body = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$news_body,1);
+      }
    }
    $news_date = date($lang['date_format'], $news_date);
    print("<table>\n");

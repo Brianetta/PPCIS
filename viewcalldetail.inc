@@ -145,9 +145,17 @@ if(@ mysql_num_rows($result) != 0)
    preg_match_all('/IMAGE[0-9]*HERE/',$call["description"],$call_images);
    foreach($call_images[0] as $key => $value)
    {
-      $call_images[0][$key] = str_replace('IMAGE','<img src="fetchfile.php?fileid=',$call_images[0][$key]);
-      $call_images[0][$key] = str_replace('HERE','">',$call_images[0][$key]);
-      $call["description"] = preg_replace('/IMAGE[0-9]*HERE/',$call_images[0][$key],$call["description"],1);
+      $fileid = str_replace('HERE','',str_replace('IMAGE','',$value));
+      if($call_image_info = getimagesize($file_store . $fileid))
+      {
+         $call_images[0][$key] = str_replace('IMAGE',"<img ${call_image_info[3]} src=\"fetchfile.php?fileid=",$call_images[0][$key]);
+         $call_images[0][$key] = str_replace('HERE','">',$call_images[0][$key]);
+         $call_body = preg_replace('/IMAGE[0-9]*HERE/',$call_images[0][$key],$call_body,1);
+      }
+      else
+      {
+         $call_body = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$call_body,1);
+      }
    }
    print(nl2br(strip_tags($call["description"],"$allowed_tags<img>")));
    print("</td>\n");

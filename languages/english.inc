@@ -138,6 +138,7 @@ $lang['italics_indicates_closed_call'] = '<i>italics</i> indicates a closed call
 $lang['history'] = 'History';
 $lang['if_happy_check_this_authorise'] = 'If you are happy with this article, tick this box and then authorise.';
 $lang['if_happy_check_this_submit'] = 'If you are happy with this article, tick this box and then submit.';
+$lang['image_broken'] = '&lt;Image broken or missing&gt;';
 $lang['immediate'] = 'Immediate';
 $lang['important'] = 'Important';
 $lang['inactive'] = 'Inactive';
