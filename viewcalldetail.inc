@@ -266,7 +266,7 @@ if(@ mysql_num_rows($result) != 0)
             }
             else
             {
-               $row["body"] = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$$row["body"],1);
+               $row["body"] = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$row["body"],1);
             }
          }
          print("<td class=\"list$highlight\">".nl2br($row["body"])."</td>\n");
