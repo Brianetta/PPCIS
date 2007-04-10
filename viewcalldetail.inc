@@ -150,14 +150,14 @@ if(@ mysql_num_rows($result) != 0)
       {
          $call_images[0][$key] = str_replace('IMAGE',"<img ${call_image_info[3]} src=\"fetchfile.php?fileid=",$call_images[0][$key]);
          $call_images[0][$key] = str_replace('HERE','">',$call_images[0][$key]);
-         $call_body = preg_replace('/IMAGE[0-9]*HERE/',$call_images[0][$key],$call_body,1);
+         $call["description"] = preg_replace('/IMAGE[0-9]*HERE/',$call_images[0][$key],$call["description"],1);
       }
       else
       {
-         $call_body = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$call_body,1);
+         $call["description"] = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$call["description"],1);
       }
    }
-   print(nl2br(strip_tags($call_body,"$allowed_tags<img>")));
+   print(nl2br(strip_tags($call["description"],"$allowed_tags<img>")));
    print("</td>\n");
    print("</tr>\n");
    print("</table>\n");
@@ -266,7 +266,7 @@ if(@ mysql_num_rows($result) != 0)
             }
             else
             {
-               $call_body = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$call_body,1);
+               $row["body"] = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$$row["body"],1);
             }
          }
          print("<td class=\"list$highlight\">".nl2br($row["body"])."</td>\n");
