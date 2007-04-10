@@ -157,7 +157,7 @@ if(@ mysql_num_rows($result) != 0)
          $call_body = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$call_body,1);
       }
    }
-   print(nl2br(strip_tags($call["description"],"$allowed_tags<img>")));
+   print(nl2br(strip_tags($call_body,"$allowed_tags<img>")));
    print("</td>\n");
    print("</tr>\n");
    print("</table>\n");
@@ -257,9 +257,17 @@ if(@ mysql_num_rows($result) != 0)
          preg_match_all('/IMAGE[0-9]*HERE/',$row["body"],$call_images);
          foreach($call_images[0] as $key => $value)
          {
-            $call_images[0][$key] = str_replace('IMAGE','<img src="fetchfile.php?fileid=',$call_images[0][$key]);
-            $call_images[0][$key] = str_replace('HERE','">',$call_images[0][$key]);
-            $row["body"] = preg_replace('/IMAGE[0-9]*HERE/',$call_images[0][$key],$row["body"],1);
+            $fileid = str_replace('HERE','',str_replace('IMAGE','',$value));
+            if($call_image_info = getimagesize($file_store . $fileid))
+            {
+                  $call_images[0][$key] = str_replace('IMAGE','<img src="fetchfile.php?fileid=',$call_images[0][$key]);
+                  $call_images[0][$key] = str_replace('HERE','">',$call_images[0][$key]);
+                  $row["body"] = preg_replace('/IMAGE[0-9]*HERE/',$call_images[0][$key],$row["body"],1);
+            }
+            else
+            {
+               $call_body = preg_replace('/IMAGE[0-9]*HERE/',$lang['image_broken'],$call_body,1);
+            }
          }
          print("<td class=\"list$highlight\">".nl2br($row["body"])."</td>\n");
          print("<td class=\"list$highlight\">".$userhash[$row["userid"]]."</td>\n");
