@@ -224,7 +224,7 @@ if($num_articles>30)
    print("<table><tr>\n");
    print("<td width=\"10%\">");
    if($startarticlenum>29)
-      print("<a href=\"$PHP_SELF?callmodule=News+admin&startarticle=".($startarticlenum-30)."\">&lt;-NEWER</a> ");
+      print("<a href=\"$PHP_SELF?callmodule=".urlencode($lang['news_admin'])."&startarticle=".($startarticlenum-30)."\">&lt;-NEWER</a> ");
    else
       print("&lt;-NEWER");
    print("</td>\n");
@@ -264,9 +264,9 @@ if(@ mysql_num_rows($result) != 0)
    while($row = @ mysql_fetch_array($result))
    {
       if(isset($row["authdate"]))
-         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"], FALSE);
+         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=".urlencode($lang['news_admin'])."&startarticle=$startarticle&select=".$row["articleid"], FALSE);
       else
-         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=News+admin&startarticle=$startarticle&select=".$row["articleid"], TRUE);
+         newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=".urlencode($lang['news_admin'])."&startarticle=$startarticle&select=".$row["articleid"], TRUE);
    }
 }
 

@@ -75,7 +75,7 @@ if($num_articles>30)
    print("<table><tr>\n");
    print("<td width=\"10%\">");
    if($startarticlenum>29)
-      print("<a href=\"$PHP_SELF?callmodule=All+news+articles&startarticle=".($startarticlenum-30)."\">&lt;-".$lang['NEWER']."</a> ");
+      print("<a href=\"$PHP_SELF?callmodule=".$lang['all_news_articles']."&startarticle=".($startarticlenum-30)."\">&lt;-".$lang['NEWER']."</a> ");
    else
       print("&lt;-".$lang['NEWER']);
    print("</td>\n");
@@ -91,14 +91,14 @@ if($num_articles>30)
       else
       {
          print("<td>");
-         print("<a href=\"$PHP_SELF?callmodule=All+news+articles&startarticle=".(($page-1)*30)."\">$page</a>");
+         print("<a href=\"$PHP_SELF?callmodule=".$lang['all_news_articles']."&startarticle=".(($page-1)*30)."\">$page</a>");
          print("</td>\n");
       }
       print("</b>");
    }
    print("<td width=\"10%\">");
    if($startarticlenum<($num_articles-29))
-      print("<a href=\"$PHP_SELF?callmodule=All+news+articles&startarticle=".($startarticlenum+30)."\">".$lang['OLDER']."-&gt;</a> ");
+      print("<a href=\"$PHP_SELF?callmodule=".$lang['all_news_articles']."&startarticle=".($startarticlenum+30)."\">".$lang['OLDER']."-&gt;</a> ");
    else
       print($lang['OLDER']."-&gt;");
    print("</td>\n");
@@ -115,7 +115,7 @@ if(@ mysql_num_rows($result) != 0)
 {
    while($row = @ mysql_fetch_array($result))
    {
-      newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "news.php?callmodule=All+news+articles&startarticle=$startarticle&select=".$row["articleid"],$row["articleid"],$row["sticky"]=='y');
+      newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "news.php?callmodule=".$lang['all_news_articles']."&startarticle=$startarticle&select=".$row["articleid"],$row["articleid"],$row["sticky"]=='y');
    }
 }
 $help_keyword="newsarchive";
