@@ -148,6 +148,7 @@ if(strlen($stylesheet)<1)
 <title><?print($sitename); if($userid>0) print(" - $firstname $lastname
 logged in");?></title>
 <link rel="stylesheet" href="<?=$stylesheet?>" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.php" />
 </head>
 <body>
 <table>
@@ -186,7 +187,7 @@ if($userid>0)
 else
 {
    print("$sitename\n");
-   print("<form method=\"post\" id=\"framelogin\" action=\"auth.php\">\n");
+   print("<form method=\"post\" id=\"framelogin\" action=\"https://tyneside.lug.org.uk/auth.php\">\n");
    print("<table>\n");
    print("<tr>\n");
    print("<td class=\"title_middle_sub_right\">\n");
