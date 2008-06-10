@@ -72,6 +72,24 @@ if($loginhost != $SERVER_NAME)
 if(!isset($userid))
    $userid = 0;
 @ include("settings.inc");
+
+$asc2uni = Array();
+for($i=128;$i<256;$i++){
+  $asc2uni[chr($i)] = "&#x".dechex($i).";";   
+}
+
+function XMLStrFormat($str){
+  global $asc2uni;
+  $str = str_replace("&", "&amp;", $str);
+  $str = str_replace("<", "&lt;", $str); 
+  $str = str_replace(">", "&gt;", $str); 
+  $str = str_replace("'", "&apos;", $str);  
+  $str = str_replace("\"", "&quot;", $str); 
+  $str = str_replace("\r", "", $str);
+  $str = strtr($str,$asc2uni);
+  return $str;
+}
+
 ?>
 <?print('<?xml version="1.0" encoding="ISO-8859-1" ?>');?>
 
@@ -163,13 +181,13 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    global $sitename;
    $news_date = date("r", $news_date);
    print("<item>\n");
-   print('<title>'.htmlentities($news_headline)."</title>\n");
+   print('<title>'.XMLStrFormat($news_headline)."</title>\n");
    print("<category>".$topiclist[$news_topic]."</category>\n");
    print("<description>");
    if(strlen($news_body)<$limit)
-      print(htmlentities(closetags("$news_body"))."\n");
+      print(XMLStrFormat(closetags("$news_body"))."\n");
    else
-      print(htmlentities(substr(closetags("$news_body"),0,$limit-3))."...\n");
+      print(XMLStrFormat(substr(closetags("$news_body"),0,$limit-3))."...\n");
    print("&lt;br /&gt;&lt;i&gt;$name&lt;/i&gt;");
    print("</description>\n");
    print("<link>http://" . $_SERVER['SERVER_NAME'] . $siteprefix . "news.php?callmodule=All%20news%20articles&amp;select=$url</link>\n");
