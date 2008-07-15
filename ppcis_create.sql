@@ -362,7 +362,7 @@ CREATE TABLE users (
 -- Dumping data for table `users`
 --
 
-INSERT INTO users VALUES (1,'admin','7c83fe325422c016','system','administrator','y','n');
+INSERT INTO users VALUES (1,'admin',sha1('istrator'),'system','administrator','y','n');
 
 --
 -- Table structure for table `userteams`
