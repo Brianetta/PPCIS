@@ -220,7 +220,7 @@ if($num_calls>60)
       else
       {
          print("<td class=\"pager\" width=\"" . (int)(100/(max(30,fmod_x(30,($num_calls/60)))+2)) . "%\">");
-         print("<a href=\"$PHP_SELF?callmodule=Manage+calls&startcallnum=".(($page-1)*60)."&filter_name=$filter_name&filter_assignee=$filter_assignee&filter_location=$filter_location&filter_category=$filter_category&closedcall=$closedcall\">$page</a>");
+         print("<a href=\"$PHP_SELF?callmodule=".$lang['manage_calls']."&startcallnum=".(($page-1)*60)."&filter_name=$filter_name&filter_assignee=$filter_assignee&filter_location=$filter_location&filter_category=$filter_category&closedcall=$closedcall\">$page</a>");
          print("</td>\n");
       }
       print("</b>");

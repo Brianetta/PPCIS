@@ -23,6 +23,12 @@
 // that for a given filter, the first ten will appear on the main news
 // page, and all the older articles will be here as "archived".
 
+function fmod_x($x,$y)
+{
+   $i = floor($x/$y);
+   return $x - $i*$y;
+}
+
 if(!(isset($topic)))$topic="0";
 print("<form method=\"post\" id=\"news_submit\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
 print("<select name=\"topic\">\n");
@@ -73,7 +79,7 @@ if(isset($select))
 if($num_articles>30)
 {
    print("<table><tr>\n");
-   print("<td width=\"10%\">");
+   print("<td class=\"pager\">");
    if($startarticlenum>29)
       print("<a href=\"$PHP_SELF?callmodule=".$lang['all_news_articles']."&startarticle=".($startarticlenum-30)."\">&lt;-".$lang['NEWER']."</a> ");
    else
@@ -95,8 +101,10 @@ if($num_articles>30)
          print("</td>\n");
       }
       print("</b>");
+      if(($page-(floor($page/30)*30)) == 0)
+         print("<td class=\"pager\" width=\"" . (int)(100/32) . "%\">&nbsp;</td></tr><tr><td class=\"pager\" width=\"" . (int)((100/max(30,fmod_x(30,($num_calls/60)))+2)) . "%\">&nbsp;</td>");
    }
-   print("<td width=\"10%\">");
+   print("<td class=\"pager\">");
    if($startarticlenum<($num_articles-29))
       print("<a href=\"$PHP_SELF?callmodule=".$lang['all_news_articles']."&startarticle=".($startarticlenum+30)."\">".$lang['OLDER']."-&gt;</a> ");
    else
