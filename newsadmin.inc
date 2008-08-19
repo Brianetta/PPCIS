@@ -224,9 +224,9 @@ if($num_articles>30)
    print("<table><tr>\n");
    print("<td width=\"10%\">");
    if($startarticlenum>29)
-      print("<a href=\"$PHP_SELF?callmodule=".urlencode($lang['news_admin'])."&startarticle=".($startarticlenum-30)."\">&lt;-NEWER</a> ");
+      print("<a href=\"$PHP_SELF?callmodule=".urlencode($lang['news_admin'])."&startarticle=".($startarticlenum-30)."\">".$lang['NEWER']."</a> ");
    else
-      print("&lt;-NEWER");
+      print($lang['NEWER']);
    print("</td>\n");
    for($page=1; $page <= (1 + ($num_articles - 1) / 30); $page++)
    {
@@ -247,9 +247,9 @@ if($num_articles>30)
    }
    print("<td width=\"10%\">");
    if($startarticlenum<($num_articles-29))
-      print("<a href=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."&startarticle=".($startarticlenum+30)."\">OLDER-&gt;</a> ");
+      print("<a href=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."&startarticle=".($startarticlenum+30)."\">".$lang['OLDER']."</a> ");
    else
-      print("OLDER-&gt;");
+      print($lang['OLDER']);
    print("</td>\n");
    print("</tr></table>\n");
 }

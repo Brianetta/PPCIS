@@ -84,13 +84,13 @@ if($num_articles>30)
       print("<b>");
       if(($page*30-$startarticlenum)==30)
       {
-         print("<td>");
+         print("<td class=\"pager\" width=\"" . (int)(100/(max(30,fmod_x(30,($num_calls/60)))+2)) . "%\">");
          print("$page");
          print("</td>\n");
       }
       else
       {
-         print("<td>");
+         print("<td class=\"pager\" width=\"" . (int)(100/(max(30,fmod_x(30,($num_calls/60)))+2)) . "%\">");
          print("<a href=\"$PHP_SELF?callmodule=".$lang['all_news_articles']."&startarticle=".(($page-1)*30)."\">$page</a>");
          print("</td>\n");
       }
