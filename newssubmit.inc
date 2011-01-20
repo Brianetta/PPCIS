@@ -31,7 +31,7 @@ if(!(isset($submit)))
    print("<table>\n");
    print("<tr>");
    print("<th class=\"headline\">\n");
-   print($lang['headline'].":<input name=\"headline\" type=\"text\" size=\"50\" value=\"".safe_escape($headline)."\">\n");
+   print($lang['headline'].":<input name=\"headline\" type=\"text\" size=\"50\" value=\"".stripslashes($headline)."\">\n");
    print("<select name=\"topic\">\n");
    foreach($topiclist as $topicid => $name)
    {
@@ -80,7 +80,7 @@ else
       $auth="";
       $authfield="";
    }
-   $sql = "INSERT INTO news (authorid, subdate, headline, topic, body$urlfield$authfield) VALUES ($userid, '".time()."', '".safe_escape(stripslashes($headline))."', $topic, '".safe_escape(strip_tags($body,$allowed_tags))."'$nurl$nauth)";
+   $sql = "INSERT INTO news (authorid, subdate, headline, topic, body$urlfield$authfield) VALUES ($userid, '".time()."', '".safe_escape($headline)."', $topic, '".safe_escape(strip_tags($body,$allowed_tags))."'$nurl$nauth)";
    $result = @ mysql_query($sql, $intranet_db);
    if (mysql_error())
       showerror();
