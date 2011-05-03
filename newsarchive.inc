@@ -25,6 +25,8 @@
 
 function fmod_x($x,$y)
 {
+   if ($y==0)
+      return $x;
    $i = floor($x/$y);
    return $x - $i*$y;
 }
