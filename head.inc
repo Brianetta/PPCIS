@@ -187,7 +187,7 @@ if($userid>0)
 else
 {
    print("$sitename\n");
-   print("<form method=\"post\" id=\"framelogin\" action=\"/auth.php\">\n");
+   print("<form method=\"post\" id=\"framelogin\" action=\"auth.php\">\n");
    print("<table>\n");
    print("<tr>\n");
    print("<td class=\"title_middle_sub_right\">\n");
