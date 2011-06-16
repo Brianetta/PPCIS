@@ -67,6 +67,7 @@ $lang['delete'] = 'Usuń';
 $lang['delete_empty_folder'] = 'Usuń pusty katalog';
 $lang['delete_faq'] = 'Usuń F.A.Q. numer %d';
 $lang['delete_file'] = 'Usuń ten plik';
+$lang['delete_photo'] = 'Usuń zdjęcie';
 $lang['delete_this_record'] = 'Usuń ten record';
 $lang['delete_user'] = 'Usuń użytkownika';
 $lang['description'] = 'Opis';

@@ -47,6 +47,17 @@ if(isset($uploadfile))
    }
 }
 
+if(isset($delphoto) and isset($delconf))
+{
+   if (is_writeable($file_store."p".$photo_userid))
+   {
+      if(unlink($file_store."p".$photo_userid))
+      {
+         printf("<span class=\"message\">".$lang['user_deleted_photo']."</span><br>\n",$photo_userid);
+      }
+   }
+}
+
 if(isset($mod_userid))
 { // Here we clean up the data.  Empty strings are turned to NULLS, strings are escaped.
    if($mod_title <> "")
@@ -251,6 +262,16 @@ if(@ mysql_num_rows($result) != 0)
    print("<input type=\"hidden\" name=\"photo_userid\" value=\"$showuserid\">\n");
    print($lang['upload_a_photo'].": <input name=\"uploadfile\" type=\"file\"><br>\n");
    print("<input class=\"button\" type=\"submit\" value=\"".$lang['upload_photo']."\">\n");
+   print("</form>\n");
+	print("</td>");
+	print("</tr>");
+	print("<tr>");
+	print("<td colspan=\"2\" class=\"centered\">");
+   // Create photograph delete form
+   print("<form enctype=\"multipart/form-data\" action=\"$PHP_SELF?callmodule=$callmodule&showuserid=$showuserid\" method=\"post\">\n");
+   print("<input type=\"hidden\" name=\"photo_userid\" value=\"$showuserid\">\n");
+   print($lang['tick_confirm_delete'].":<input type=\"checkbox\" name=\"delconf\" value=\"confirm\">\n");
+   print("<input class=\"button\" type=\"submit\" name=\"delphoto\" value=\"".$lang['delete_photo']."\">\n");
    print("</form>\n");
 	print("</td>");
 	print("</tr>");

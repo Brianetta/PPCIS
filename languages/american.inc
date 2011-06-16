@@ -70,6 +70,7 @@ $lang['delete'] = 'Delete';
 $lang['delete_empty_folder'] = 'Delete this empty folder';
 $lang['delete_faq'] = 'Delete F.A.Q. number %d';
 $lang['delete_file'] = 'Delete this file';
+$lang['delete_photo'] = 'Delete user photograph';
 $lang['delete_this_record'] = 'Delete this record';
 $lang['delete_user'] = 'Delete user';
 $lang['description'] = 'Description';
