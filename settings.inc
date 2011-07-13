@@ -57,6 +57,11 @@ $lang_available["US English"] = "american";
 // Default language
 $default_lang = 'english';
 
+// Use Gravatar?
+$gravatar = TRUE;
+// Size of Gravatar image
+$gravatar_size = 200;
+
 // Hash function used on passwords (should be a valid MySQL function)
 // Valid values are password (the old default), md5 and sha1.  sha1
 // is recommended, password is not recommended as it can change.

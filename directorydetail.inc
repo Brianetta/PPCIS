@@ -171,6 +171,12 @@ if(@ mysql_num_rows($result) != 0)
          print("<td colspan=\"1\" width=\"".$size[0]."\" class=\"detail_center\">");
          print("<img src=\"photo.php?fileid=".$row["userid"]."\" alt=\"".$row["firstname"]." ".$row["lastname"]."\" ".$size[3].">\n");
       }
+      elseif($gravatar)
+      {
+         $gravatar_url = "http://www.gravatar.com/avatar/" . md5($row["email"]) . "?s=" .$gravatar_size;
+         print("<td colspan=\"1\" width=\"".$gravatar_size."\" class=\"detail_center\">");
+         print("<img src=\"".$gravatar_url."\" alt=\"".$row["firstname"]." ".$row["lastname"]."\" width=\"".$gravatar_size."\" height=\"".$gravatar_size."\">\n");
+      }
       else
       {
          print("<td colspan=\"1\" class=\"detail_center\">");
