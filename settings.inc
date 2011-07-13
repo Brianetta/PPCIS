@@ -20,7 +20,7 @@ $stylesheets["Bad demonstration of colours"]="real.css";
 $lang_available["English"] = "english";
 $lang_available["Polska"] = "polish";
 
-// HTML tags allowed in tet fiels
+// HTML tags allowed in text fields
 $allowed_tags="<i><b><span><tt>";
 
 // Default language
