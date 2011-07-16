@@ -166,7 +166,7 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
    return(true);
 }
 
-$sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE news.authdate IS NOT NULL AND articleid=".safe_escape($article);
+$sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE news.authdate IS NOT NULL AND articleid='".safe_escape($article)."'";
 
 $result = @ mysql_query($sql, $intranet_db);
 if (mysql_error())
