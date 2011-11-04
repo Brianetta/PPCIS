@@ -376,7 +376,7 @@ CREATE TABLE userteams(
 	PRIMARY KEY ( linkid ) ,
 	KEY userid( userid ) ,
 	KEY team( team ) 
-) TYPE = MYISAM 
+) TYPE = MYISAM;
 	
 --
 -- Dumping data for table `userteams`
