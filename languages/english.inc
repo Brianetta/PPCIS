@@ -275,6 +275,7 @@ $lang['upload_file'] = 'Upload file';
 $lang['upload_photo'] = 'Upload photo';
 $lang['url'] = 'URL';
 $lang['user'] = 'User';
+$lang['user_deleted_account'] = 'User account number %d has been successfully deleted.';
 $lang['user_deleted_directory'] = 'User %d has been removed from the directory.';
 $lang['user_deleted_photo'] = 'User %d\'s photograph has been removed.';
 $lang['user_deleted_rights'] = 'User %d\'s rights have been removed.';

@@ -21,44 +21,29 @@
 // Form to totally remove a user from the system.  Confirmation is not
 // required again as the useradmin already clicked delete to get here.
 
+function delete_user_info($table, $msg)
+{
+   global $mod_userid, $intranet_db, $lang;
+   $sql = "DELETE FROM $table WHERE userid = $mod_userid";
+   $result = @ mysql_query($sql, $intranet_db);
+   if (mysql_error())
+   {
+      showerror();
+   } else {
+      printf('<span class="message">'.$lang[$msg]."</span><br>\n", $mod_userid);
+   }
+}
+
 if(isset($mod_userid) && $mod_userid == $userid)
 {
    print("<span class=\"message\">You can not delete your own account!</span><br>\n");
 }
 else if(isset($mod_userid))
 {
-   $sql = "DELETE FROM users WHERE userid = $mod_userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-   {
-      showerror();
-   } else {
-      print("<span class=\"message\">User account number $mod_userid has been successfully deleted.</span><br>\n");
-   }
-   $sql = "DELETE FROM userdirectory WHERE userid = $mod_userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-   {
-      showerror();
-   } else {
-      printf("<span class=\"message\">".$lang['user_deleted_directory']."</span><br>\n",$mod_userid);
-   }
-   $sql = "DELETE FROM userflags WHERE userid = $mod_userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-   {
-      showerror();
-   } else {
-      printf("<span class=\"message\">".$lang['user_deleted_rights']."<br></span>\n",$mod_userid);
-   }
-   $sql = "DELETE FROM userteams WHERE userid = $mod_userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-   {
-      showerror();
-   } else {
-      printf("<span class=\"message\">".$lang['user_deleted_teams']."</span><br>\n",$mod_userid);
-   }
+   delete_user_info ('users', 'user_deleted_account');
+   delete_user_info ('userdirectory', 'user_deleted_directory');
+   delete_user_info ('userflags', 'user_deleted_rights');
+   delete_user_info ('userteams', 'user_deleted_teams');
    if (is_writeable($file_store.$fileid))
    {
       @ unlink($file_store."p".$fileid);
