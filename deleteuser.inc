@@ -21,7 +21,11 @@
 // Form to totally remove a user from the system.  Confirmation is not
 // required again as the useradmin already clicked delete to get here.
 
-if(isset($mod_userid))
+if(isset($mod_userid) && $mod_userid == $userid)
+{
+   print("<span class=\"message\">You can not delete your own account!</span><br>\n");
+}
+else if(isset($mod_userid))
 {
    $sql = "DELETE FROM users WHERE userid = $mod_userid";
    $result = @ mysql_query($sql, $intranet_db);
