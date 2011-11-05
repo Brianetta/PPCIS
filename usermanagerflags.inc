@@ -35,25 +35,23 @@ if(isset($mod_userid))
    if($mod_directoryadmin <> "y") $mod_directoryadmin = "n";
    if($mod_guest <> "y") $mod_guest = "n";
 
-   // FIXME: require one enabled admin of each type; admin+guest allowed?
+   // Check that we have at least one admin of each type
+   $have_admin = 1;
+   foreach (array ('useradmin', 'newsadmin', 'helpdesk', 'files', 'directoryadmin') as $i)
+   {
+      $sql = "SELECT $i FROM users LEFT JOIN userflags ON users.userid = userflags.userid WHERE $i = 'y' AND users.userid != $mod_userid AND enabled = 'y'";
+      $result = @ mysql_query($sql, $intranet_db);
+      if (mysql_error())
+         showerror();
+      $var = "mod_$i";
+      if(@ mysql_num_rows($result) == 0 && ($mod_enabled != 'y' || $$var != 'y'))
+         $have_admin = 0;
+   }
 
    $sql = "UPDATE users SET enabled='$mod_enabled',guest='$mod_guest' WHERE userid = $mod_userid";
    $result = @ mysql_query($sql, $intranet_db);
    if (mysql_error())
       showerror();
-
-   // Check that we have at least one admin of each type
-   $have_admin = 1;
-   foreach (array ('useradmin', 'newsadmin', 'helpdesk', 'files', 'directoryadmin') as $i)
-   {
-      $sql = "SELECT $i FROM userflags WHERE $i = 'y' AND userid != $mod_userid";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      $var = "mod_$i";
-      if(@ mysql_num_rows($result) == 0 && $$var != 'y')
-         $have_admin = 0;
-   }
 
    if ($have_admin == 0)
       print("<span class=\"message\">".$lang['must_have_admin']."</span>");
