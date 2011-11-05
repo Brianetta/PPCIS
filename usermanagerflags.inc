@@ -60,135 +60,36 @@ if(@ mysql_num_rows($result) != 0)
       print($lang['modifying_user'].": ");
       print($row["firstname"] . " " . $row["lastname"] ."</h2></th>");
       print("</tr>\n");
-      print("</tr>\n");
-      print("<tr>\n");
-      print("<td class=\"right\">".$lang['user_enabled']."</td>\n");
       // All the options in this form's selects have easy-to-understand labels.
       // $sel_yes and $sel_no are for choosing the default selected option.
-      if($row["enabled"]=="y")
+      foreach (array ('enabled'        => 'enabled',
+                      'useradmin'      => 'is_admin',
+                      'newsadmin'      => 'is_newsadmin',
+                      'directoryadmin' => 'is_directoryadmin',
+                      'helpdesk'       => 'is_helpdesk',
+                      'files'          => 'is_filesadmin',
+                      'guest'          => 'is_guest')
+                      as $mod => $langkey)
       {
-         $sel_yes=" selected";
-         $sel_no="";
+         print("<tr>\n");
+         print("<td class=\"right\">".$lang["user_$langkey"]."</td>\n");
+         if($row[$mod]=="y")
+         {
+            $sel_yes=" selected";
+            $sel_no="";
+         }
+         else
+         {
+            $sel_yes="";
+            $sel_no=" selected";
+         }
+         print("<td><select name=\"mod_$mod\">");
+         print("<option$sel_yes label=\"".$lang["user_${langkey}_yes"]."\" value=\"y\">");
+         print("".$lang["user_${langkey}_yes"]."</option>");
+         print("<option$sel_no label=\"".$lang["user_${langkey}_no"]."\" value=\"n\">\n");
+         print("".$lang["user_${langkey}_no"]."</option></select></td>\n");
+         print("</tr>\n");
       }
-      else
-      {
-         $sel_yes="";
-         $sel_no=" selected";
-      }
-      print("<td><select name=\"mod_enabled\">");
-      print("<option$sel_yes label=\"".$lang['user_enabled_yes']."\" value=\"y\">");
-      print("".$lang['user_enabled_yes']."</option>");
-      print("<option$sel_no label=\"".$lang['user_enabled_no']."\" value=\"n\">\n");
-      print("".$lang['user_enabled_no']."</option></select></td>\n");
-      print("</tr>\n");
-      print("<tr>\n");
-      print("<td class=\"right\">".$lang['user_is_admin']."</td>\n");
-      if($row["useradmin"]=="y")
-      {
-         $sel_yes=" selected";
-         $sel_no="";
-      }
-      else
-      {
-         $sel_yes="";
-         $sel_no=" selected";
-      }
-      print("<td><select name=\"mod_useradmin\">");
-      print("<option$sel_yes label=\"".$lang['user_is_admin_yes']."\" value=\"y\">");
-      print($lang['user_is_admin_yes']."</option>");
-      print("<option$sel_no label=\"".$lang['user_is_admin_no']."\" value=\"n\">\n");
-      print($lang['user_is_admin_no']."</option></select></td>\n");
-      print("</tr>\n");
-      print("<tr>\n");
-      print("<td class=\"right\">".$lang['user_is_newsadmin']."</td>\n");
-      if($row["newsadmin"]=="y")
-      {
-         $sel_yes=" selected";
-         $sel_no="";
-      }
-      else
-      {
-         $sel_yes="";
-         $sel_no=" selected";
-      }
-      print("<td><select name=\"mod_newsadmin\">");
-      print("<option$sel_yes label=\"".$lang['user_is_newsadmin_yes']."\" value=\"y\">");
-      print($lang['user_is_newsadmin_yes']."</option>");
-      print("<option$sel_no label=\"".$lang['user_is_newsadmin_no']."\" value=\"n\">\n");
-      print($lang['user_is_newsadmin_no']."</option></select></td>\n");
-      print("</tr>\n");
-      print("<tr>\n");
-      print("<td class=\"right\">".$lang['user_is_directoryadmin']."</td>\n");
-      if($row["directoryadmin"]=="y")
-      {
-         $sel_yes=" selected";
-         $sel_no="";
-      }
-      else
-      {
-         $sel_yes="";
-         $sel_no=" selected";
-      }
-      print("<td><select name=\"mod_directoryadmin\">");
-      print("<option$sel_yes label=\"".$lang['user_is_directoryadmin_yes']."\" value=\"y\">");
-      print($lang['user_is_directoryadmin_yes']."</option>");
-      print("<option$sel_no label=\"".$lang['user_is_directoryadmin_no']."\" value=\"n\">\n");
-      print($lang['user_is_directoryadmin_no']."</option></select></td>\n");
-      print("</tr>\n");
-      print("<tr>\n");
-      print("<td class=\"right\">".$lang['user_is_helpdesk']."</td>\n");
-      if($row["helpdesk"]=="y")
-      {
-         $sel_yes=" selected";
-         $sel_no="";
-      }
-      else
-      {
-         $sel_yes="";
-         $sel_no=" selected";
-      }
-      print("<td><select name=\"mod_helpdesk\">");
-      print("<option$sel_yes label=\"".$lang['user_is_helpdesk_yes']."\" value=\"y\">");
-      print($lang['user_is_helpdesk_yes']."</option>");
-      print("<option$sel_no label=\"".$lang['user_is_helpdesk_no']."\" value=\"n\">\n");
-      print($lang['user_is_helpdesk_no']."</option></select></td>\n");
-      print("</tr>\n");
-      print("<tr>\n");
-      print("<td class=\"right\">".$lang['user_is_filesadmin']."</td>\n");
-      if($row["files"]=="y")
-      {
-         $sel_yes=" selected";
-         $sel_no="";
-      }
-      else
-      {
-         $sel_yes="";
-         $sel_no=" selected";
-      }
-      print("<td><select name=\"mod_files\">");
-      print("<option$sel_yes label=\"".$lang['user_is_filesadmin_yes']."\" value=\"y\">");
-      print($lang['user_is_filesadmin_yes']."</option>");
-      print("<option$sel_no label=\"".$lang['user_is_filesadmin_no']."\" value=\"n\">\n");
-      print($lang['user_is_filesadmin_no']."</option></select></td>\n");
-      print("</tr>\n");
-      print("<tr>\n");
-      print("<td class=\"right\">".$lang['user_is_guest']."</td>\n");
-      if($row["guest"]=="y")
-      {
-         $sel_yes=" selected";
-         $sel_no="";
-      }
-      else
-      {
-         $sel_yes="";
-         $sel_no=" selected";
-      }
-      print("<td><select name=\"mod_guest\">");
-      print("<option$sel_yes label=\"".$lang['user_is_guest_yes']."\" value=\"y\">");
-      print($lang['user_is_guest_yes']."</option>");
-      print("<option$sel_no label=\"".$lang['user_is_guest_no']."\" value=\"n\">\n");
-      print($lang['user_is_guest_no']."</option></select></td>\n");
-      print("</tr>\n");
       print("<tr>\n");
       print("<td colspan=\"2\">&nbsp;</td>\n");
       print("</tr>\n");
