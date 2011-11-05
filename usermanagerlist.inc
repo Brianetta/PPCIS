@@ -150,13 +150,10 @@ if(@ mysql_num_rows($result) != 0) // Render a nice table of users.
       print("<td class=\"list\">" . $row["username"] . "</td>\n");
       print("<td class=\"list\">" . $row["lastname"] . ", " . $row["firstname"] . "</td>\n");
       print("<td class=\"list_center\"><a href=\"$siteprefix" . "admin.php?callmodule=".rawurlencode($callmodule)."&showuserid=" . $row["userid"] . "\">".$lang['modify']."</a></td>\n");
-      if ($row["userid"] == 1)
-         print("<td class=\"list_center\"><s>".$lang['modify']."</s></td>\n");
-      else
-         print("<td class=\"list_center\"><a href=\"$siteprefix" . "admin.php?callmodule=".rawurlencode($callmodule)."&showuserflags=" . $row["userid"] . "\">".$lang['modify']."</a></td>\n");
+      print("<td class=\"list_center\"><a href=\"$siteprefix" . "admin.php?callmodule=".rawurlencode($callmodule)."&showuserflags=" . $row["userid"] . "\">".$lang['modify']."</a></td>\n");
       print("<td class=\"list_center\"><a href=\"$siteprefix" . "admin.php?callmodule=".rawurlencode($callmodule)."&showteams=" . $row["userid"] . "\">".$lang['change']."</a></td>\n");
       print("<td class=\"list_center\"><a href=\"$siteprefix" . "admin.php?callmodule=".rawurlencode($callmodule)."&showuserpass=" . $row["userid"] . "\">".$lang['change']."</a></td>\n");
-      if ($row["userid"] == 1 || $row["userid"] == $userid)
+      if ($row["userid"] == $userid)
          print("<td class=\"list_center\"><s>".$lang['delete']."</s></td>\n");
       else
          print("<td class=\"list_center\"><a href=\"$siteprefix" . "admin.php?callmodule=".rawurlencode($callmodule)."&deleteuser=" . $row["userid"] . "\">".$lang['delete']."</a></td>\n");

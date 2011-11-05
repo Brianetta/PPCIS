@@ -25,7 +25,7 @@
 // code which modifies the userflags table) in any other files, be sure to
 // bear this in mind.
 
-if(isset($mod_userid) && $mod_userid != 1)
+if(isset($mod_userid))
 {
    if($mod_enabled <> "n") $mod_enabled = "y";
    if($mod_useradmin <> "y") $mod_useradmin = "n";
@@ -53,9 +53,6 @@ if(@ mysql_num_rows($result) != 0)
    print("<table>");
    while($row = @ mysql_fetch_array($result))
    {
-      if ($row["userid"] == 1)
-         continue; // User 1 is special
-
       print("<form method=\"post\" id=\"usermod\" action=\"admin.php?callmodule=".rawurlencode($callmodule)."&showuserflags=".$row["userid"]."\">\n");
       print("<input type=\"hidden\" name=\"mod_userid\" value=\"".$row["userid"]."\">");
       print("<tr>");
