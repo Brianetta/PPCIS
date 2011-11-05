@@ -167,6 +167,7 @@ $lang['modify_faq'] = 'Modify F.A.Q. number %d';
 $lang['modify_folder'] = 'Modify folder';
 $lang['modifying_user'] = 'Modifying user';
 $lang['move_to_folder'] = 'Move to folder';
+$lang['must_have_admin'] = 'This change would leave one or more admin groups without an administrator.';
 $lang['name'] = 'Name';
 $lang['need_logged_in_admin'] = 'You need to be logged in to use the admin section.';
 $lang['need_logged_in_directory'] = 'You need to be logged in to use the directory.';

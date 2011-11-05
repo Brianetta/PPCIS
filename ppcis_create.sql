@@ -275,7 +275,8 @@ CREATE TABLE newstopic (
 CREATE TABLE preferences (
   userid int(10) NOT NULL default '0',
   stylesheet varchar(20) default NULL,
-  language varchar(20) default NULL
+  language varchar(20) default NULL,
+  PRIMARY KEY  (userid)
 ) TYPE=MyISAM;
 
 --
@@ -375,7 +376,7 @@ CREATE TABLE userteams(
 	PRIMARY KEY ( linkid ) ,
 	KEY userid( userid ) ,
 	KEY team( team ) 
-) TYPE = MYISAM 
+) TYPE = MYISAM;
 	
 --
 -- Dumping data for table `userteams`
