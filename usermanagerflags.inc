@@ -34,15 +34,37 @@ if(isset($mod_userid))
    if($mod_files <> "y") $mod_files = "n";
    if($mod_directoryadmin <> "y") $mod_directoryadmin = "n";
    if($mod_guest <> "y") $mod_guest = "n";
+
+   // FIXME: require one enabled admin of each type; admin+guest allowed?
+
    $sql = "UPDATE users SET enabled='$mod_enabled',guest='$mod_guest' WHERE userid = $mod_userid";
    $result = @ mysql_query($sql, $intranet_db);
    if (mysql_error())
       showerror();
-   $sql = "REPLACE INTO userflags (userid, useradmin, newsadmin, helpdesk, files, directoryadmin) VALUES ($mod_userid, '$mod_useradmin', '$mod_newsadmin', '$mod_helpdesk', '$mod_files', '$mod_directoryadmin')";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   print("<span class=\"message\">".$lang['user_successfully_amended']."</span>");
+
+   // Check that we have at least one admin of each type
+   $have_admin = 1;
+   foreach (array ('useradmin', 'newsadmin', 'helpdesk', 'files', 'directoryadmin') as $i)
+   {
+      $sql = "SELECT $i FROM userflags WHERE $i = 'y' AND userid != $mod_userid";
+      $result = @ mysql_query($sql, $intranet_db);
+      if (mysql_error())
+         showerror();
+      $var = "mod_$i";
+      if(@ mysql_num_rows($result) == 0 && $$var != 'y')
+         $have_admin = 0;
+   }
+
+   if ($have_admin == 0)
+      print("<span class=\"message\">".$lang['must_have_admin']."</span>");
+   else
+   {
+      $sql = "REPLACE INTO userflags (userid, useradmin, newsadmin, helpdesk, files, directoryadmin) VALUES ($mod_userid, '$mod_useradmin', '$mod_newsadmin', '$mod_helpdesk', '$mod_files', '$mod_directoryadmin')";
+      $result = @ mysql_query($sql, $intranet_db);
+      if (mysql_error())
+         showerror();
+      print("<span class=\"message\">".$lang['user_successfully_amended']."</span>");
+   }
 }
 $sql = "SELECT *,users.userid AS userid FROM users LEFT JOIN userflags ON users.userid = userflags.userid WHERE users.userid = ".safe_escape($showuserflags);
 $result = @ mysql_query($sql, $intranet_db);
