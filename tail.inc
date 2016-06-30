@@ -31,6 +31,7 @@ $_SESSION["firstname"]=$firstname;
 $_SESSION["lastname"]=$lastname;
 $_SESSION["loginhost"]=$loginhost;
 $_SESSION["help_keyword"]=$help_keyword;
+mysqli_close($intranet_db);
 
 ?>
 </div>

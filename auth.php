@@ -43,10 +43,12 @@ if(!(@ include("settings.inc")))
 
 function showerror()
 {
-   if(mysql_error())
-      die("Error number" . mysql_errno() . " (" . mysql_error() . ")");
-   else
-      die("Couldn't connect to database.");
+   if(mysqli_connect_errno())
+   {
+      print("Couldn't connect to database.");
+      if(@mysqli_error($intranet_db))
+         print("Error number " . mysqli_errno($intranet_db) . " (" . mysqli_error($intranet_db) . ")");
+   }
 }
 
 function safe_escape($str) 
@@ -67,21 +69,15 @@ function safe_escape($str)
 
 if(isset($form_user))
 {
-   if(!($intranet_db = @ mysql_pconnect($db_hostname, $db_username, $db_password)))
-   {
-      showerror();
-   }
-   if(!mysql_select_db($db_name, $intranet_db))
-   {
-      showerror();
-   }
+// Connect to the database
+   $intranet_db = @ mysqli_connect($db_hostname, $db_username, $db_password, $db_name);
+   showerror();
    $sql = "SELECT * FROM users WHERE username = '".safe_escape(trim($form_user))."' AND password = $hash_function( '".safe_escape($form_pass)."')";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db, $sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          if($row["enabled"]=='y')
          {
@@ -103,12 +99,11 @@ if(isset($form_user))
    elseif(isset($old_hash_function))
    {
       $sql = "SELECT * FROM users WHERE username = '".safe_escape(trim($form_user))."' AND password = $old_hash_function( '".safe_escape($form_pass)."')";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      if(@ mysql_num_rows($result) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($result) != 0)
       {
-         while($row = @ mysql_fetch_array($result))
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          {
             if($row["enabled"]=='y')
             {
@@ -126,7 +121,7 @@ if(isset($form_user))
                session_destroy();
             }
             $sql = "UPDATE users SET password = $hash_function( '".safe_escape($form_pass)."') WHERE userid = ".$row["userid"];
-            $result = @ mysql_query($sql, $intranet_db);
+            $result = @ mysqli_query($intranet_db,$sql);
             $updates = "Updated password from $old_password_function to $password_function";
          }
       }

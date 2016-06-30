@@ -31,14 +31,6 @@
 // This file also opens the main HTML table for each page, and builds
 // the first layer menu based on the module array set in modules.inc
 
-function showerror()
-{
-   if(mysql_error())
-      print("Error number " . mysql_errno() . " (" . mysql_error() . ")");
-   else
-      print("Couldn't connect to database.");
-}
-
 function safe_escape($str) 
 {
    if (1 == (int) ini_get("magic_quotes_gpc"))
@@ -110,19 +102,18 @@ extract($_SERVER);
       $help_keyword="no_help";
 
 // Connect to the database
-if(!($intranet_db = @ mysql_pconnect($db_hostname, $db_username, $db_password)))
+$intranet_db = @ mysqli_connect($db_hostname, $db_username, $db_password, $db_name);
+if(mysqli_connect_errno())
 {
-   showerror();
-}
-if(!mysql_select_db($db_name, $intranet_db))
-{
-   showerror();
+   print("Couldn't connect to database.");
+   if(@mysqli_error($intranet_db))
+      print("Error number " . mysqli_errno($intranet_db) . " (" . mysqli_error($intranet_db) . ")");
 }
 
 // Get user's preferences
 $sql = "SELECT stylesheet,language FROM users LEFT JOIN preferences USING (userid) WHERE users.userid = $userid";
-$result = @ mysql_query($sql,$intranet_db);
-$row = mysql_fetch_array($result);
+$result = @ mysqli_query($intranet_db,$sql);
+$row = mysqli_fetch_array($result,MYSQLI_NUM);
 // Set variables (hiding warning; there might not be any!)
 if(!empty($row))
    extract($row);
