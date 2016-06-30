@@ -113,7 +113,7 @@ if(mysqli_connect_errno())
 // Get user's preferences
 $sql = "SELECT stylesheet,language FROM users LEFT JOIN preferences USING (userid) WHERE users.userid = $userid";
 $result = @ mysqli_query($intranet_db,$sql);
-$row = mysqli_fetch_array($result,MYSQLI_NUM);
+$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 // Set variables (hiding warning; there might not be any!)
 if(!empty($row))
    extract($row);
