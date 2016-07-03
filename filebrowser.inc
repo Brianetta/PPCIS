@@ -192,14 +192,14 @@ if(isset($delfolder) and $filesadmin)
    $emptyfolder = TRUE; // Assume it's empty, then check...
    $sql = "SELECT COUNT(*) FROM folders WHERE parent=$folder";
    $result = @ mysqli_query($intranet_db,$sql);
-   $row = mysqli_fetch_array($result,MYSQLI_NUM)
+   $row = mysqli_fetch_array($result,MYSQLI_NUM);
    if($row[0] > 0)
    { // This folder has chilren which are folders
       $emptyfolder = FALSE;
    }
    $sql = "SELECT COUNT(*) FROM files WHERE folder=$folder";
    $result = @ mysqli_query($intranet_db,$sql);
-   $row = mysqli_fetch_array($result,MYSQLI_NUM)
+   $row = mysqli_fetch_array($result,MYSQLI_NUM);
    if($row[0] > 0)
    { // This folder has chilren which are files
       $emptyfolder = FALSE;
@@ -248,7 +248,7 @@ if(isset($fileid))
       $sql = "SELECT COUNT(*) FROM filesecurity WHERE fileid=$fileid";
       $result = @ mysqli_query($intranet_db,$sql);
       $securefile = TRUE; // This must be true
-      $row = mysqli_fetch_array($result,MYSQLI_NUM)
+      $row = mysqli_fetch_array($result,MYSQLI_NUM);
       if($row[0] > 0)
       { // This file has one or more security records
          $sql = "SELECT teamid FROM filesecurity WHERE fileid=$fileid";
@@ -477,7 +477,7 @@ else
          $sql = "SELECT COUNT(*) FROM filesecurity WHERE fileid=".$row["fileid"];
          $sub_result = @ mysqli_query($intranet_db,$sql);
          $securefile = TRUE; // This must be true
-         $row = mysqli_fetch_array($sub_result,MYSQLI_NUM)
+         $row = mysqli_fetch_array($sub_result,MYSQLI_NUM);
          if($row[0] > 0)
          { // This file has one or more security records
             $sql = "SELECT teamid FROM filesecurity WHERE fileid=".$row["fileid"];
