@@ -22,12 +22,11 @@
 // displays the results.
 // Build a hash of team names for the security lists
 $sql = "SELECT teamid,name FROM teams ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $teamhash[$row["teamid"]]=$row["name"];
    }
@@ -39,13 +38,12 @@ else
 
 // Get the user's team for security checking
 $sql = "SELECT team FROM userteams WHERE userid=$userid";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    $i=0;
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $userteam[$i]=$row["team"];
       $i++;
@@ -54,13 +52,12 @@ if(@ mysql_num_rows($result) != 0)
 
 // Get the user's admin status for files first, and set $filesadmin
 $sql = "SELECT files FROM userflags WHERE userid = $userid";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 $filesadmin=FALSE;
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if($row["files"] == 'y')
       {
@@ -89,11 +86,10 @@ if(strlen($s_synopsis)!=0)
    }
 }
 $sql .= " ORDER BY filename";
-$result = @ mysql_query($sql, $intranet_db);
-if(mysql_error())
-   showerror();
-printf("<h2>".$lang['your_query_found_num_files']."</h2>",mysql_num_rows($result));
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+printf("<h2>".$lang['your_query_found_num_files']."</h2>",mysqli_num_rows($result));
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>\n");
    print("<tr>");
@@ -103,16 +99,17 @@ if(@ mysql_num_rows($result) != 0)
    print("<th class=\"list\">".$lang['zoom']."</th>\n");
    print("<th class=\"list\">".$lang['zoom']."</th>\n");
    print("</tr>\n");
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $sql = "SELECT COUNT(*) FROM filesecurity WHERE fileid=".$row["fileid"];
-      $sub_result = @ mysql_query($sql, $intranet_db);
+      $sub_result = @ mysqli_query($intranet_db,$sql);
       $securefile = TRUE; // This must be true
-      if(@ mysql_result($sub_result, 0) > 0)
+      $row = mysqli_fetch_array($result,MYSQLI_NUM)
+      if($row[0] > 0)
       { // This file has one or more security records
          $sql = "SELECT teamid FROM filesecurity WHERE fileid=".$row["fileid"];
-         $sub_result = @ mysql_query($sql, $intranet_db);
-         while($srow = @ mysql_fetch_array($sub_result))
+         $sub_result = @ mysqli_query($intranet_db,$sql);
+         while($srow = @ mysqli_fetch_array($sub_result,MYSQLI_ASSOC))
          { // Check to see if our team is on the list
             if(isset($userteam))
                foreach($userteam as $teamtest)
