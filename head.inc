@@ -43,6 +43,16 @@ function safe_escape($str)
    }
 }
                                 
+function showerror()
+{
+   if(mysqli_connect_errno())
+   {
+      print("Couldn't connect to database.");
+      if(@mysqli_error($intranet_db))
+         print("Error number " . mysqli_errno($intranet_db) . " (" . mysqli_error($intranet_db) . ")");
+   }
+}
+
 extract($_SERVER);
 
 // Extract GET and POST variables.  This fixes things for
