@@ -24,12 +24,11 @@
 
 // Build an array to cache all the contact types
 $sql = "SELECT * FROM contacttype ORDER BY description";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+ howerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $ctype[$row["contacttype"]]=$row["description"];
    }
@@ -43,10 +42,8 @@ else
 if(isset($mod_delete))
 {
    $sql="DELETE FROM externalcontact WHERE ref='$showuserid' LIMIT 1";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   else
+   $result = @ mysqli_query($intranet_db,$sql);
+   if (!showerror())
       print("<span class=\"message\">".$lang['ext_dir_success_remove']."</span>\n");
 }
 
@@ -120,13 +117,11 @@ if(isset($mod_submit))
       else
          $sql.=" '$mod_contacttype'";
       $sql.=" )";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      else
+      $result = @ mysqli_query($intranet_db,$sql);
+      if (!showerror())
       {
          print("<span class=\"message\">".$lang['ext_dir_success_add']."</span>\n");
-         $showuserid=mysql_insert_id();
+         $showuserid=mysqli_insert_id($intranet_db);
       }
    }
    else
@@ -193,24 +188,21 @@ if(isset($mod_submit))
       else
          $sql.=" contacttype='$mod_contacttype'";
       $sql.=" WHERE ref=$showuserid";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      else
+      $result = @ mysqli_query($intranet_db,$sql);
+      if (!showerror())
          print("<span class=\"message\">".$lang['ext_dir_success_modify']."</span><br>\n");
    }
 }
 
 // Get current values for the form and build it
 $sql = "SELECT * FROM externalcontact WHERE ref = ".safe_escape($showuserid);
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if((@ mysql_num_rows($result) != 0) OR ($showuserid==0))
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if((@ mysqli_num_rows($result) != 0) OR ($showuserid==0))
 {
    print("<form method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."&showuserid=".$showuserid."\">\n");
    print("<table>");
-   $row = @ mysql_fetch_array($result);
+   $row = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
    print("<tr>");
    print("<td class=\"right\">");
    print($lang['firstname'].":</td><td><input type=\"text\" name=\"mod_firstname\" value=\"".$row["firstname"] . "\"><br>\n");
