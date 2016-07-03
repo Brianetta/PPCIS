@@ -111,31 +111,27 @@ if(isset($mod_userid))
       $mod_info = "NULL";
    }
    $sql = "UPDATE users SET firstname = $mod_firstname, lastname = $mod_lastname WHERE userid = $mod_userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
    $sql = "REPLACE INTO userdirectory (userid, title, post, location, email, manager, telephone, mobile, info) VALUES ($mod_userid, $mod_title, $mod_post, $mod_location, $mod_email, $mod_manager, $mod_telephone, $mod_mobile, $mod_info)";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
    print("<span class=\"message\">".$lang['user_successfully_amended']."</span>");
 }
 if(isset($makexdir))
 {
    $sql = "DELETE FROM userdirectory WHERE userid = $makexdir";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
    print("<span class=\"message\">".$lang['user_successfully_removed from directory'] ."</span>");
 }
 $sql = "SELECT *,users.userid AS userid FROM users LEFT JOIN  userdirectory ON users.userid = userdirectory.userid WHERE users.userid = ".safe_escape($showuserid);
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>");
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<form method=\"post\" id=\"usermod\" action=\"admin.php?callmodule=".rawurlencode($callmodule)."&showuserid=".$row["userid"]."\">\n");
       print("<input type=\"hidden\" name=\"mod_userid\" value=\"".$row["userid"]."\">");
@@ -182,14 +178,13 @@ if(@ mysql_num_rows($result) != 0)
       print("<td class=\"right\">".$lang['location']."</td>\n");
       print("<td>\n");
       $sql = "SELECT * FROM locations ORDER BY name";
-      $sub_result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $sub_result = @ mysqli_query($intranet_db,$sql);
+      showerror();
       print("<select name=\"mod_location\">\n");
       print("<option label=\"".$lang['nowhere']."\" value=\"NULL\">".$lang['nowhere']."</option>");
-      if(@ mysql_num_rows($sub_result) != 0)
+      if(@ mysqli_num_rows($sub_result) != 0)
       {
-         while($sub_row = @ mysql_fetch_array($sub_result))
+         while($sub_row = @ mysqli_fetch_array($sub_result,MYSQLI_ASSOC))
          {
             if($row["location"]==$sub_row["locationid"])
             {
@@ -211,14 +206,13 @@ if(@ mysql_num_rows($result) != 0)
       print("<td class=\"right\">".$lang['manager']."</td>");
       print("<td>");
       $sql = "SELECT * FROM users ORDER BY lastname";
-      $sub_result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $sub_result = @ mysqli_query($intranet_db,$sql);
+      showerror();
       print("<select name=\"mod_manager\">\n");
       print("<option label=\"".$lang['nobody']."\" value=\"NULL\">".$lang['nobody']."</option>");
-      if(@ mysql_num_rows($sub_result) != 0)
+      if(@ mysqli_num_rows($sub_result) != 0)
       {
-         while($sub_row = @ mysql_fetch_array($sub_result))
+         while($sub_row = @ mysqli_fetch_array($sub_result,MYSQLI_ASSOC))
          {
             if($row["manager"]==$sub_row["userid"])
             {
