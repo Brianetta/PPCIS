@@ -32,12 +32,11 @@ function parent_recurse($tfolder)
    if($tfolder<>0)
    {
       $sql = "SELECT folderid,name,parent FROM folders WHERE folderid = $tfolder";
-      $result = @ mysql_query($sql, $intranet_db);
-      if(mysql_error())
-         showerror();
-      if(@ mysql_num_rows($result) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($result) != 0)
       {
-         while($row = @ mysql_fetch_array($result))
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          {
             parent_recurse($row["parent"]);
             print("<ul class=\"folder_open\">\n");
@@ -69,12 +68,11 @@ function parent_recurse($tfolder)
 
 // Build a hash of team names for the security lists
 $sql = "SELECT teamid,name FROM teams ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $teamhash[$row["teamid"]]=$row["name"];
    }
@@ -86,13 +84,12 @@ else
 
 // Get the user's team for security checking
 $sql = "SELECT team FROM userteams WHERE userid=$userid";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    $i=0;
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $userteam[$i]=$row["team"];
       $i++;
@@ -101,13 +98,12 @@ if(@ mysql_num_rows($result) != 0)
 
 // Get the user's admin status for files first, and set $filesadmin
 $sql = "SELECT files FROM userflags WHERE userid = $userid";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 $filesadmin=FALSE;
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if($row["files"] == 'y')
       {
@@ -120,25 +116,22 @@ if(@ mysql_num_rows($result) != 0)
 if(isset($modfile) and $filesadmin)
 {
    $sql = "UPDATE files SET filename='".safe_escape($modfilename)."', mimetype='".safe_escape($modtype)."', synopsis='".safe_escape($modsynopsis)."', folder=\"$newfolder\" WHERE fileid=$fileid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
 }
 // Add a team to the security list if requested
 if(isset($addsecure) and $filesadmin and isset($add_team))
 {
    $sql = "INSERT INTO filesecurity (fileid, teamid) VALUES ($fileid, $add_team)";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
 }
 // Remove a team to the security list if requested
 if(isset($delsecure) and $filesadmin)
 {
    $sql = "DELETE FROM filesecurity WHERE fileid=$fileid AND teamid=$del_team";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
 }
 // Delete the file if requested
 if(isset($delfile) and $filesadmin)
@@ -146,22 +139,19 @@ if(isset($delfile) and $filesadmin)
    if($delconf=="confirm")
    {
       $sql = "SELECT folder FROM files WHERE fileid = $fileid";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      if(@ mysql_num_rows($result) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($result) != 0)
       {
-         while($row = @ mysql_fetch_array($result))
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          {
             $folder=$row["folder"];
             $sql = "DELETE FROM files WHERE fileid=$fileid LIMIT 1";
-            $dresult = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
+            $dresult = @ mysqli_query($intranet_db,$sql);
+            showerror();
             $sql = "DELETE FROM filesecurity WHERE fileid=$fileid";
-            $dresult = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
+            $dresult = @ mysqli_query($intranet_db,$sql);
+            showerror();
             if (is_writeable($file_store.$fileid))
             {
                unlink($file_store.$fileid);
@@ -178,9 +168,8 @@ if(isset($modfolder) and $filesadmin)
    if(strlen($modname)>1)
    {
       $sql = "UPDATE folders SET name='".safe_escape($modname)."', parent=$modparent WHERE folderid=$folder";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
 }
 // Add new child folder if requested
@@ -192,9 +181,8 @@ if(isset($addfolder) and $filesadmin)
       if(strlen($modname)>1)
       {
          $sql = "INSERT INTO folders (name,parent) VALUES ('".safe_escape($modname)."',$folder)";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
    }
 }
@@ -203,23 +191,24 @@ if(isset($delfolder) and $filesadmin)
 {
    $emptyfolder = TRUE; // Assume it's empty, then check...
    $sql = "SELECT COUNT(*) FROM folders WHERE parent=$folder";
-   $result = @ mysql_query($sql, $intranet_db);
-   if(@ mysql_result($result, 0) > 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   $row = mysqli_fetch_array($result,MYSQLI_NUM)
+   if($row[0] > 0)
    { // This folder has chilren which are folders
       $emptyfolder = FALSE;
    }
    $sql = "SELECT COUNT(*) FROM files WHERE folder=$folder";
-   $result = @ mysql_query($sql, $intranet_db);
-   if(@ mysql_result($result, 0) > 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   $row = mysqli_fetch_array($result,MYSQLI_NUM)
+   if($row[0] > 0)
    { // This folder has chilren which are files
       $emptyfolder = FALSE;
    }
    if($emptyfolder)
    {
       $sql = "DELETE FROM folders WHERE folderid=$folder LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
 }
 
@@ -234,12 +223,11 @@ if(isset($fileid))
    else
    {
       $sql = "SELECT fileid,filename,size,mimetype,folder,synopsis FROM files WHERE fileid = $fileid ORDER BY filename";
-      $result = @ mysql_query($sql, $intranet_db);
-      if(mysql_error())
-         showerror();
-      if(@ mysql_num_rows($result) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($result) != 0)
       {
-         while($row = @ mysql_fetch_array($result))
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          {
             $folder=$row["folder"];
             $filename=$row["filename"];
@@ -258,13 +246,14 @@ if(isset($fileid))
       // anyway, as the COUNT(*) should return zero, unless for some
       // reason there's duff data in the filesecurity table.
       $sql = "SELECT COUNT(*) FROM filesecurity WHERE fileid=$fileid";
-      $result = @ mysql_query($sql, $intranet_db);
+      $result = @ mysqli_query($intranet_db,$sql);
       $securefile = TRUE; // This must be true
-      if(@ mysql_result($result, 0) > 0)
+      $row = mysqli_fetch_array($result,MYSQLI_NUM)
+      if($row[0] > 0)
       { // This file has one or more security records
          $sql = "SELECT teamid FROM filesecurity WHERE fileid=$fileid";
-         $result = @ mysql_query($sql, $intranet_db);
-         while($row = @ mysql_fetch_array($result))
+         $result = @ mysqli_query($intranet_db,$sql);
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          { // Check to see if our team is on the list
             if(!empty($userteam))
                foreach($userteam as $teamtest)
@@ -314,13 +303,12 @@ else
 
    // Find and print children
    $sql = "SELECT folderid,name FROM folders WHERE parent = $folder ORDER BY name";
-   $result = @ mysql_query($sql, $intranet_db);
-   if(mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
       print("<ul class=\"folder\">");
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          print("<li>");
          print("<a href=\"$PHP_SELF?folder=".$row["folderid"]."\">".$row["name"]."</a><br>\n");
@@ -342,12 +330,11 @@ else
    if($folder<>0)
    {
       $sql = "SELECT folderid,name,parent FROM folders WHERE folderid = $folder";
-      $result = @ mysql_query($sql, $intranet_db);
-      if(mysql_error())
-         showerror();
-      if(@ mysql_num_rows($result) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($result) != 0)
       {
-         while($row = @ mysql_fetch_array($result))
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          {
             print("<h1>".$row["name"]."</h1><br>\n");
             printf("<i>".$lang['this_is_folder']."</i><br>\n",$folder);
@@ -371,12 +358,11 @@ else
                print("<select name=\"modparent\"><br>\n");
                $sql = "select folders.folderid, if(parents.parent IS NULL,if(folders.parent = 0,concat('".safe_escape($lang["root"])." - ',folders.name),concat(parents.name,' - ',folders.name)),concat(' - ',parents.name,' - ',folders.name)) as name from folders left join folders as parents on parents.folderid = folders.parent order by parents.parent,folders.parent,folderid";
                print("<option value=\"0\">(0) ".$lang["root"]."</option>\n");
-               $subresult = @ mysql_query($sql, $intranet_db);
-               if(mysql_error())
-                  showerror();
-               if(@ mysql_num_rows($subresult) != 0)
+               $subresult = @ mysqli_query($intranet_db,$sql);
+               showerror();
+               if(@ mysqli_num_rows($subresult) != 0)
                {
-                  while($folders = @ mysql_fetch_array($subresult))
+                  while($folders = @ mysqli_fetch_array($subresult,MYSQLI_ASSOC))
                   {
                      if($folders["folderid"] == $row["parent"])
                      {
@@ -458,13 +444,12 @@ else
             if(is_uploaded_file($uploadfile))
             {
                $sql = "INSERT INTO files (filename,size,mimetype,folder,synopsis,datestamp) VALUES ('$uploadfile_name',$uploadfile_size,'$uploadfile_type',$folder,'".safe_escape(strip_tags($synopsis,"<br>$allowed_tags"))."',".time().")";
-               $result = @ mysql_query($sql, $intranet_db);
-               if(mysql_error())
-                  showerror();
-               move_uploaded_file($uploadfile,$file_store.mysql_insert_id());
+               $result = @ mysqli_query($intranet_db,$sql);
+               showerror();
+               move_uploaded_file($uploadfile,$file_store.mysqli_insert_id($intranet_db));
                printf("<span class=\"message\">".$lang['file_name_size']."</span><br>\n",$uploadfile_name,$uploadfile_size);
                printf("<span class=\"message\">".$lang['file_mime_type']."</span><br>\n",$uploadfile_type);
-               printf("<span class=\"message\">".$lang['file_uploaded']."</span><br>\n",mysql_insert_id());
+               printf("<span class=\"message\">".$lang['file_uploaded']."</span><br>\n",mysqli_insert_id($intranet_db));
             }
             else
             {
@@ -474,10 +459,9 @@ else
       }
    }
    $sql = "SELECT fileid,filename,size,mimetype,datestamp FROM files WHERE folder = $folder ORDER BY filename";
-   $result = @ mysql_query($sql, $intranet_db);
-   if(mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
       print("<table>\n");
       print("<tr>");
@@ -488,16 +472,17 @@ else
       print("<th class=\"list\">&nbsp;</th>\n");
       print("<th class=\"list\">&nbsp;</th>\n");
       print("</tr>");
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          $sql = "SELECT COUNT(*) FROM filesecurity WHERE fileid=".$row["fileid"];
-         $sub_result = @ mysql_query($sql, $intranet_db);
+         $sub_result = @ mysqli_query($intranet_db,$sql);
          $securefile = TRUE; // This must be true
-         if(@ mysql_result($sub_result, 0) > 0)
+         $row = mysqli_fetch_array($sub_result,MYSQLI_NUM)
+         if($row[0] > 0)
          { // This file has one or more security records
             $sql = "SELECT teamid FROM filesecurity WHERE fileid=".$row["fileid"];
-            $sub_result = @ mysql_query($sql, $intranet_db);
-            while($srow = @ mysql_fetch_array($sub_result))
+            $sub_result = @ mysqli_query($intranet_db,$sql);
+            while($srow = @ mysqli_fetch_array($sub_result,MYSQLI_ASSOC))
             { // Check to see if our team is on the list
                if(!empty($userteam))
                   foreach($userteam as $teamtest)
