@@ -22,19 +22,17 @@
 // displays the results.
 // Build a hash of team names for the security lists
 $sql = "SELECT teamid,name FROM teams ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 
 // Get the user's team for security checking
 $sql = "SELECT team FROM userteams WHERE userid=$userid";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    $i=0;
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $userteam[$i]=$row["team"];
       $i++;
@@ -62,11 +60,10 @@ if(strlen($s_terms)!=0)
    }
 }
 $sql .= " GROUP BY hcallid ORDER BY date DESC";
-$result = @ mysql_query($sql, $intranet_db);
-if(mysql_error())
-   showerror();
-printf("<h2>".$lang['your_query_found_num_calls']."</h2>",mysql_num_rows($result));
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+printf("<h2>".$lang['your_query_found_num_calls']."</h2>",mysqli_num_rows($result));
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>\n");
    print("<tr>");
@@ -75,7 +72,7 @@ if(@ mysql_num_rows($result) != 0)
    print("<th class=\"list\">".$lang['owner']."</th>");
    print("<th class=\"list\">".$lang['date']."</th>");
    print("</tr>\n");
-   while($row=mysql_fetch_array($result))
+   while($row=mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<td class=\"list\"><a href=\"$PHP_SELF?callid=".$row["hcallid"]."\">".str_pad($row["hcallid"],4,"0",STR_PAD_LEFT)."</a></td>\n");
