@@ -22,12 +22,11 @@
 // or not, and to edit, authorise and/or delete any articles.
 
 $sql = "SELECT * FROM newstopic ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $topiclist[$row["topicid"]]=$row["name"];
    }
@@ -122,10 +121,9 @@ $startarticlenum=(intval($startarticle));
 $startarticlenum=($startarticlenum-($startarticlenum%30));
 $startarticle=strval($startarticlenum);
 $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid ORDER BY news.subdate DESC";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-$num_articles = @ mysql_num_rows($result);
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+$num_articles = @ mysqli_num_rows($result);
 
 if(isset($select))
 {
@@ -144,26 +142,23 @@ if(isset($select))
       else
          $sql .= ", sticky='n'";
       $sql .= " WHERE articleid=$select";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    elseif(isset($delete))
    {
       $sql = "DELETE FROM news WHERE articleid=$select LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    else
    {
       $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE articleid=$select";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      if(@ mysql_num_rows($result) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($result) != 0)
       {
-         while($row = @ mysql_fetch_array($result))
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          {
             if(!isset($url))
                if($row["url"]=="")
@@ -255,13 +250,12 @@ if($num_articles>30)
 }
 
 $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid ORDER BY news.subdate DESC,news.articleid DESC LIMIT ".strval($startarticlenum).",30";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    print($lang['not_yet_authorised_articles_look_like_this']);
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if(isset($row["authdate"]))
          newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "$PHP_SELF?callmodule=".urlencode($lang['news_admin'])."&startarticle=$startarticle&select=".$row["articleid"], FALSE);
