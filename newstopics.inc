@@ -26,33 +26,29 @@ if(isset($mod_name))
    if(isset($mod_topicid))
    {
       $sql = "UPDATE newstopic SET name='".safe_escape($mod_name)."' WHERE topicid='$mod_topicid'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($del_topicid))
    {
       $sql = "DELETE FROM newstopic WHERE topicid='$del_topicid' LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($ins_topicid))
       if($mod_name!="")
       {
          $sql = "INSERT INTO newstopic (name) VALUES ('".safe_escape($mod_name)."')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
 }
 
 print("<table>\n");
 print("<tr><td colspan=\"3\"><i>".$lang['take_care_no_confirm']."</i></td></tr>\n");
 $sql = "SELECT * FROM newstopic ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 
 print("<tr>\n");
 print("<form id=\"loc".$row["topicid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -66,9 +62,9 @@ print("</td>\n");
 print("</tr>\n");
 print("</form>");
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<form id=\"loc".$row["topicid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
