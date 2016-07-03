@@ -74,8 +74,8 @@ if($helpdeskadmin)
       print(" selected");
    }
    print(" label=\"".$lang['none_assigned']."\" value=\"-1\">".$lang['none_assigned']."</option>\n");
-   $result = @ mysql_query($sql, $intranet_db);
-   while($row = @ mysql_fetch_array($result))
+   $result = @ mysqli_query($intranet_db,$sql);
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if($row["userid"]==(int)$filter_assignee)
       {
@@ -186,14 +186,12 @@ else
    $sql .= " ORDER BY helpdesk.priority, helpdesk.date";
 if(!isset($startcallnum))
    $startcallnum=0;
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-$num_calls = mysql_num_rows($result);
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+$num_calls = mysqli_num_rows($result);
 $sql .= " LIMIT $startcallnum,60";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 print("</td><td>");
 printf("<b>".$lang['num_calls_listed']."</b>",$num_calls );
 print("</td></tr>");
@@ -239,7 +237,7 @@ if($num_calls>60)
    print("</tr></table>\n");
 }
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>\n");
    print("<tr><th class=\"list\">".$lang['call']."</th><th class=\"list\">".$lang['owner']."</th><th class=\"list\">".$lang['date']."</th><th class=\"list\">");
@@ -248,7 +246,7 @@ if(@ mysql_num_rows($result) != 0)
    else
       print($lang['priority']);
    print("</th><th class=\"list\">".$lang['category']."</th><th class=\"list\">".$lang['location']."</th><th class=\"list\">".$lang['summary']."</th></tr>\n");
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
 		$highlight="";
       if($row["priority"]==9)
@@ -259,10 +257,9 @@ if(@ mysql_num_rows($result) != 0)
       print("<td class=\"list$highlight\"><a href=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."&callid=".$row["callid"]."\">".str_pad($row["callid"],4,"0",STR_PAD_LEFT)."</a></td>\n");
       print("<td class=\"list$highlight\">");
       $sql = "SELECT callid FROM assignees WHERE callid=".$row["callid"];
-      $nresult = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      if(@ mysql_num_rows($nresult) == 0)
+      $nresult = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($nresult) == 0)
          print("<b>".$userhash[$row["ownerid"]]."</b>");
       else
          print($userhash[$row["ownerid"]]);
