@@ -26,46 +26,40 @@ if(isset($mod_name))
    if(isset($mod_categoryid))
    {
       $sql = "UPDATE webcategory SET name='".safe_escape($mod_name)."' WHERE categoryid='$mod_categoryid'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($del_categoryid))
    {
       $sql = "DELETE FROM webcategory WHERE categoryid='$del_categoryid' LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($ins_categoryid))
       if($mod_name!="")
       {
          $sql = "INSERT INTO webcategory (name) VALUES ('".safe_escape($mod_name)."')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
    if(isset($mod_contacttype))
    {
       $sql = "UPDATE contacttype SET description='".safe_escape($mod_name)."' WHERE contacttype='$mod_contacttype'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($del_contacttype))
    {
       $sql = "DELETE FROM contacttype WHERE contacttype='$del_contacttype' LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($ins_contacttype))
       if($mod_name!="")
       {
          $sql = "INSERT INTO contacttype (description) VALUES ('".safe_escape($mod_name)."')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
 }
 
@@ -77,9 +71,8 @@ print("<table>\n");
 print("<tr><td class=\"centered\" colspan=\"3\"><b>".$lang['web_categories']."</b></td></tr>\n");
 
 $sql = "SELECT * FROM webcategory ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 
 print("<tr>\n");
 print("<form id=\"loc".$row["categoryid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -93,9 +86,9 @@ print("</td>\n");
 print("</tr>\n");
 print("</form>");
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<form id=\"loc".$row["categoryid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -126,9 +119,8 @@ print("<table>\n");
 print("<tr><td class=\"centered\" colspan=\"3\"><b>".$lang['contact_types']."</b></td></tr>\n");
 
 $sql = "SELECT * FROM contacttype ORDER BY description";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 
 print("<tr>\n");
 print("<form id=\"loc".$row["contacttype"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -142,9 +134,9 @@ print("</td>\n");
 print("</tr>\n");
 print("</form>");
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<form id=\"loc".$row["contacttype"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
