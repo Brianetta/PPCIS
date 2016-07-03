@@ -40,44 +40,39 @@ if(isset($editfaq))
    if(isset($faqdelete))
    { // This section is for deleting a FAQ.
       $sql = "DELETE FROM faq WHERE faqid = ".$editfaq." LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
       printf("<span class=\"message\">".$lang['faq_deleted']."</span>\n",$editfaq);
    }
    else
    {
       $sql = "SELECT * FROM faq WHERE faqid = ".$editfaq;
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      if((@ mysql_num_rows($result) != 0) OR ($editfaq==0))
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if((@ mysqli_num_rows($result) != 0) OR ($editfaq==0))
       {
          if(isset($faqmodify))
          {
             if($editfaq>0)
             {
                $sql = "UPDATE faq SET categoryid='$mod_category', question='".safe_escape($mod_question)."', answer='".safe_escape($mod_answer)."' WHERE faqid = ".$editfaq;
-               $result = @ mysql_query($sql, $intranet_db);
-               if (mysql_error())
-                  showerror();
+               $result = @ mysqli_query($intranet_db,$sql);
+               showerror();
             }
             else
             {
                $sql = "INSERT INTO faq (question, answer, categoryid) VALUES ('".safe_escape($mod_question)."','".safe_escape($mod_answer)."', $mod_category)";
-               $result = @ mysql_query($sql, $intranet_db);
-               if (mysql_error())
-                  showerror();
-               $editfaq = mysql_insert_id();
+               $result = @ mysqli_query($intranet_db,$sql);
+               showerror();
+               $editfaq = mysqli_insert_id($intranet_db);
             }
             $sql = "SELECT * FROM faq WHERE faqid = ".$editfaq;
-            $result = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
+            $result = @ mysqli_query($intranet_db,$sql);
+            showerror();
          }
          print("<form method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."&editfaq=".$editfaq."\">\n");
          print("<table>");
-         $row = @ mysql_fetch_array($result);
+         $row = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
          print("<tr>");
          print("<td>");
          print("Category:</td>");
@@ -163,13 +158,12 @@ else
    {
       $sql = "SELECT * FROM faq WHERE faqid=$faqnumber";
    }
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
    	print("<table>\n");
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          //print((".$faqc[$row["categoryid"]].") ".$row["question"]."<br>\n");
          //print($row["answer"]."<br>\n<hr>\n");
