@@ -58,16 +58,6 @@ set_time_limit(0);
 
 require("settings.inc");
 
-// Connect to the database
-if(!($intranet_db = @ mysql_pconnect($db_hostname, $db_username, $db_password)))
-{
-   showerror();
-}
-if(!mysql_select_db($db_name, $intranet_db))
-{
-   showerror();
-}
-
 if($userid>0)
 {
    $size=getimagesize($file_store."p".$fileid);
