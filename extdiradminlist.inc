@@ -26,12 +26,11 @@
 
 // Build an array to cache all the contact types
 $sql = "SELECT * FROM contacttype ORDER BY description";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $ctype[$row["contacttype"]]=$row["description"];
    }
@@ -127,18 +126,17 @@ if($last<>"")
    $sql = $sql . "1 ORDER BY surname, firstname";
 else
    $sql = $sql . "1 ORDER BY company, surname, firstname";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 print("<table>\n");
 print("<tr>\n");
 print("<th class=\"list\" bgcolor=\"$bk_col\">".$lang['name']."</th>\n");
 print("<th class=\"list\" bgcolor=\"$bk_col\">".$lang['company']."</th>\n");
 print("<th class=\"list\" bgcolor=\"$bk_col\"><a href=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."&showuserid=0\">".$lang['new']."</a></th>\n");
 print("</tr>\n");
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if(!(isset($row["surname"]))) $row["surname"] = "&nbsp;";
       if(!(isset($row["company"]))) $row["company"] = "&nbsp;";
