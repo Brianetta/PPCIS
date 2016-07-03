@@ -32,8 +32,8 @@ if(isset($update_prefs))
    if(isset($lang_available["$newlanguage"]))
       $language = $lang_available["$newlanguage"];
    $sql = "REPLACE INTO preferences (userid, stylesheet, language) VALUES ($userid, '$stylesheet', '$language')";
-   $result = mysql_query($sql, $intranet_db);
-   if (mysql_affected_rows() > 1)
+   $result = mysqli_query($intranet_db,$sql);
+   if (mysqli_affected_rows($intranet_db) > 1)
       print("<span class=\"message\">Preferences updated</span>");
 }
 print("<form action=\"$PHP_SELF?callmodule=$callmodule\" method=\"post\" id=\"prefs\">\n");
