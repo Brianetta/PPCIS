@@ -31,12 +31,11 @@ if(!(isset($auto_authorise_news))) // Line's missing from settings.inc
 
 // Build an array to cache the news topics
 $sql = "SELECT * FROM newstopic ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db, $sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQL_ASSOC))
    {
       $topiclist[$row["topicid"]]=$row["name"];
    }

@@ -46,12 +46,11 @@ $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE
 if($topic<>"0") $sql .= " AND news.topic=$topic";
 $sql .= " ORDER BY sticky,news.subdate DESC LIMIT 10";
 
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
+$result = @ mysqli_query($intranet_db,$sql);
 showerror();
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $row["url"], $row["articleid"],$row["sticky"]=='y');
    }
