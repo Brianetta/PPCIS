@@ -23,13 +23,12 @@
 // which is responsible for supplying most of the variables used herein.
 
 $sql = "SELECT * FROM users, userdirectory WHERE users.userid = ".safe_escape($showuserid)." AND users.userid = userdirectory.userid ORDER BY lastname, firstname";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>");
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>");
       print("<th colspan=\"4\"><h2>");
@@ -99,12 +98,11 @@ if(@ mysql_num_rows($result) != 0)
       if(isset($row["manager"]))
       {
          $sql = "SELECT * FROM users WHERE userid = " . $row["manager"];
-         $sub_result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
-         if(@ mysql_num_rows($result) != 0)
+         $sub_result = @ mysqli_query($intranet_db,$sql);
+         showerror();
+         if(@ mysqli_num_rows($result) != 0)
          {
-            while($sub_row = @ mysql_fetch_array($sub_result))
+            while($sub_row = @ mysqli_fetch_array($sub_result,MYSQLI_ASSOC))
             print($sub_row["firstname"] . " " . $sub_row["lastname"]);
          }
          else
@@ -121,12 +119,11 @@ if(@ mysql_num_rows($result) != 0)
       if(isset($row["location"]))
       {
          $sql = "SELECT * FROM locations WHERE locationid = " . $row["location"];
-         $sub_result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
-         if(@ mysql_num_rows($result) != 0)
+         $sub_result = @ mysqli_query($intranet_db,$sql);
+         showerror();
+         if(@ mysqli_num_rows($result) != 0)
          {
-            while($sub_row = @ mysql_fetch_array($sub_result))
+            while($sub_row = @ mysqli_fetch_array($sub_result,MYSQLI_ASSOC))
             print($sub_row["name"]);
          }
          else
@@ -142,12 +139,11 @@ if(@ mysql_num_rows($result) != 0)
       print("<td class=\"detail_center\">");
       {
          $sql = "SELECT name FROM teams,userteams WHERE userid = " . safe_escape($showuserid) . " AND teamid=team";
-         $sub_result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
-         if(@ mysql_num_rows($sub_result) > 0)
+         $sub_result = @ mysqli_query($intranet_db,$sql);
+         showerror();
+         if(@ mysqli_num_rows($sub_result) > 0)
          {
-            while($sub_row = @ mysql_fetch_array($sub_result))
+            while($sub_row = @ mysqli_fetch_array($sub_result,MYSQLI_ASSOC))
                print($sub_row["name"]."<br>");
          }
          else
