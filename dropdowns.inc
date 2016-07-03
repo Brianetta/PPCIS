@@ -26,46 +26,40 @@ if(isset($mod_name))
    if(isset($mod_locationid))
    {
       $sql = "UPDATE locations SET name='".safe_escape($mod_name)."' WHERE locationid='$mod_locationid'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($mod_teamid))
    {
       $sql = "UPDATE teams SET name='".safe_escape($mod_name)."' WHERE teamid='$mod_teamid'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($del_locationid))
    {
       $sql = "DELETE FROM locations WHERE locationid='$del_locationid' LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($del_teamid))
    {
       $sql = "DELETE FROM teams WHERE teamid='$del_teamid' LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($ins_locationid))
       if($mod_name!="")
       {
          $sql = "INSERT INTO locations (name) VALUES ('".safe_escape($mod_name)."')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
    if(isset($ins_teamid))
       if($mod_name!="")
       {
          $sql = "INSERT INTO teams (name) VALUES ('".safe_escape($mod_name)."')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
 }
 
@@ -75,9 +69,8 @@ print("<tr><td class=\"page_div\">\n");
 print("<table>\n");
 print("<tr><td class=\"centered\" colspan=\"3\"><b>".$lang['teams']."</b></td></tr>\n");
 $sql = "SELECT * FROM teams ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 
 print("<tr>\n");
 print("<form id=\"loc".$row["teamid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -91,9 +84,9 @@ print("</td>\n");
 print("</tr>\n");
 print("</form>");
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<form id=\"loc".$row["teamid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -122,9 +115,8 @@ print("<td class=\"page_div\">\n");
 print("<table>\n");
 print("<tr><td class=\"centered\" colspan=\"3\"><b>".$lang['locations']."</b></td></tr>\n");
 $sql = "SELECT * FROM locations ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 
 print("<tr>\n");
 print("<form id=\"loc".$row["locationid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -138,9 +130,9 @@ print("</td>\n");
 print("</tr>\n");
 print("</form>");
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<form id=\"loc".$row["locationid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
