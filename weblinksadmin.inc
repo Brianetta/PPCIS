@@ -22,12 +22,11 @@
 // in the webcategory table.
 
 $sql = "SELECT * FROM webcategory ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $webc[$row["categoryid"]]=$row["name"];
    }
@@ -42,33 +41,29 @@ if(isset($mod_title))
    if(isset($mod_link))
    {
       $sql = "UPDATE weblinks SET title='".safe_escape($mod_title)."',url='".safe_escape($mod_url)."',description='".safe_escape($mod_description)."',category=$mod_category WHERE linkid=$mod_link";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($del_link))
    {
       $sql = "DELETE FROM weblinks WHERE linkid='$del_link' LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($ins_link))
       if($mod_title!="")
       {
          $sql = "INSERT INTO weblinks (title,url,description,category) VALUES ('".safe_escape($mod_title)."','".safe_escape($mod_url)."','".safe_escape($mod_description)."',$mod_category)";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
 }
 
 print("<table>\n");
 print("<tr><td colspan=\"6\"><i>".$lang['take_care_no_confirm']."</i></td></tr>\n");
 $sql = "SELECT * FROM weblinks ORDER BY title";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 print("<tr><th class=\"list\">".$lang['name']."</th><th class=\"list\">".$lang['url']."</th><th class=\"list\">".$lang['description']."</th><th class=\"list\">".$lang['category']."</th><th class=\"list\" colspan=\"2\">&nbsp;</th></tr>\n");
 print("<tr>\n");
 print("<form id=\"loc".$row["linkid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -103,10 +98,10 @@ print("</td>\n");
 print("</tr>\n");
 print("</form>");
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
 
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<form id=\"loc".$row["linkid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
