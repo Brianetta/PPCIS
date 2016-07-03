@@ -34,12 +34,11 @@ if($userid==0)
 unset($helpdeskadmin);
 // Set a variable so we know the rights of the logged in user
 $sql = "SELECT helpdesk FROM userflags WHERE userid = $userid";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if($row["helpdesk"]=="y")
       {
@@ -66,12 +65,11 @@ if(!(isset($callmodule)))
 
 // Build an array to cache all the users' names in the users table
 $sql = "SELECT userid, firstname, lastname FROM users ORDER BY lastname";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $userhash[$row["userid"]]=$row["firstname"]." ".$row["lastname"];
       $userrevhash[$row["userid"]]=$row["lastname"].", ".$row["firstname"];
@@ -80,12 +78,11 @@ if(@ mysql_num_rows($result) != 0)
 
 // Build an array to cache all the faq categories
 $sql = "SELECT * FROM faqcategory ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $faqc[$row["categoryid"]]=$row["name"];
    }
@@ -97,12 +94,11 @@ else
 
 // Build an array to cache all the call categories
 $sql = "SELECT * FROM callcategory ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $callc[$row["categoryid"]]=$row["name"];
    }
@@ -114,12 +110,11 @@ else
 
 // Build an array to cache all the locations
 $sql = "SELECT * FROM locations ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $locations[$row["locationid"]]=$row["name"];
    }
