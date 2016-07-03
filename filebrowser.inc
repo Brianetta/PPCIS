@@ -477,8 +477,8 @@ else
          $sql = "SELECT COUNT(*) FROM filesecurity WHERE fileid=".$row["fileid"];
          $sub_result = @ mysqli_query($intranet_db,$sql);
          $securefile = TRUE; // This must be true
-         $row = mysqli_fetch_array($sub_result,MYSQLI_NUM);
-         if($row[0] > 0)
+         $crow = mysqli_fetch_array($sub_result,MYSQLI_NUM);
+         if($crow[0] > 0)
          { // This file has one or more security records
             $sql = "SELECT teamid FROM filesecurity WHERE fileid=".$row["fileid"];
             $sub_result = @ mysqli_query($intranet_db,$sql);
