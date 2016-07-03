@@ -22,12 +22,11 @@
       print("<select name=\"newfolder\"><br>\n");
       print("<option value=\"0\">(0) ".$lang['root']."</option>\n");
       $sql = "select folders.folderid, if(parents.parent IS NULL,if(folders.parent = 0,concat('".safe_escape($lang['root'])." - ',folders.name),concat(parents.name,' - ',folders.name)),concat(' - ',parents.name,' - ',folders.name)) as name from folders left join folders as parents on parents.folderid = folders.parent order by parents.parent,folders.parent,folderid";
-      $subresult = @ mysql_query($sql, $intranet_db);
-      if(mysql_error())
-         showerror();
-      if(@ mysql_num_rows($subresult) != 0)
+      $subresult = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($subresult) != 0)
       {
-         while($folders = @ mysql_fetch_array($subresult))
+         while($folders = @ mysqli_fetch_array($subresult,MYSQLI_ASSOC))
          {
             if($folders["folderid"] == $folder)
             {
@@ -92,12 +91,11 @@
       print("<form method=\"post\" id=\"addsecure\" action=\"$PHP_SELF\">");
       print("<select name=\"add_team\">\n");
    	$sql = "SELECT teams.teamid,name FROM teams LEFT JOIN filesecurity ON  teams.teamid=filesecurity.teamid AND fileid=$fileid WHERE fileid IS NULL";
-   	$result = @ mysql_query($sql, $intranet_db);
-   	if (mysql_error())
-   	   showerror();
-   	if(mysql_num_rows($result)>0)
+   	$result = @ mysqli_query($intranet_db,$sql);
+   	showerror();
+   	if(mysqli_num_rows($result)>0)
    	{
-      	while($row=@ mysql_fetch_array($result))
+      	while($row=@ mysqli_fetch_array($result,MYSQLI_ASSOC))
       	{
          	print("<option label=\"".$row["name"]."\" value=\"".$row["teamid"]."\">");
          	print($row["name"]);
@@ -122,12 +120,11 @@
       }
    }
    $sql = " SELECT fileid, teamid FROM filesecurity WHERE fileid=$fileid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(mysql_num_rows($result)>0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(mysqli_num_rows($result)>0)
    {
-      while($row=@ mysql_fetch_array($result))
+      while($row=@ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          print("<tr>\n");
          print("<td class=\"right\" colspan=\"2\">");
