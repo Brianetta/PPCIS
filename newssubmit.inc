@@ -81,18 +81,16 @@ else
       $authfield="";
    }
    $sql = "INSERT INTO news (authorid, subdate, headline, topic, body$urlfield$authfield) VALUES ($userid, '".time()."', '".safe_escape($headline)."', $topic, '".safe_escape(strip_tags($body,$allowed_tags))."'$nurl$nauth)";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   $articlenumber = mysql_insert_id();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   $articlenumber = mysqli_insert_id($intranet_db);
    print("<span class=\"message\">".$lang['news_article_submitted']."</span><br>\n");
    $sql = "SELECT userid, firstname, lastname FROM users ORDER BY lastname";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          $userhash[$row["userid"]]=$row["firstname"]." ".$row["lastname"];
          $userrevhash[$row["userid"]]=$row["lastname"].", ".$row["firstname"];
@@ -103,10 +101,9 @@ else
       if($name==$news_notify AND $use_mail)
       {
          $sql = "SELECT email FROM userdirectory WHERE userid=$index";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
-         $recipient = @ mysql_fetch_array($result);
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
+         $recipient = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
          $subject= $lang['email_news_article_submitted']."- $headline";
          $message  =sprintf($lang['email_user_submitted_article'].":\n",$firstname,$lastname);
          $message .="\n";
