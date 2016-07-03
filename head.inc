@@ -50,7 +50,9 @@ function showerror()
       print("Couldn't connect to database.");
       if(@mysqli_error($intranet_db))
          print("Error number " . mysqli_errno($intranet_db) . " (" . mysqli_error($intranet_db) . ")");
+      return false;
    }
+   return true;
 }
 
 extract($_SERVER);
