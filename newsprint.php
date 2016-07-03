@@ -83,23 +83,18 @@ logged in");?></title>
 <body bgcolor="white" text="black">
 <?
 // Connect to the database
-if(!($intranet_db = @ mysql_pconnect($db_hostname, $db_username, $db_password)))
-{
-showerror();
-}
-if(!mysql_select_db($db_name, $intranet_db))
+if(!($intranet_db = @ mysqli_connect($db_hostname, $db_username, $db_password, $db_name)))
 {
 showerror();
 }
 
 // Build an array to cache the news topics
 $sql = "SELECT * FROM newstopic ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $topiclist[$row["topicid"]]=$row["name"];
    }
@@ -168,12 +163,11 @@ function newsitem($news_headline, $news_body, $news_topic, $news_date, $name, $u
 
 $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE news.authdate IS NOT NULL AND articleid='".safe_escape($article)."'";
 
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
+$result = @ mysqli_query($intranet_db,$sql);
 showerror();
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   $row = @ mysql_fetch_array($result);
+   $row = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
    newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $row["url"]);
 }
 else
