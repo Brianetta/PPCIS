@@ -29,10 +29,9 @@ if(isset($mod_userid))
    {
       if($mod_password <> "") $mod_password = safe_escape($mod_password);
       $sql = "UPDATE users SET password=$hash_function('$mod_password') WHERE userid = $mod_userid AND password = $hash_function('$old_password') AND guest = 'n'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      if( @ mysql_affected_rows($intranet_db) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if( @ mysqli_affected_rows($intranet_db) != 0)
       {
          print("<span class=\"message\">".$lang['your_password_changed']."</span>");
       }
@@ -47,13 +46,12 @@ if(isset($mod_userid))
    }
 }
 $sql = "SELECT * FROM users WHERE userid = $userid and guest = 'n'";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>");
-   $row = @ mysql_fetch_array($result); // Get user info.  User must confirm old password.
+   $row = @ mysqli_fetch_array($result,MYSQLI_ASSOC); // Get user info.  User must confirm old password.
    print("<form method=\"post\" id=\"usermod\" action=\"$PHP_SELF\">\n");
    print("<input type=\"hidden\" name=\"mod_userid\" value=\"".$row["userid"]."\">");
    print("<tr>");
