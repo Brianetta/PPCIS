@@ -36,19 +36,17 @@ if($faqnumber>0)
 { // This section is the part that lets you edit a specific FAQ.
    {
       $sql = "SELECT * FROM faq WHERE faqid = ".$faqnumber;
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      if((@ mysql_num_rows($result) != 0) OR ($faqnumber==0))
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if((@ mysqli_num_rows($result) != 0) OR ($faqnumber==0))
       {
          {
             $sql = "SELECT * FROM faq WHERE faqid = ".$faqnumber;
-            $result = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
+            $result = @ mysqli_query($intranet_db,$sql);
+            showerror();
          }
          print("<table>");
-         $row = @ mysql_fetch_array($result);
+         $row = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
          print("<tr>");
          print("<th class=\"detail\">");
          print($lang['category'].":</th>");
@@ -113,13 +111,12 @@ else
    {
       $sql = "SELECT * FROM faq WHERE faqid=$faqnumber";
    }
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
    	print("<table>\n");
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          displayfaq($row["faqid"],$row["question"],$faqc[$row["categoryid"]]);
       }
