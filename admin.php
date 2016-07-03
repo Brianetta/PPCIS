@@ -38,12 +38,11 @@ if($userid==0) // User is not logged in
 // array.
 unset($module);
 $sql = "SELECT userflags.*,guest FROM users LEFT JOIN userflags ON users.userid=userflags.userid WHERE users.userid = $userid";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {  // This bunch of ifs provides nearly all the security.  If it's not assigned to $module, it can't be loaded.
       if($row["guest"]=="n")
       {
