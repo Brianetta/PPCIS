@@ -40,38 +40,34 @@ if(isset($mod_userid))
    foreach (array ('useradmin', 'newsadmin', 'helpdesk', 'files', 'directoryadmin') as $i)
    {
       $sql = "SELECT $i FROM users LEFT JOIN userflags ON users.userid = userflags.userid WHERE $i = 'y' AND users.userid != $mod_userid AND enabled = 'y'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
       $var = "mod_$i";
-      if(@ mysql_num_rows($result) == 0 && ($mod_enabled != 'y' || $$var != 'y'))
+      if(@ mysqli_num_rows($result) == 0 && ($mod_enabled != 'y' || $$var != 'y'))
          $have_admin = 0;
    }
 
    $sql = "UPDATE users SET enabled='$mod_enabled',guest='$mod_guest' WHERE userid = $mod_userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
 
    if ($have_admin == 0)
       print("<span class=\"message\">".$lang['must_have_admin']."</span>");
    else
    {
       $sql = "REPLACE INTO userflags (userid, useradmin, newsadmin, helpdesk, files, directoryadmin) VALUES ($mod_userid, '$mod_useradmin', '$mod_newsadmin', '$mod_helpdesk', '$mod_files', '$mod_directoryadmin')";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
       print("<span class=\"message\">".$lang['user_successfully_amended']."</span>");
    }
 }
 $sql = "SELECT *,users.userid AS userid FROM users LEFT JOIN userflags ON users.userid = userflags.userid WHERE users.userid = ".safe_escape($showuserflags);
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>");
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<form method=\"post\" id=\"usermod\" action=\"admin.php?callmodule=".rawurlencode($callmodule)."&showuserflags=".$row["userid"]."\">\n");
       print("<input type=\"hidden\" name=\"mod_userid\" value=\"".$row["userid"]."\">");
