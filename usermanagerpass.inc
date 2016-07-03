@@ -35,9 +35,10 @@ if(isset($mod_userid))
       {
          if($mod_password <> "") $mod_password = safe_escape($mod_password);
          $sql = "UPDATE users SET username='$mod_username', password=$hash_function('$mod_password') WHERE userid = $mod_userid";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
+         $result = @ mysqli_query($intranet_db,$sql);
+         if (mysqli_error($intranet_db))
             print("<span class=\"message\">".$lang['username_already_in_use']."</span>");
+            // Couldn't possibly be anything else, right?
          else
             print("<span class=\"message\">".$lang['password_changed']."</span>");
       }
@@ -48,13 +49,12 @@ if(isset($mod_userid))
    }
 }
 $sql = "SELECT * FROM users WHERE userid = ".safe_escape($showuserpass);
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>");
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<form method=\"post\" id=\"usermod\" action=\"admin.php?callmodule=".rawurlencode($callmodule)."&showuserpass=".$row["userid"]."\">\n");
       print("<input type=\"hidden\" name=\"mod_userid\" value=\"".$row["userid"]."\">");
