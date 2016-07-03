@@ -37,12 +37,11 @@ if(isset($modify_call_a))
 if(isset($modify_call) AND isset($callid))
 {
    $sql = "SELECT * FROM helpdesk WHERE callid=$callid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
-      $call = @ mysql_fetch_array($result);
+      $call = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
    }
    if ($helpdeskadmin)
    {
@@ -50,33 +49,27 @@ if(isset($modify_call) AND isset($callid))
       if(isset($mod_closed))
          $sql .= ", closedate=".time();
       $sql .= " WHERE callid=$callid";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      elseif(isset($mod_closed))
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(isset($mod_closed))
       {
          $sql = "INSERT INTO history (callid, userid, histdate, body, system) VALUES ($callid, $userid, ".time().", '".$lang['call_closed']."','y')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
       if (isset($del_assignee))
       {
          $sql = "DELETE FROM assignees WHERE userid=$del_assignee AND callid=$callid";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
-         else
+         $result = @ mysqli_query($intranet_db,$sql);
+         if (!showerror())
          {
             $sql = "SELECT firstname,lastname FROM users WHERE userid=$del_assignee";
-            $result = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
-            $name = @ mysql_fetch_array($result);
+            $result = @ mysqli_query($intranet_db,$sql);
+            showerror();
+            $name = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
             $sql = "INSERT INTO history (callid, userid, histdate, body, system) VALUES ($callid, $userid, ".time().", '".$lang['removed_assignment']." - ".$name["firstname"]." ".$name["lastname"]."','y')";
-            $result = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
+            $result = @ mysqli_query($intranet_db,$sql);
+            showerror();
          }
       }
    }
@@ -86,15 +79,13 @@ if(isset($modify_call) AND isset($callid))
       if(isset($mod_closed))
          $sql .= ", closedate=".time();
       $sql .= " WHERE callid=$callid";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      elseif(isset($mod_closed))
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(isset($mod_closed))
       {
          $sql = "INSERT INTO history (callid, userid, histdate, body, system) VALUES ($callid, $userid, ".time().", '".$lang['call_closed']."','y')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
    }
    if ($helpdeskadmin)
@@ -102,28 +93,23 @@ if(isset($modify_call) AND isset($callid))
       if (isset($add_assignee_name) and ($add_assignee_name>0))
       {
          $sql = "INSERT INTO assignees (callid, userid) VALUES ($callid, $add_assignee_name)";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
-         else
+         $result = @ mysqli_query($intranet_db,$sql);
+         if (!showerror())
          {
             $sql = "SELECT firstname,lastname FROM users WHERE userid=$add_assignee_name";
-            $result = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
-            $name = @ mysql_fetch_array($result);
+            $result = @ mysqli_query($intranet_db,$sql);
+            showerror();
+            $name = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
             $sql = "INSERT INTO history (callid, userid, histdate, body, system) VALUES ($callid, $userid, ".time().", '".$lang['assigned_support']." - ".$name["firstname"]." ".$name["lastname"]."','y')";
-            $result = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
+            $result = @ mysqli_query($intranet_db,$sql);
+            showerror();
          }
          if($use_mail)
          {
             $sql = "SELECT email FROM userdirectory WHERE userid=$add_assignee_name";
-            $result = @ mysql_query($sql, $intranet_db);
-            if (mysql_error())
-               showerror();
-            $recipient = @ mysql_fetch_array($result);
+            $result = @ mysqli_query($intranet_db,$sql);
+            showerror();
+            $recipient = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
             $subject= $lang['email_support_call_assignment']." - ".str_pad($callid,4,"0",STR_PAD_LEFT);
             $message  = sprintf($lang['email_assigned_call'],$userhash[$userid]);
             $message .="\n\n";
@@ -142,17 +128,15 @@ if(isset($modify_call) AND isset($callid))
       if ($mod_history!="")
       {
          $sql = "INSERT INTO history (callid, userid, histdate, body) VALUES ($callid, $userid, ".time().", '".safe_escape(strip_tags($mod_history,$allowed_tags))."')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
    }
    if ($helpdeskadmin)
    {
       $sql = "UPDATE assignees SET active='$assignee_active' WHERE userid=$userid AND callid=$callid";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
 
 }
