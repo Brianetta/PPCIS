@@ -26,46 +26,40 @@ if(isset($mod_name))
    if(isset($mod_faqcid))
    {
       $sql = "UPDATE faqcategory SET name='".safe_escape($mod_name)."' WHERE categoryid='$mod_faqcid'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($mod_callcid))
    {
       $sql = "UPDATE callcategory SET name='".safe_escape($mod_name)."' WHERE categoryid='$mod_callcid'";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($del_faqcid))
    {
       $sql = "DELETE FROM faqcategory WHERE categoryid='$del_faqcid' LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($del_callcid))
    {
       $sql = "DELETE FROM callcategory WHERE categoryid='$del_callcid' LIMIT 1";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
    }
    if(isset($ins_faqcid))
       if($mod_name!="")
       {
          $sql = "INSERT INTO faqcategory (name) VALUES ('".safe_escape($mod_name)."')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
    if(isset($ins_callcid))
       if($mod_name!="")
       {
          $sql = "INSERT INTO callcategory (name) VALUES ('".safe_escape($mod_name)."')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
       }
 }
 
@@ -76,9 +70,8 @@ print("<td class=\"page_div\">\n");
 print("<table>\n");
 print("<tr><td class=\"centered\" colspan=\"3\"><b>".$lang['call_types']."</b></td></tr>\n");
 $sql = "SELECT * FROM callcategory ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 
 print("<tr>\n");
 print("<form id=\"loc".$row["categoryid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -92,9 +85,9 @@ print("</td>\n");
 print("</tr>\n");
 print("</form>");
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<form id=\"loc".$row["categoryid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -123,9 +116,8 @@ print("<td class=\"page_div\">\n");
 print("<table>\n");
 print("<tr><td class=\"centered\" colspan=\"3\"><b>".$lang['faq_categories']."</b></td></tr>\n");
 $sql = "SELECT * FROM faqcategory ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
 
 print("<tr>\n");
 print("<form id=\"loc".$row["categoryid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
@@ -139,9 +131,9 @@ print("</td>\n");
 print("</tr>\n");
 print("</form>");
 
-if(@ mysql_num_rows($result) != 0)
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       print("<tr>\n");
       print("<form id=\"loc".$row["categoryid"]."\" method=\"post\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."\">\n");
