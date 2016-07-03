@@ -38,21 +38,19 @@ if(isset($log))
    if(!$helpdeskadmin)
       $mod_name=$userid;
    $sql = "INSERT INTO helpdesk (ownerid, locationid, description, date, category) VALUES ($mod_name, $mod_location, '".safe_escape(strip_tags($mod_call,$allowed_tags))."', $log_timestamp, $mod_categoryid)";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   $row = @ mysql_fetch_array($result);
-   $callnumber = mysql_insert_id();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   $row = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
+   $callnumber = mysqli_insert_id($intranet_db);
    printf($lang['your_call_number_is'],"<a href=\"helpdesk.php?callmodule=".urlencode($lang['manage_calls'])."&callid=$callnumber\">".str_pad($callnumber,4,"0",STR_PAD_LEFT)."</a>");
    foreach($userhash as $index => $name)
    {
       if($name==$support_notify AND $use_mail)
       {
          $sql = "SELECT email FROM userdirectory WHERE userid=$index";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
-         $recipient = @ mysql_fetch_array($result);
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
+         $recipient = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
          $subject = $lang['email_support_call_logged']." - ".str_pad($callnumber,4,"0",STR_PAD_LEFT);
          $message  = sprintf($lang['email_user_logged_call'],$userhash[$mod_name]) ;
          $message .= "\n";
@@ -79,12 +77,11 @@ else
    }
    print("</select>\n");
    $sql = "SELECT location FROM userdirectory WHERE userid=$userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          $defaultlocation=$row["location"];
       }
