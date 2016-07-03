@@ -31,12 +31,11 @@ function parent_recurse($tfolder)
    if($tfolder<>0)
    {
       $sql = "SELECT folderid,name,parent FROM folders WHERE folderid = $tfolder";
-      $result = @ mysql_query($sql, $intranet_db);
-      if(mysql_error())
-         showerror();
-      if(@ mysql_num_rows($result) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($result) != 0)
       {
-         while($row = @ mysql_fetch_array($result))
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          {
 				if(isset($circle_path[$row["folderid"]]))
 				{
@@ -51,7 +50,7 @@ function parent_recurse($tfolder)
 					if($fix=='yes')
 					{
 						$sql = "UPDATE folders SET parent=0 WHERE folderid=".$row["folderid"];
-						$repair = mysql_query($sql);
+						$repair = mysqli_query($intranet_db,$sql);
 						print("<br>\n(fixing)\n");
 					}
 					return 1;
@@ -81,16 +80,16 @@ print("<h1>Data integrity check</h1>");
 
 print("<h2>Users</h2>");
 $sql = "SELECT userflags.userid AS dead_user FROM userflags LEFT JOIN users ON users.userid=userflags.userid WHERE users.userid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found rights for non-existent user ".$row["dead_user"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM userflags WHERE userid=".$row["dead_user"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -101,16 +100,16 @@ else
 }
 
 $sql = "SELECT userdirectory.userid AS dead_user FROM userdirectory LEFT JOIN users ON users.userid=userdirectory.userid WHERE users.userid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found directory entry for non-existent user ".$row["dead_user"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM userdirectory WHERE userid=".$row["dead_user"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -121,16 +120,16 @@ else
 }
 
 $sql = "SELECT preferences.userid AS dead_user FROM preferences LEFT JOIN users ON users.userid=preferences.userid WHERE users.userid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found preferences for non-existent user ".$row["dead_user"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM preferences WHERE userid=".$row["dead_user"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -141,16 +140,16 @@ else
 }
 
 $sql = "SELECT userteams.userid AS dead_user,team FROM userteams LEFT JOIN users ON users.userid=userteams.userid WHERE users.userid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found team ".$row["team"]." for non-existent user ".$row["dead_user"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM userteams WHERE userid=".$row["dead_user"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -161,16 +160,16 @@ else
 }
 
 $sql = "SELECT userid,team FROM userteams LEFT JOIN teams ON teamid=team WHERE teamid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found non-existent team ".$row["team"]." for user ".$row["userid"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM userteams WHERE team=".$row["team"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -182,16 +181,16 @@ else
 
 print("<h2>Files</h2>");
 $sql = "SELECT filesecurity.fileid AS dead_file FROM filesecurity LEFT JOIN files ON files.fileid=filesecurity.fileid WHERE files.fileid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found secure team list for non-existent file ".$row["dead_file"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM filesecurity WHERE fileid=".$row["dead_file"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -202,16 +201,16 @@ else
 }
 
 $sql = "SELECT filesecurity.teamid AS dead_team FROM filesecurity LEFT JOIN teams ON teams.teamid=filesecurity.teamid WHERE teams.teamid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found secure team list for non-existent team ".$row["dead_team"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM filesecurity WHERE teamid=".$row["dead_team"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -222,16 +221,16 @@ else
 }
 
 $sql = "SELECT fileid AS orphan,folder AS dead_folder FROM files LEFT JOIN folders ON folderid=folder WHERE folderid IS NULL AND folder != 0";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found file ".$row["orphan"]." in non-existent folder ".$row["dead_folder"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "UPDATE files SET folder=0 WHERE fileid=".$row["orphan"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -242,26 +241,26 @@ else
 }
 
 $sql = "SELECT folders.folderid AS orphan,folders.parent AS dead_folder FROM folders LEFT JOIN folders AS parents ON folders.parent=parents.folderid WHERE parents.folderid IS NULL AND folders.parent != 0";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found folder ".$row["orphan"]." in non-existent folder ".$row["dead_folder"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "UPDATE folders SET parent=0 WHERE folderid=".$row["orphan"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
 }
 
 $sql = "SELECT folderid FROM folders";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		if(
 			(!isset($circle_path[$row["folderid"]]))
@@ -278,16 +277,16 @@ else
 
 print("<h2>Helpdesk</h2>");
 $sql = "SELECT historyid,history.callid AS callid FROM history LEFT JOIN helpdesk ON history.callid=helpdesk.callid WHERE helpdesk.callid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-   while($row = mysql_fetch_array($result))
+   while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found unattached history event ".$row["historyid"]." for non-existent call ".$row["callid"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM history WHERE historyid=".$row["historyid"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -298,16 +297,16 @@ else
 }
 
 $sql = "SELECT callid,assignees.userid AS dead_user  FROM assignees LEFT JOIN users ON users.userid=assignees.userid WHERE users.userid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found non-existent user ".$row["dead_user"]." assigned to call ".$row["callid"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM assignees WHERE userid=".$row["dead_user"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
@@ -318,16 +317,16 @@ else
 }
 
 $sql = "SELECT assignees.callid AS dead_call,userid FROM assignees LEFT JOIN helpdesk ON helpdesk.callid=assignees.callid WHERE helpdesk.callid IS NULL";
-$result = mysql_query($sql, $intranet_db);
-if(mysql_num_rows($result)>0)
+$result = mysqli_query($intranet_db,$sql);
+if(mysqli_num_rows($result)>0)
 {
-	while($row = mysql_fetch_array($result))
+	while($row = mysqli_fetch_array($result,MYSQLI_ASSOC))
 	{
 		print("<span class=\"message\">Found user ".$row["userid"]." assigned to non-existant call ".$row["dead_call"]."</span><br>");
 		if($fix=='yes')
 		{
 			$sql = "DELETE FROM assignees WHERE callid=".$row["dead_call"];
-			$repair = mysql_query($sql);
+			$repair = mysqli_query($intranet_db,$sql);
 			print("<br>\n(fixing)\n");
 		}
 	}
