@@ -28,12 +28,11 @@
 // This file is included from both the "manage calls" and the "assigned calls" pages.
 
 $sql = "SELECT * FROM helpdesk WHERE callid=$callid";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   $call = @ mysql_fetch_array($result);
+   $call = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
    print("<form method=\"post\" id=\"edit_call\" action=\"$PHP_SELF?callmodule=".rawurlencode($callmodule)."&callid=$callid\">");
    print("<table>");
    print("<tr>\n");
@@ -165,13 +164,12 @@ if(@ mysql_num_rows($result) != 0)
    print("<table>");
    print("<tr><th class=\"detail\">".$lang['assigned_to'].":</th></tr>");
    $sql = "SELECT * FROM assignees LEFT JOIN users ON assignees.userid=users.userid WHERE assignees.callid=$callid ORDER BY assignees.active DESC, users.lastname, users.firstname";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
       $i=1;
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          print("<tr>");
          print("<td class=\"detail_mid\">".$userhash[$row["userid"]]);
@@ -207,13 +205,12 @@ if(@ mysql_num_rows($result) != 0)
       print("<td class=\"detail\">");
       print("<select name=\"add_assignee_name\">\n");
       $sql = "SELECT userflags.userid FROM users LEFT JOIN userflags ON userflags.userid=users.userid WHERE userflags.helpdesk='y' ORDER BY users.lastname,users.firstname";
-      $result = @ mysql_query($sql, $intranet_db);
-      if (mysql_error())
-         showerror();
-      if(@ mysql_num_rows($result) != 0)
+      $result = @ mysqli_query($intranet_db,$sql);
+      showerror();
+      if(@ mysqli_num_rows($result) != 0)
       {
          print("<option label=\"".$lang['select_to_assign_support_staff']."\" value=\"0\">".$lang['select_to_assign_support_staff']."</option>\n");
-         while($row = @ mysql_fetch_array($result))
+         while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
          {
             $not_already_assigned=true;
             $j=count($assigned);
@@ -243,12 +240,11 @@ if(@ mysql_num_rows($result) != 0)
    $sql = "SELECT * FROM history WHERE callid=$callid ORDER BY histdate";
    if($backwards_history)
       $sql .= " DESC";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          print("<tr>");
          $highlight="";
