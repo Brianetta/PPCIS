@@ -26,21 +26,20 @@
 if(isset($delteam))
 {
    $sql = "DELETE FROM userteams WHERE userid=$showteams AND team=$team";
-   $result = @ mysql_query($sql, $intranet_db);
+   $result = @ mysqli_query($intranet_db,$sql);
 }
 if(isset($addteam))
 {
    $sql = "INSERT INTO userteams (userid,team) VALUES ($showteams,$team)";
-   $result = @ mysql_query($sql, $intranet_db);
+   $result = @ mysqli_query($intranet_db,$sql);
 }
 
 $sql = "SELECT teamid,name FROM teams ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $teamhash[$row["teamid"]]=$row["name"];
    }
@@ -51,24 +50,22 @@ else
 }
 
 $sql = "SELECT firstname,lastname FROM users WHERE userid=$showteams";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) == 1)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) == 1)
 {
-   $row = @ mysql_fetch_array($result);
+   $row = @ mysqli_fetch_array($result,MYSQLI_ASSOC);
    $uname = $row['firstname'].' '.$row['lastname'];
 }
 
 // Build a hash of the teams to which the user belongs
 $sql = "SELECT team FROM userteams where userid=$showteams";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    $i=0;
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       $userteam[$i]=$row["team"];
       $i++;
