@@ -66,18 +66,17 @@
 <td>
 <?
    $sql = "SELECT * FROM teams ORDER BY name";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
    print("<select name=\"team\">\n");
    print("<option label=\"".$lang['any_team']."\" value=\"0\">".$lang['any_team']."</option>");
    print("<option");
    if ($team == "NULL")
       print(" selected");
    print(" label=\"".$lang['alone']."\" value=\"NULL\">".$lang['alone']."</option>");
-   if(@ mysql_num_rows($result) != 0)
+   if(@ mysqli_num_rows($result) != 0)
    {
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          if($team==$row["teamid"])
          {
@@ -121,10 +120,9 @@ if(strlen($info)!=0)
    }
 }
 $sql .= " GROUP BY users.userid ORDER BY lastname, firstname";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>\n");
    print("<tr>\n");
@@ -134,7 +132,7 @@ if(@ mysql_num_rows($result) != 0)
    print("<th class=\"list\">".$lang['email_address']."</th>\n");
    print("<th class=\"list\">&nbsp;</th>\n");
    print("</tr>\n");
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if(!(isset($row["lastname"]))) $row["lastname"] = "&nbsp;";
       if(!(isset($row["telephone"]))) $row["telephone"] = "&nbsp;";
