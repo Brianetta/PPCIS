@@ -26,12 +26,11 @@ print("<form method=\"post\" id=\"web_submit\" action=\"$PHP_SELF?callmodule=".r
 print("<select name=\"webcat\">\n");
 print("<option label=\"".$lang['all_categories']."\" value=\"0\">".$lang['all_categories']."</option>\n");
 $sql = "SELECT * FROM webcategory ORDER BY name";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if($row["categoryid"]==$webcat)
       {
@@ -54,10 +53,9 @@ if(isset($webcat))
       $where = $where . "weblinks.category = $webcat ";
 if($where<>"") $where="WHERE ".$where;
 $sql = $sql . $where . "ORDER BY title";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
    print("<table>\n");
    print("<tr>\n");
@@ -66,7 +64,7 @@ if(@ mysql_num_rows($result) != 0)
    print("<th class=\"list\">".$lang['description']."</th>\n");
    print("<th class=\"list\">".$lang['category']."</th>\n");
    print("</tr>\n");
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       if(strlen($row["name"])==0)
          $row["name"]=$lang['no_categories_defined'];
