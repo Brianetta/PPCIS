@@ -58,20 +58,18 @@ $startarticle=strval($startarticlenum);
 $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE news.authdate IS NOT NULL";
 if($topic<>"0") $sql .= " AND news.topic=$topic";
 $sql .= " ORDER BY sticky,news.subdate DESC";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-$num_articles = @ mysql_num_rows($result);
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+$num_articles = @ mysqli_num_rows($result);
 
 if(isset($select))
 {
    $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE news.authdate IS NOT NULL AND articleid=$select";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          newsitem($row["headline"], $row["body"], $row["topic"], $row["subdate"], $row["firstname"]." ".$row["lastname"], $row["url"], $row["articleid"],$row["sticky"]=='y');
       }
@@ -118,12 +116,11 @@ if($num_articles>30)
 $sql = "SELECT * FROM news LEFT JOIN users ON users.userid = news.authorid WHERE news.authdate IS NOT NULL";
 if($topic<>"0") $sql .= " AND news.topic=$topic";
 $sql .= " ORDER BY sticky,news.subdate DESC,news.articleid DESC LIMIT ".strval($startarticlenum).",30";
-$result = @ mysql_query($sql, $intranet_db);
-if (mysql_error())
-   showerror();
-if(@ mysql_num_rows($result) != 0)
+$result = @ mysqli_query($intranet_db,$sql);
+showerror();
+if(@ mysqli_num_rows($result) != 0)
 {
-   while($row = @ mysql_fetch_array($result))
+   while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
    {
       newshead($row["headline"], $row["subdate"], $row["firstname"]." ".$row["lastname"], "news.php?callmodule=".$lang['all_news_articles']."&startarticle=$startarticle&select=".$row["articleid"],$row["articleid"],$row["sticky"]=='y');
    }
