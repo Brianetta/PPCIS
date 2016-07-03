@@ -27,12 +27,11 @@ print("<table>");
 if(isset($create))
 {
    $sql = "SELECT * FROM users";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-      showerror();
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          if($row["username"]==$mod_username)
          {
@@ -55,9 +54,8 @@ if(isset($create))
          $mod_firstname = safe_escape($mod_firstname);
          $mod_lastname = safe_escape($mod_lastname);
          $sql = "INSERT INTO users (username, password, firstname, lastname) VALUES ('$mod_username', $hash_function('$mod_passwd'), '$mod_firstname', '$mod_lastname')";
-         $result = @ mysql_query($sql, $intranet_db);
-         if (mysql_error())
-            showerror();
+         $result = @ mysqli_query($intranet_db,$sql);
+         showerror();
          print("<span class=\"message\">".$lang['account_successfully_created']."</span>");
       }
       else
