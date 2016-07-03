@@ -25,11 +25,9 @@ function delete_user_info($table, $msg)
 {
    global $mod_userid, $intranet_db, $lang;
    $sql = "DELETE FROM $table WHERE userid = $mod_userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
+   $result = @ mysqli_query($intranet_db,$sql);
+   if (!showerror())
    {
-      showerror();
-   } else {
       printf('<span class="message">'.$lang[$msg]."</span><br>\n", $mod_userid);
    }
 }
@@ -53,10 +51,9 @@ else if(isset($mod_userid))
 else
 {
    $sql = "SELECT * FROM users WHERE userid = $deleteuser";
-   $result = @ mysql_query($sql, $intranet_db);
-   $row = mysql_fetch_array($result);
-   if (mysql_error())
-      showerror();
+   $result = @ mysqli_query($intranet_db,$sql);
+   $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+   showerror();
    printf("<h2>".$lang['confirm_delete']."</h2>\n".$lang['confirm_delete_user'],$row["firstname"],$row["lastname"]);
    print("<form method=\"post\" id=\"usermod\" action=\"admin.php?callmodule=".rawurlencode($callmodule)."&deleteuser=yes\">\n");
    print("<input type=\"hidden\" name=\"mod_userid\" value=\"$deleteuser\">");
