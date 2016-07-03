@@ -59,19 +59,15 @@ set_time_limit(0);
 require("settings.inc");
 
 // Connect to the database
-if(!($intranet_db = @ mysql_pconnect($db_hostname, $db_username, $db_password)))
-{
-   die("Database problem");
-}
-if(!mysql_select_db($db_name, $intranet_db))
+if(!($intranet_db = @ mysqli_connect($db_hostname, $db_username, $db_password, $db_name)))
 {
    die("Database problem");
 }
 
 // Get user's preferences
 $sql = "SELECT stylesheet,language FROM users LEFT JOIN preferences USING (userid) WHERE users.userid = $userid";
-$result = @ mysql_query($sql,$intranet_db);
-$row = mysql_fetch_array($result);
+$result = @ mysqli_query($intranet_db,$sql);
+$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 // Set variables (hiding warning; there might not be any!)
 if(!empty($row))
    extract($row);
@@ -93,13 +89,12 @@ if($userid>0)
 {
    // Get the user's team for security checking
    $sql = "SELECT team FROM userteams WHERE userid=$userid";
-   $result = @ mysql_query($sql, $intranet_db);
-   if (mysql_error())
-   	die("Database problem");
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+ 	die("Database problem");
+   if(@ mysqli_num_rows($result) != 0)
    {
       $i=0;
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          $userteam[$i]=$row["team"];
          $i++;
@@ -108,12 +103,11 @@ if($userid>0)
    // Check the validity of $fileid if set and
    // determine how secure it is.
    $sql = "SELECT filename,mimetype FROM files WHERE fileid = $fileid ORDER BY filename";
-   $result = @ mysql_query($sql, $intranet_db);
-   if(mysql_error())
-   	die("Database problem");
-   if(@ mysql_num_rows($result) != 0)
+   $result = @ mysqli_query($intranet_db,$sql);
+ 	die("Database problem");
+   if(@ mysqli_num_rows($result) != 0)
    {
-      while($row = @ mysql_fetch_array($result))
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
          $filename=$row["filename"];
          if (!isset($mimetype))
@@ -134,13 +128,14 @@ if($userid>0)
    // anyway, as the COUNT(*) should return zero, unless for some
    // reason there's duff data in the filesecurity table.
    $sql = "SELECT COUNT(*) FROM filesecurity WHERE fileid=$fileid";
-   $result = @ mysql_query($sql, $intranet_db);
+   $result = @ mysqli_query($intranet_db,$sql);
    $securefile = TRUE; // This must be true
-   if(mysql_result($result, 0) > 0)
+   $row = mysqli_fetch_array($result,MYSQLI_NUM)
+   if($row[0] > 0)
    { // This file has one or more security records
       $sql = "SELECT teamid FROM filesecurity WHERE fileid=$fileid";
-      $result = @ mysql_query($sql, $intranet_db);
-      while($row = @ mysql_fetch_array($result))
+      $result = @ mysqli_query($intranet_db,$sql);
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       { // Check to see if our team is on the list
          foreach($userteam as $teamtest)
             if($row["teamid"]==$teamtest)
