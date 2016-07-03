@@ -90,7 +90,8 @@ if($userid>0)
    // Get the user's team for security checking
    $sql = "SELECT team FROM userteams WHERE userid=$userid";
    $result = @ mysqli_query($intranet_db,$sql);
- 	die("Database problem");
+   if (mysqli_error($intranet_db))
+ 	   die("Database problem");
    if(@ mysqli_num_rows($result) != 0)
    {
       $i=0;
