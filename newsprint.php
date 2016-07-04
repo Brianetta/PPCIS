@@ -51,6 +51,18 @@ else if (!empty($HTTP_POST_FILES))
 {
    extract($HTTP_POST_FILES);
 }
+                                
+function showerror()
+{
+   if(mysqli_connect_errno())
+   {
+      print("Couldn't connect to database.");
+      if(@mysqli_error($intranet_db))
+         print("Error number " . mysqli_errno($intranet_db) . " (" . mysqli_error($intranet_db) . ")");
+      return false;
+   }
+   return true;
+}
 
 unset($userid);    // The only script that doesn't get these
 unset($firstname); // four variables from the session is
