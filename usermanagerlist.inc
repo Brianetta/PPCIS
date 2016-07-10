@@ -110,7 +110,7 @@ if(isset($last))
 }
 
 // Build select statement, incorporating search variables.
-$sql = "SELECT *,users.userid AS userid FROM users ";
+$sql = "SELECT users.userid,users.username,users.lastname,users.firstname FROM users ";
 $sql .="LEFT JOIN userdirectory ON users.userid = userdirectory.userid ";
 $sql .="LEFT JOIN userteams ON users.userid = userteams.userid ";
 $where = "WHERE 1 ";
@@ -125,7 +125,8 @@ if(isset($team))
    if ($team > 0)
       $where = $where . "AND team = " . safe_escape($team) . " ";
 }
-$sql = $sql . $where . "ORDER BY lastname, firstname";
+$sql = $sql . $where . "GROUP BY users.userid,users.username,users.lastname,users.firstname ";
+$sql = $sql . "ORDER BY lastname, firstname";
 $result = @ mysqli_query($intranet_db,$sql);
 showerror();
 if(@ mysqli_num_rows($result) != 0) // Render a nice table of users.
