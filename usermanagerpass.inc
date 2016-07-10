@@ -33,14 +33,17 @@ if(isset($mod_userid))
       }
       else
       {
-         if($mod_password <> "") $mod_password = safe_escape($mod_password);
-         $sql = "UPDATE users SET username='$mod_username', password=$hash_function('$mod_password') WHERE userid = $mod_userid";
-         $result = @ mysqli_query($intranet_db,$sql);
-         if (mysqli_error($intranet_db))
-            print("<span class=\"message\">".$lang['username_already_in_use']."</span>");
-            // Couldn't possibly be anything else, right?
-         else
-            print("<span class=\"message\">".$lang['password_changed']."</span>");
+         if($mod_password <> "")
+         {
+            $mod_password = password_hash($mod_password,PASSWORD_DEFAULT);
+            $sql = "UPDATE users SET username='$mod_username', password='$mod_password' WHERE userid = $mod_userid";
+            $result = @ mysqli_query($intranet_db,$sql);
+            if (mysqli_error($intranet_db))
+               print("<span class=\"message\">".$lang['username_already_in_use']."</span>");
+               // Couldn't possibly be anything else, right?
+            else
+               print("<span class=\"message\">".$lang['password_changed']."</span>");
+         }
       }
    }
    else

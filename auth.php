@@ -33,8 +33,7 @@
    session_name('PPCIS');
    session_start();
    $loginhost=$_SERVER["SERVER_NAME"];
-   if(!isset($userid))
-      $userid = 0;
+   $userid = 0; // 0 = not logged in
 if(!(@ include("settings.inc")))
 {
    header("location:".$_SERVER["HTTP_REFERER"]);
@@ -63,42 +62,34 @@ function safe_escape($str)
    }
 }
 
-// Dead simple - connect to the database, run a select query.  If
-// the user exists with that password, the userid variable gets
-// set and the user is logged in.
+// Connect to the database, run a select query. Retrieve any row
+// with matching usernanme, and verify the password. Set the userid
+// and the user is logged in.
 
 if(isset($form_user))
 {
 // Connect to the database
    $intranet_db = @ mysqli_connect($db_hostname, $db_username, $db_password, $db_name);
    showerror();
-   $sql = "SELECT * FROM users WHERE username = '".safe_escape(trim($form_user))."' AND password = $hash_function( '".safe_escape($form_pass)."')";
+   $sql = "SELECT * FROM users WHERE username = '".safe_escape(trim($form_user))."'";
    $result = @ mysqli_query($intranet_db, $sql);
    showerror();
    if(@ mysqli_num_rows($result) != 0)
    {
       while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
-         if($row["enabled"]=='y')
+         if($row["enabled"]=='y' and password_verify($form_pass, $row["password"]))
          {
             $userid = $row["userid"];
             $username = $form_user;
             $firstname = $row["firstname"];
             $lastname = $row["lastname"];
          }
-         else
-         {
-            $userid = 0;
-            $username = "failed";
-            $firstname = "";
-            $lastname = "";
-            session_destroy();
-         }
       }
    }
-   elseif(isset($old_hash_function))
+   if($userid == 0 and isset($hash_function))
    {
-      $sql = "SELECT * FROM users WHERE username = '".safe_escape(trim($form_user))."' AND password = $old_hash_function( '".safe_escape($form_pass)."')";
+      $sql = "SELECT * FROM users WHERE username = '".safe_escape(trim($form_user))."' AND password = $hash_function( '".safe_escape($form_pass)."')";
       $result = @ mysqli_query($intranet_db,$sql);
       showerror();
       if(@ mysqli_num_rows($result) != 0)
@@ -112,23 +103,14 @@ if(isset($form_user))
                $firstname = $row["firstname"];
                $lastname = $row["lastname"];
             }
-            else
-            {
-               $userid = 0;
-               $username = "failed";
-               $firstname = "";
-               $lastname = "";
-               session_destroy();
-            }
-            $sql = "UPDATE users SET password = $hash_function( '".safe_escape($form_pass)."') WHERE userid = ".$row["userid"];
+            $sql = "UPDATE users SET password = '".password_hash($form_pass,PASSWORD_DEFAULT)."' WHERE userid = ".$row["userid"];
             $result = @ mysqli_query($intranet_db,$sql);
-            $updates = "Updated password from $old_password_function to $password_function";
+            $updates = "Updated password from $hash_function to secure hash with salt.";
          }
       }
    }
-   else
+   if ($userid == 0)
    {
-      $userid = 0;
       $username = "failed";
       $firstname = "";
       $lastname = "";

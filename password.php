@@ -25,24 +25,36 @@ require("head.inc");
 // Guest users cannot change their own password.
 if(isset($mod_userid))
 {
-   if(($mod_password==$mod_confirm) AND ($mod_password<>"")) // Make sure new password was typed twice, and isn't null
+   $sql = "SELECT * FROM users WHERE userid = $userid";
+   $result = @ mysqli_query($intranet_db, $sql);
+   showerror();
+   if(@ mysqli_num_rows($result) != 0)
    {
-      if($mod_password <> "") $mod_password = safe_escape($mod_password);
-      $sql = "UPDATE users SET password=$hash_function('$mod_password') WHERE userid = $mod_userid AND password = $hash_function('$old_password') AND guest = 'n'";
-      $result = @ mysqli_query($intranet_db,$sql);
-      showerror();
-      if( @ mysqli_affected_rows($intranet_db) != 0)
+      while($row = @ mysqli_fetch_array($result,MYSQLI_ASSOC))
       {
-         print("<span class=\"message\">".$lang['your_password_changed']."</span>");
+         if($row["enabled"]=='y' and password_verify($old_password, $row["password"]))
+         {
+            if(($mod_password==$mod_confirm) AND ($mod_password<>"")) // Make sure new password was typed twice, and isn't null
+            {
+               if($mod_password <> "") $mod_password = password_hash($mod_password,PASSWORD_DEFAULT);
+               $sql = "UPDATE users SET password='$mod_password' WHERE userid = $mod_userid";
+               $updateresult = @ mysqli_query($intranet_db,$sql);
+               showerror();
+               if( @ mysqli_affected_rows($intranet_db) != 0)
+               {
+                  print("<span class=\"message\">".$lang['your_password_changed']."</span>");
+               }
+            }
+            else
+            {
+               print("<span class=\"message\">".$lang['password_change_mismatch']."</span>");
+            }
+         }
+         else
+         {
+            print("<span class=\"message\">".$lang['password_change_wrong']."</span>");
+         }
       }
-      else
-      {
-         print("<span class=\"message\">".$lang['password_change_wrong']."</span>");
-      }
-   }
-   else
-   {
-      print("<span class=\"message\">".$lang['password_change_mismatch']."</span>");
    }
 }
 $sql = "SELECT * FROM users WHERE userid = $userid and guest = 'n'";
