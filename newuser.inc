@@ -49,11 +49,11 @@ if(isset($create))
    {
       if($mod_passwd==$mod_confirm) 
       {
-         $mod_passwd = safe_escape($mod_passwd);
+         $mod_passwd = password_hash($mod_passwd,PASSWORD_DEFAULT);
          $mod_username = safe_escape($mod_username);
          $mod_firstname = safe_escape($mod_firstname);
          $mod_lastname = safe_escape($mod_lastname);
-         $sql = "INSERT INTO users (username, password, firstname, lastname) VALUES ('$mod_username', $hash_function('$mod_passwd'), '$mod_firstname', '$mod_lastname')";
+         $sql = "INSERT INTO users (username, password, firstname, lastname) VALUES ('$mod_username', '$mod_passwd', '$mod_firstname', '$mod_lastname')";
          $result = @ mysqli_query($intranet_db,$sql);
          showerror();
          print("<span class=\"message\">".$lang['account_successfully_created']."</span>");
