@@ -125,7 +125,7 @@ if(isset($team))
    if ($team > 0)
       $where = $where . "AND team = " . safe_escape($team) . " ";
 }
-$sql = $sql . $where . "GROUP BY users.userid ORDER BY lastname, firstname";
+$sql = $sql . $where . "ORDER BY lastname, firstname";
 $result = @ mysqli_query($intranet_db,$sql);
 showerror();
 if(@ mysqli_num_rows($result) != 0) // Render a nice table of users.
