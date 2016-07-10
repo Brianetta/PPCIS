@@ -349,7 +349,7 @@ INSERT INTO userflags VALUES (1,'y','y','y','y','y');
 CREATE TABLE users (
   userid int(10) unsigned NOT NULL auto_increment,
   username varchar(10) NOT NULL default '',
-  password varchar(50) NOT NULL default '',
+  password varchar(255) NOT NULL default '',
   firstname varchar(25) NOT NULL default '',
   lastname varchar(25) NOT NULL default '',
   enabled enum('y','n') NOT NULL default 'y',
@@ -363,7 +363,7 @@ CREATE TABLE users (
 -- Dumping data for table `users`
 --
 
-INSERT INTO users VALUES (1,'admin',sha1('istrator'),'system','administrator','y','n');
+INSERT INTO users VALUES (1,'admin','$2y$10$SKwGjQETu4OBQ8MrH0/5teuU8yw5RCVZBLIjgLu.oOLOvY54u54Se','system','administrator','y','n');
 
 --
 -- Table structure for table `userteams`
