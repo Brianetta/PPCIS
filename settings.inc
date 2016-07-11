@@ -1,6 +1,6 @@
 <?
 // Path of PPCIS files from web server root
-$siteprefix="/ppcis/";
+$siteprefix="/";
 
 // Name of web site at top of page
 $sitename="Portable PHP/MySQL Corporate Intranet System";
@@ -76,7 +76,7 @@ $old_hash_function = 'password';
 // hostname
 $db_hostname="localhost";
 // database name
-$db_name="ppcis";
+$db_name="intranet";
 // database user (must have SELECT, INSERT, UPDATE and DELETE)
 $db_username="intranet";
 // password for same
