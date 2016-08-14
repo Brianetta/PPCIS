@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="PPCIS : Portable PHP/Mysql Corporate Intranet System">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>PPCIS</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Brianetta/PPCIS">View on GitHub</a>
+
+          <h1 id="project_title">PPCIS</h1>
+          <h2 id="project_tagline">Portable PHP/Mysql Corporate Intranet System</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Brianetta/PPCIS/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Brianetta/PPCIS/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>Copyright 2002-2005 Brian Ronald.  All rights reserved.</p>
+
+<h1>
+<a id="portable-phpmysql-corporate-intranet-system" class="anchor" href="#portable-phpmysql-corporate-intranet-system" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Portable PHP/MySQL Corporate Intranet System</h1>
+
+<h2>
+<a id="read-install-for-installation-instructions" class="anchor" href="#read-install-for-installation-instructions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Read INSTALL for installation instructions.</h2>
+
+<p>This intranet system is divided up into modules.  These can be
+selectively enabled or disabled with modules.conf.  A module is
+defined as any PHP file that includes head.inc at the start and
+tail.inc at the end.</p>
+
+<p>The system will only show news articles to people who are not
+logged in to the system.  The login box at the top of the page
+disappears once logged in, to be replaced with a change
+password button and a log out button.</p>
+
+<p>The default user is admin and the password is istrator</p>
+
+<h1>
+<a id="modules" class="anchor" href="#modules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MODULES</h1>
+
+<h2>
+<a id="news" class="anchor" href="#news" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>NEWS</h2>
+
+<p>The news module displays news items, in much the manner that
+any news site would.  News articles are submitted by users on
+the system, and by default must be authorised by a news admin.</p>
+
+<p>Only the ten most recent news articles are displayed in the
+Current News screen - the rest are displayed as headlines only
+in the Archived News screen.  Users can filter their view of
+the news by topic, and if they do, the ten most recent articles
+under that topic will be displayed.</p>
+
+<p>The Submit New screen allows a user to compose a new article,
+and to preview it whenever they want.  HTML tags <i> and <b>
+are allowed, and carriage returns are retained as <br> tags.
+Once submitted, the user cannot edit their article again unless
+they are a news admin.</b></i></p>
+
+<h2>
+<a id="directory" class="anchor" href="#directory" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DIRECTORY</h2>
+
+<p>The internal directory lists all the users on the system that
+have a directory record.  Only users can be added to this
+directory.  It can be filtered by first name and/or last name,
+team and the plain-text information field.  Photographs can be
+uploaded if desired.</p>
+
+<p>The external directory is a seperate list, for listing contact
+details of people who are not users.  It can be filtered on
+first name, last name, company and/or contact type.</p>
+
+<p>The web directory is a table of web links.  It is categorised,
+and can be filtered on the category.  The links launch in the
+same window by default.</p>
+
+<h2>
+<a id="helpdesk" class="anchor" href="#helpdesk" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HELPDESK</h2>
+
+<p>The helpdesk is intended to be able to service all types of
+helpdesk call, not necesarily calls for help, but also requests
+for information, or to request resources.</p>
+
+<p>The manage calls screen is the default screen for users who are
+not helpdesk staff.  It shows all the calls logged by the user,
+and allows them to click on the call number to view the details.
+There are a number of filtering options, and it's possible for
+any user to type in the call number of any call and to view the
+contents of that call.</p>
+
+<p>Helpdesk staff have two similar screens - Manage Calls and
+Assigned Calls.  They are the same, except Assigned Calls only
+lists calls that have been assigned to the helpdesk staff in
+question.  Also, the Managed Calls list shows calls logged by
+any user, and is filterable on the user.</p>
+
+<p>When a specific call is opened, the user can see the basic
+information about that call (date it was logged, the category
+it's in, and their initial problem).  They can also see the
+priority which has been assigned to it by helpdesk staff (the
+default is "waiting").  They can see who's been assigned to the
+call, and any information which has been added since the call
+was logged, in the form of "history".</p>
+
+<p>The owner can alter the location of the call, they can add
+information of their own to the history, and they can close the
+call.</p>
+
+<p>In addition to this, helpdesk staff can alter the owner,
+priority and category of any call.  They can assign helpdesk
+staff the call, and can remove them.  They can also add history
+to any call.</p>
+
+<p>There are two "apply changes" buttons on a calldetails screen.
+They are the same, and it doesn't matter which is used.</p>
+
+<p>The "Log a new call" screen is a simple submission form, where
+the user selects a call category, a location, and describes the
+nature of the query as best they can.  Helpdesk staff also have
+the option to choose an owner for the call; this facilitates
+logging of calls by telephone or by other means.</p>
+
+<p>The FAQ screen is quite similar to the News screen.  It is
+filterable on category, and simple word searches are possible.
+Users can also type in the number of a call to jump directly
+to it.  If they explicitly choose a call number, the other
+filters are ignored.</p>
+
+<p>The FAQ edit screen lists the FAQs, and allows helpdesk staff
+to modify or delete existing FAQs and to add new ones.</p>
+
+<h2>
+<a id="admin" class="anchor" href="#admin" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ADMIN</h2>
+
+<p>The admin module changes in appearance depending on the rights
+of the logged in user.</p>
+
+<p>A user admin has access to:
+   User Manager
+   New User
+   Teams and Locations</p>
+
+<p>A news admin has access to:
+   News admin
+   News topics</p>
+
+<p>A directory admin has access to:
+   Directory Admin
+   External directory admin
+   Teams and locations
+   Website admin
+   Website and contact categories</p>
+
+<p>A helpdesk staff has access to:
+   Helpdesk categories
+   Teams and Locations</p>
+
+<p>Regular users have access to:
+   Change directory
+   Preferences</p>
+
+<p>Guest users are denied access to all admin pages.</p>
+
+<p>The user manager screen shows a list of all current users,
+filterable on first name or last name.  There is an alphabet
+of links to filter on lastname initial.</p>
+
+<p>Each record on this screen has three options.</p>
+
+<p>Firstly, the user's directory details can be altered or removed.
+Removing a user from the directory destroys any data that would
+be available in the directory (eg, email address, telephone
+numbers) but does not destroy the user's real name.</p>
+
+<p>Secondly, the user's rights can be altered.  Changes to the
+rights must be saved.  At least one user on the system should
+have user admin rights and the right to log in.  There are no
+special privileges available to the default user "admin".</p>
+
+<p>Thirdly, the user's password can be changed.  Note that on this
+screen, the user's username can be changed at the same time.
+Blank passwords are accepted.  You can't change a user's
+username without changing their password, although this will
+be altered in a future release.</p>
+
+<p>Fourthly, the user can be deleted.  This takes you to a
+confirmation screen.  Clicking delete again on the confirmation
+screen will remove the user's record, their rights record and
+their directory record.  Be warned, removing a user will cause
+their name to vanish from news articles and helpdesk calls that
+they have submitted.  You might want to just disable their login
+right for a time, if they have current news articles or calls.</p>
+
+<p>The new user screen allows new users to be created.  Giving a
+real name or a password isn't absolutely necessary, but not
+having a name can make some screens look a little untidy.  If
+a password is entered, it must be entered twice to ensure that
+there is no typographical error.</p>
+
+<p>The Teams and Locations screen allows teams and locations to be
+added, renamed and removed.  There is no confirmation on this
+screen, so beware when removing items.  If you remove, for example,
+a team, and then add another with the same name, the users who
+were in that team will not be in the new one until you change them
+all individually.</p>
+
+<p>The directory admin screen is the same as the user manager screen,
+except that only the directory modification option is available.</p>
+
+<p>The external directory admin screen lists all the contacts in the
+external directory.  It is filterable on name or company.  New
+records can be added, and existing records added or removed.  The
+interface is a very simplistic form.  In the future, there will
+also be a category list, and external contacts will be able to
+be assigned to a category for better filtering.</p>
+
+<p>The website admin page allows you to add, edit and remove the web
+links in the website directory.  You can only alter one at a time;
+attempting to alter more will result in only one record being
+changed (the one with the update button that was clicked).</p>
+
+<p>The Website and Contact Categories screen allows website categories
+and contact types to be added, renamed and removed.  There is no
+confirmation on this screen, so beware when removing items.  If you
+remove, for example, a category, and then add another with the same
+name, the sites that were in that category will not be in the new
+one until you change them all individually.</p>
+
+<p>The News Admin screen allows news admins to review all of the news
+articles that have been submitted to the system.  Articles awaiting
+authorisation have the submitter's name enclosed in square brackets
+and made italic.  By clicking DETAILS the news admin can review,
+edit, preview, delete and authorise news articles.  The HTML tags
+<i> and <b> are allowed.  Carriage returns are retained as <br>
+tags.</b></i></p>
+
+<p>The News Topics screen allows news topics to be added, renamed and
+removed.  There is no confirmation on this screen, so beware when
+removing items.  If you remove, for example, a topic, and then add
+another with the same name, the articles that were in that topic
+will not be in the new one until you change them all individually.</p>
+
+<p>The Helpdesk Categories screen allows call types and faq categories
+to be added, renamed and removed.  There is no confirmation on this
+screen, so beware when removing items.  If you remove, for example,
+a call category, and then add another with the same name, the
+helpdesk calls that were in that category will not be in the new
+one until you change them all individually.</p>
+
+<h2>
+<a id="library" class="anchor" href="#library" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LIBRARY</h2>
+
+<p>The library is a file storage system.  Files are stored in folders,
+which are arranged hierarchically.  Files admin always have an
+upload form for adding new files, and can make new folders or adjust
+the current ones.</p>
+
+<p>Each file in a folder is listed as a row in a table.  The download
+option attempts to send the file to the client (using a mime type of
+<em>/</em>).  This works for many files, but there are exceptions - Windows
+users with Office will find that Word files will be opened in Word
+regardless.  This option is not shown if a user does not have access
+to this file.</p>
+
+<p>The open option starts the file in a new browser window, and sends
+the mimetype that was originally sent by the browser that uploaded
+the file.  When using proprietary file types, such as MS Office
+files, it's a good idea to make sure that files are uploaded from a
+machine that has the application installed, so that the mime type is
+correctly set.  This option is not shown is a user does not have
+access to this file.</p>
+
+<p>The details option shows the file's details, including which teams
+have access to the file, if it's secured, and the description. Files
+admin users can alter the description, the security details and the
+mime type, as well as which folder the file is in.</p>
+
+<p>The security on files is team based.  If there are no teams listed,
+the file is open to all and can be downloaded by any user.  If there
+are teams listed, then the file can only be downloaded by logged in
+members of those teams.  The security can only be adjusted by files
+admin users, so it's important to be aware that they must be trusted.</p>
+
+<p>At the bottom of the screen are two zoom buttons, where users can type
+in the unique number of any file or folder, and be taken straight to
+its info screen.  Each folder and file info screen has its unique
+number displayed on it.</p>
+
+<h2>
+<a id="online-help" class="anchor" href="#online-help" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ONLINE HELP</h2>
+
+<p>Clicking Online Help when in a module with a help file brings up a HTML
+based page describing what everything on that screen does.  It's
+context sensitive.</p>
+
+<p>All questions and comments can be emailed to the author, Brian Ronald:
+   <a href="mailto:brian@ppcis.org">brian@ppcis.org</a></p>
+
+<p>The latest version (and my public gpg key) should be available from:
+   <a href="http://www.ppcis.org/">http://www.ppcis.org/</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">PPCIS maintained by <a href="https://github.com/Brianetta">Brianetta</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
