@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -26,6 +26,6 @@ require("head.inc");
 <h1><?=$lang['page_not_found']?></h1>
 <?=$lang['page_not_found_suggestion']?>
 <a href="/helpdesk.php?callmodule=Log+a+new+call"><?=$lang['helpdesk']?></a>.
-<?
+<?php
 require("tail.inc");
 ?>

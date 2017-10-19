@@ -28,4 +28,4 @@ disabled.<br>
 <br>
 To make the changes, click the "Change options" button.  Changes
 are made immediately across the entire system.<br>
-<?require("settings_save.inc");?>
+<?php require("settings_save.inc");?>

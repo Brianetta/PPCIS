@@ -1,4 +1,4 @@
-<?require("help/viewcalldetail.inc");?><br>
+<?php require("help/viewcalldetail.inc");?><br>
 <br>
 As the owner of this call, you are able to alter the location of the call.
 To do this, simply select a new location from the drop-down list of

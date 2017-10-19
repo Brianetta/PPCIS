@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -22,6 +22,6 @@ require("head.inc");
 ?>
 
 
-<?
+<?php
 require("tail.inc");
 ?>

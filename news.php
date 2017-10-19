@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -150,7 +150,7 @@ if(!(isset($callmodule)))
 
       <table border="0" cellpadding="0" cellspacing="1" width="100%">
         <tr>
-        <?
+        <?php
           $mod_percent=100 / count($module);
           foreach($module as $mod_tag=>$mod_file) // Render the second layer menu
           {
@@ -168,7 +168,7 @@ if(!(isset($callmodule)))
         ?>
         </tr>
       </table>
-      <? // Include the relevant file depending on the menu selection
+      <?php  // Include the relevant file depending on the menu selection
         require("welcome.inc"); // Because this module is the one that index.php loads up.
       if(isset($valid))
       {
@@ -176,6 +176,6 @@ if(!(isset($callmodule)))
       }
       ?>
 
-<?
+<?php
 require("tail.inc");
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -25,8 +25,8 @@
 require("head.inc");
 ?>
 <pre>
-<?require("COPYING");?>
+<?php require("COPYING");?>
 </pre>
-<?
+<?php
 require("tail.inc");
 ?>

@@ -17,4 +17,4 @@ might want to clear your browser's cache after using this page.<br>
 <br>
 To make the changes, click the "Change database details" button.
 Changes are made immediately across the entire system.<br>
-<?require("settings_save.inc");?>
+<?php require("settings_save.inc");?>

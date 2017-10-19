@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -114,7 +114,7 @@ else
 
       <table>
         <tr>
-        <? // Render the menu, highlighting the current option
+        <?php  // Render the menu, highlighting the current option
           $mod_percent=100 / count($module);
           $valid=false;
           foreach($module as $mod_tag=>$mod_file)
@@ -133,7 +133,7 @@ else
         ?>
         </tr>
       </table>
-          <? // Now we include the module that's currently selected.
+          <?php  // Now we include the module that's currently selected.
             if($callmodule==$lang['alter_your_directory'])
               $showuserid=$userid;
             if(isset($valid))

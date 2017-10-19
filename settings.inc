@@ -1,4 +1,4 @@
-<?
+<php?
 // Path of PPCIS files from web server root
 $siteprefix="/";
 
@@ -11,6 +11,7 @@ $sitelogo="ppcis.jpg";
 // If logo is set, optional link
 $logourl="http://www.ppcis.org/";
 
+<?php
 // Available stylesheets - paths must be relative to web root
 $stylesheets["Default grey"]="ppcis.css";
 $stylesheets["Bad demonstration of colours"]="real.css";
@@ -19,6 +20,7 @@ $stylesheets["Bad demonstration of colours"]="real.css";
 // The code name must match the name of a .inc file in /languages
 $lang_available["English"] = "english";
 $lang_available["Polska"] = "polish";
+$lang_available["US English"] = "american";
 
 // HTML tags allowed in text fields
 $allowed_tags="<i><b><span><tt>";
@@ -44,18 +46,6 @@ $file_store="/mnt/public/intranet/";
 
 // Enable mail notifications?
 $use_mail=FALSE;
-
-// Available stylesheets - paths must be relative to web root
-$stylesheets["Default grey"]="ppcis.css";
-$stylesheets["Bad demonstration of colours"]="real.css";
-
-// Available languages - english, then a code name
-// The code name must match the name of a .inc file in /languages
-$lang_available["English"] = "english";
-$lang_available["US English"] = "american";
-
-// Default language
-$default_lang = 'english';
 
 // Use Gravatar?
 $gravatar = TRUE;

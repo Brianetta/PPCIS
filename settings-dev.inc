@@ -1,4 +1,4 @@
-<?
+<?php
 $siteprefix="/development/";
 $sitename="PPCIS development";
 $sitelogo="ppcis.jpg";

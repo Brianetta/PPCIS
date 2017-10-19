@@ -1,4 +1,4 @@
-<?
+<?php
 $lang['_charset'] = 'iso-8859-1';   // System - character set used by this language
 $lang['date_format'] = 'l dS F, Y'; // System - format of PHP's date command
 $lang['long_date_format'] = 'l dS F, Y g:ia'; // System - format of PHP's date command (long)

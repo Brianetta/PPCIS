@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -35,6 +35,6 @@ mysqli_close($intranet_db);
 
 ?>
 </div>
-<span class="copyright"><? printf($lang['_copyright_message'],(string)ppcis_version,(string)ppcis_year); ?></span>
+<span class="copyright"><?php  printf($lang['_copyright_message'],(string)ppcis_version,(string)ppcis_year); ?></span>
 </body>
 </html>

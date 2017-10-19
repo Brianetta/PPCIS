@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -44,7 +44,7 @@ if(!(isset($callmodule)))
 
 <table>
 <tr>
-<?
+<?php
    $mod_percent=100 / count($module);
    foreach($module as $mod_tag=>$mod_file) // Render the second layer menu
    {
@@ -62,7 +62,7 @@ if(!(isset($callmodule)))
 ?>
 </tr>
 </table>
-<?
+<?php
    foreach($module as $modulename => $modulefile)
       if($modulename==$callmodule)
       {

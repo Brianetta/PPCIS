@@ -1,4 +1,4 @@
-<?
+<?php
 $lang['_charset'] = 'utf-8';//iso-8859-1 System - character set used by this language
 $lang['_copyright_message'] = 'PPCIS version %s - Copyright &copy; 2002-%s, Brian Ronald.  Distributed under the <a href="license.php">GNU General Public License</a>';
 $lang['NEWER'] = 'NEWER';

@@ -1,4 +1,4 @@
-<?require("help/logcall.inc");?><br>
+<?php require("help/logcall.inc");?><br>
 <br>
 As a helpdesk staff member, you can also choose the owner
 of the call when you log it.  The name defaults to your own,

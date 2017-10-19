@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -148,7 +148,7 @@ if(strlen($stylesheet)<1)
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=<?=$lang['_charset']?>">
-<title><?print($sitename); if($userid>0) print(" - $firstname $lastname
+<title><?php print($sitename); if($userid>0) print(" - $firstname $lastname
 logged in");?></title>
 <link rel="stylesheet" href="<?=$stylesheet?>" type="text/css">
 <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/rss.php" />
@@ -156,7 +156,7 @@ logged in");?></title>
 <body>
 <table>
 <tr>
-<?
+<?php
 if(isset($sitelogo))
 {
    $logo_size = @ getimagesize($sitelogo);
@@ -168,7 +168,7 @@ if(isset($sitelogo))
 }
 ?>
 <td class="title_middle">
-<?
+<?php
 if($userid>0)
 {
    printf("$sitename <br>".$lang['logged_in_as'],$firstname,$lastname);
@@ -213,7 +213,7 @@ else
 ?>
 </td>
 <td class="title_right">
-<?
+<?php
    print(date($lang['date_format'],time())."<br></font>");
 // These next lines make a button that links to the online help system.
 // I decided to make it a module, but if the menu gets too cluttered,
@@ -227,7 +227,7 @@ else
 </table>
 <table>
 <tr>
-<?
+<?php
    $mod_percent=100 / count($module);
    foreach($module as $mod_tag=>$mod_file)
    {

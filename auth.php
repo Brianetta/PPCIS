@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -135,7 +135,7 @@ $_SESSION["help_keyword"]=$help_keyword;
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<? // This returns to the main system.
+<?php  // This returns to the main system.
 if(isset($logout))
 {
    print("<META HTTP-EQUIV=\"refresh\" content=\"0;URL=$siteprefix" . "index.php?auth=out\">");
@@ -148,7 +148,7 @@ else
 <title>Authentication</title>
 </head>
 <body>
-<?
+<?php
 print("Authorisation returned: userid=$userid, username=$username.<br>\n");
 print("If you aren't automatically returned, click <a href=\"$site_prefix" . "index.php\">here</a><br>\n");
 print($updates);

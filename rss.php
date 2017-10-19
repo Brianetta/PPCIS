@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -91,7 +91,7 @@ function XMLStrFormat($str){
 }
 
 ?>
-<?print('<?xml version="1.0" encoding="ISO-8859-1" ?>');?>
+<?php print('<?php xml version="1.0" encoding="ISO-8859-1" ?>');?>
 
 <rss version="2.0">
 <channel>
@@ -99,7 +99,7 @@ function XMLStrFormat($str){
 <name><?=$sitename?></name>
 <description><?=$sitename?></description>
 <link>http://<?=$_SERVER['SERVER_NAME'] . $siteprefix . "news.php"?></link>
-<?
+<?php
 // Connect to the database
 if(!($intranet_db = @ mysqli_connect($db_hostname, $db_username, $db_password, $db_name)))
 {

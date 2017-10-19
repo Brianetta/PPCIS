@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -42,7 +42,7 @@ if(!(isset($callmodule)))
 
       <table>
         <tr>
-        <?
+        <?php
           $mod_percent=100 / count($module);
           foreach($module as $mod_tag=>$mod_file) // Render the second layer menu
           {
@@ -60,7 +60,7 @@ if(!(isset($callmodule)))
         ?>
         </tr>
       </table>
-          <?
+          <?php
             switch ($callmodule) // Include the correct file depending on the menu selection
             {
             case $lang['internal_directory']:
@@ -88,6 +88,6 @@ if(!(isset($callmodule)))
             }
           ?>
 
-<?
+<?php
 require("tail.inc");
 ?>

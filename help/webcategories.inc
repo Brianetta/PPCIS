@@ -7,4 +7,4 @@ types. <br>
 The website categories list is used to allow filtering
 of the website directory.  The external contact types
 list is used to allow filtering of the external directory.
-<?require("adminlists.inc");?>
+<?php require("adminlists.inc");?>

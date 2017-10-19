@@ -7,4 +7,4 @@ colour definitons (such as <b>red</b> or <b>#FF0000</b>).<br>
 <br>
 To make the changes, click the "Change colour scheme" button.
 Changes are made immediately across the entire system.<br>
-<?require("settings_save.inc");?>
+<?php require("settings_save.inc");?>

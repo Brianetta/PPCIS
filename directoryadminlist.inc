@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -27,44 +27,44 @@
 ?>
 <table border="0" cellpadding="0" cellspacing="1" width="100%">
 <tr>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=A">A</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=B">B</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=C">C</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=D">D</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=E">E</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=F">F</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=G">G</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=H">H</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=I">I</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=J">J</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=K">K</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=L">L</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=M">M</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=N">N</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=O">O</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=P">P</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=Q">Q</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=R">R</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=S">S</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=T">T</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=U">U</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=V">V</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=W">W</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=X">X</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=Y">Y</a></th>
-<th class=alphabet width="3.84615%"><a href="<?print($PHP_SELF)?>?callmodule=<?print(rawurlencode($callmodule));?>&last=Z">Z</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=A">A</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=B">B</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=C">C</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=D">D</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=E">E</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=F">F</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=G">G</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=H">H</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=I">I</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=J">J</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=K">K</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=L">L</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=M">M</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=N">N</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=O">O</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=P">P</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=Q">Q</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=R">R</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=S">S</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=T">T</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=U">U</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=V">V</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=W">W</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=X">X</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=Y">Y</a></th>
+<th class=alphabet width="3.84615%"><a href="<?php print($PHP_SELF)?>?callmodule=<?php print(rawurlencode($callmodule));?>&last=Z">Z</a></th>
 </tr>
 </table>
 <table>
-<form method="get" id="search" action="<?print($PHP_SELF)?>">
+<form method="get" id="search" action="<?php print($PHP_SELF)?>">
 <tr>
 <td><?=$lang['firstname']?>:</td>
-<td><input size="20" name="first" type="text" value="<?print($first);?>"></td>
+<td><input size="20" name="first" type="text" value="<?php print($first);?>"></td>
 <td><?=$lang['lastname']?>:</td>
-<td><input size="20" name="last" type="text" value="<?print($last);?>"></td>
+<td><input size="20" name="last" type="text" value="<?php print($last);?>"></td>
 <td><?=$lang['team']?>:</td>
 <td>
-<?
+<?php
    $sql = "SELECT * FROM teams ORDER BY name";
    $result = @ mysqli_query($intranet_db,$sql);
    showerror();
@@ -94,11 +94,11 @@
    print("</select>");
 ?>
 </td>
-<td><input type="hidden" name="callmodule" value="<?print($callmodule);?>"><input class="button" type="submit" value="<?=$lang['search']?>"></td>
+<td><input type="hidden" name="callmodule" value="<?php print($callmodule);?>"><input class="button" type="submit" value="<?=$lang['search']?>"></td>
 </tr>
 </form>
 </table>
-<?
+<?php
 if(isset($first)) // Get rid of empty search strings, as they mess stuff up.
 {
    if($first=="")

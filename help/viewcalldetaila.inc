@@ -1,4 +1,4 @@
-<?require("help/viewcalldetail.inc");?><br>
+<?php require("help/viewcalldetail.inc");?><br>
 <br>
 As a member of the helpdesk staff, you are able to alter most of the
 call's information.  To change the owner, priority, category or location

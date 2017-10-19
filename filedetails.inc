@@ -1,4 +1,4 @@
-<?
+<?php
    $help_keyword="filedetail";
    print("<a href=\"$PHP_SELF?folder=$folder\">".$lang['return_folder_listing']."</a>");
    if($showedit)

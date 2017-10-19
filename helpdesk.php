@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -136,7 +136,7 @@ $priority[9]=$lang['parked'];
 ?>
 <table>
 <tr>
-<?
+<?php
 $mod_percent=100 / count($module);
 foreach($module as $mod_tag=>$mod_file) // Render the second layer menu
 {
@@ -154,7 +154,7 @@ foreach($module as $mod_tag=>$mod_file) // Render the second layer menu
 ?>
 </tr>
 </table>
-<? // Include the relevant file as selected from the menu
+<?php  // Include the relevant file as selected from the menu
 if(isset($valid))
 {
    require($module["$callmodule"]);

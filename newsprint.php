@@ -1,4 +1,4 @@
-<?
+<?php
 // Copyright 2002 Brian Ronald.  All rights reserved.
 // Portable PHP/MySQL Corporate Intranet System
 //
@@ -89,11 +89,11 @@ if(!isset($userid))
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-<title><?print($sitename); if($userid>0) print(" - $firstname $lastname
+<title><?php print($sitename); if($userid>0) print(" - $firstname $lastname
 logged in");?></title>
 </head>
 <body bgcolor="white" text="black">
-<?
+<?php
 // Connect to the database
 if(!($intranet_db = @ mysqli_connect($db_hostname, $db_username, $db_password, $db_name)))
 {
@@ -197,6 +197,6 @@ require("version.inc");
 ?>
 <br>
 <br>
-<font size="-2">PPCIS version <?echo ppcis_version;?> - Copyright &copy; 2002-<?echo ppcis_year;?>, Brian Ronald.  Distributed under the <a href="license.php">GNU General Public License</a></font>
+<font size="-2">PPCIS version <?php echo ppcis_version;?> - Copyright &copy; 2002-<?php echo ppcis_year;?>, Brian Ronald.  Distributed under the <a href="license.php">GNU General Public License</a></font>
 </body>
 </html>
