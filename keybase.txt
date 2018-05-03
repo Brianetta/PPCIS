@@ -52,3 +52,58 @@ appending to this document.
 View my publicly-auditable identity here: https://keybase.io/brianetta
 
 ==================================================================
+==================================================================
+https://keybase.io/brianetta
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://www.ppcis.org
+  * I am brianetta (https://keybase.io/brianetta) on keybase.
+  * I have a public key ASDmu2ydxblvWCSUxqKZOR-bG2jC-d2qyJcd3dEV3JaiRwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101ca8d31ce07120f8a501365a40b93b05477a497980fc039635c4ba5a8151f705a0a",
+      "host": "keybase.io",
+      "kid": "0120e6bb6c9dc5b96f582494c6a299391f9b1b68c2f9ddaac8971dddd115dc96a2470a",
+      "uid": "4d4bd735ab427b8abaadcd7490f6de19",
+      "username": "brianetta"
+    },
+    "merkle_root": {
+      "ctime": 1525365449,
+      "hash": "24f40fbf488311576100652d329e33dd1994457c46dcbcb59ab35d825e7ce770b1227a21c48f18eaa9a1e4d41f83f4965bd8e0d75f2a5fba4162cea71443e764",
+      "hash_meta": "c087040650107b15c3050b0fa47491460ff167c8e8a0837e5f6fa34aae5eef66",
+      "seqno": 2476362
+    },
+    "service": {
+      "hostname": "www.ppcis.org",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.45"
+  },
+  "ctime": 1525365454,
+  "expire_in": 504576000,
+  "prev": "6e4cc49318812a89ed272ee116db8a41e62e3d6ea215e6453276d4336fc48335",
+  "seqno": 130,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg5rtsncW5b1gklMaimTkfmxtowvndqsiXHd3RFdyWokcKp3BheWxvYWTFA0h7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTAxY2E4ZDMxY2UwNzEyMGY4YTUwMTM2NWE0MGI5M2IwNTQ3N2E0OTc5ODBmYzAzOTYzNWM0YmE1YTgxNTFmNzA1YTBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwZTZiYjZjOWRjNWI5NmY1ODI0OTRjNmEyOTkzOTFmOWIxYjY4YzJmOWRkYWFjODk3MWRkZGQxMTVkYzk2YTI0NzBhIiwidWlkIjoiNGQ0YmQ3MzVhYjQyN2I4YWJhYWRjZDc0OTBmNmRlMTkiLCJ1c2VybmFtZSI6ImJyaWFuZXR0YSJ9LCJtZXJrbGVfcm9vdCI6eyJjdGltZSI6MTUyNTM2NTQ0OSwiaGFzaCI6IjI0ZjQwZmJmNDg4MzExNTc2MTAwNjUyZDMyOWUzM2RkMTk5NDQ1N2M0NmRjYmNiNTlhYjM1ZDgyNWU3Y2U3NzBiMTIyN2EyMWM0OGYxOGVhYTlhMWU0ZDQxZjgzZjQ5NjViZDhlMGQ3NWYyYTVmYmE0MTYyY2VhNzE0NDNlNzY0IiwiaGFzaF9tZXRhIjoiYzA4NzA0MDY1MDEwN2IxNWMzMDUwYjBmYTQ3NDkxNDYwZmYxNjdjOGU4YTA4MzdlNWY2ZmEzNGFhZTVlZWY2NiIsInNlcW5vIjoyNDc2MzYyfSwic2VydmljZSI6eyJob3N0bmFtZSI6Ind3dy5wcGNpcy5vcmciLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC40NSJ9LCJjdGltZSI6MTUyNTM2NTQ1NCwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiI2ZTRjYzQ5MzE4ODEyYTg5ZWQyNzJlZTExNmRiOGE0MWU2MmUzZDZlYTIxNWU2NDUzMjc2ZDQzMzZmYzQ4MzM1Iiwic2Vxbm8iOjEzMCwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEDDaIBTWxZX7AbtJkgFduRKHBeJUcdCZPyt28lWCCsQ1ZRMLTyjhN+XTWFJ4ZE87d+4yox/PyHY4/docDMkliYJqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQgCk4AWah7L9+6T2Wubb83ks4VMXxW3zdbPymsvZKdvC6jdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/brianetta
+
+==================================================================
